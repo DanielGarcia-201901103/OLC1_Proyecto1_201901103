@@ -1,7 +1,23 @@
 package ventanaG;
 
-public class InterfazPrincipal extends javax.swing.JFrame {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+public class InterfazPrincipal extends javax.swing.JFrame {
+    
+    //Variables publicas
+    String filePath = "";
+    String contenidoTextArea = "";
+    String validacionAnalizador = "";
+    String archivoElegido = "";
+    //Fin Variables publicas
+    
     public InterfazPrincipal() {
         initComponents();
     }
@@ -25,16 +41,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        entradaTextoP = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         nuevoArchivo = new javax.swing.JMenuItem();
         abrirArchivo = new javax.swing.JMenuItem();
         guardarArchivo = new javax.swing.JMenuItem();
+        guardarComo = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        realizaEjecucion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        reporteToken = new javax.swing.JMenuItem();
+        reporteErrores = new javax.swing.JMenuItem();
+        reporteTablaS = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,11 +81,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(153, 153, 153));
 
-        jTextArea2.setBackground(new java.awt.Color(153, 153, 153));
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        entradaTextoP.setBackground(new java.awt.Color(153, 153, 153));
+        entradaTextoP.setColumns(20);
+        entradaTextoP.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
+        entradaTextoP.setRows(5);
+        jScrollPane2.setViewportView(entradaTextoP);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,6 +157,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jMenu1.add(nuevoArchivo);
 
         abrirArchivo.setText("Abrir Archivo");
+        abrirArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirArchivoActionPerformed(evt);
+            }
+        });
         jMenu1.add(abrirArchivo);
 
         guardarArchivo.setText("Guardar");
@@ -148,18 +172,38 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(guardarArchivo);
 
+        guardarComo.setText("Guardar Como");
+        guardarComo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarComoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(guardarComo);
+
         jMenuBar1.add(jMenu1);
+
+        jMenu3.setText("Ejecutar");
+
+        realizaEjecucion.setText("Realizar Ejecución");
+        realizaEjecucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizaEjecucionActionPerformed(evt);
+            }
+        });
+        jMenu3.add(realizaEjecucion);
+
+        jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Reportes");
 
-        jMenuItem4.setText("Reporte de Tokens");
-        jMenu2.add(jMenuItem4);
+        reporteToken.setText("Reporte de Tokens");
+        jMenu2.add(reporteToken);
 
-        jMenuItem5.setText("Reporte de Errores");
-        jMenu2.add(jMenuItem5);
+        reporteErrores.setText("Reporte de Errores");
+        jMenu2.add(reporteErrores);
 
-        jMenuItem6.setText("Reporte Tabla de Simbolos");
-        jMenu2.add(jMenuItem6);
+        reporteTablaS.setText("Reporte Tabla de Simbolos");
+        jMenu2.add(reporteTablaS);
 
         jMenuBar1.add(jMenu2);
 
@@ -186,8 +230,76 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevoArchivoActionPerformed
 
     private void guardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarArchivoActionPerformed
-        // TODO add your handling code here:
+        contenidoTextArea = entradaTextoP.getText();
+        if (contenidoTextArea.equals("")) {
+            System.out.println("No hay datos para guardar");
+        } else {
+            try {
+                FileWriter escribir = new FileWriter(filePath);
+                escribir.write(contenidoTextArea); //Para convertir a minuscula agregar a la variable string .toLowerCase()
+                escribir.close();
+            } catch (IOException e) {
+                System.out.println("Ha ocurrido un error al guardar los datos en el archivo." + e);
+            }
+        }
     }//GEN-LAST:event_guardarArchivoActionPerformed
+
+    private void guardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarComoActionPerformed
+        JFileChooser elegirArchivo = new JFileChooser();
+        int valuar = elegirArchivo.showSaveDialog(this);
+        if (valuar == JFileChooser.APPROVE_OPTION) {
+            //Obtiene la ruta del archivo junto con la extensión ingresada
+            File selectFile = elegirArchivo.getSelectedFile();
+            //Escribiendo el archivo en la ruta
+            try {
+                contenidoTextArea = entradaTextoP.getText();
+                FileWriter escribir = new FileWriter(selectFile);
+                escribir.write(contenidoTextArea);
+                escribir.close();
+            } catch (IOException e) {
+                System.out.println("Ha ocurrido un error al guardar los datos en el archivo." + e);
+            }
+        } else {
+            //se muestra 
+            //nombreArchivo.setText("Archivo no guardado");
+        }
+    }//GEN-LAST:event_guardarComoActionPerformed
+
+    private void abrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirArchivoActionPerformed
+        JFileChooser elegirArchivo = new JFileChooser();
+        FileNameExtensionFilter data = new FileNameExtensionFilter("Tipos","df");
+        elegirArchivo.setFileFilter(data);
+//        elegirArchivo.addChoosableFileFilter(data);
+        int valuado = elegirArchivo.showOpenDialog(this);
+
+        if (valuado == JFileChooser.APPROVE_OPTION) {
+//            System.out.println("Archivo Seleccionado: " + elegirArchivo.getSelectedFile().getName());
+            archivoElegido = elegirArchivo.getSelectedFile().getName();
+            //nombreArchivo.setText(archivoElegido);
+            File selectFile = elegirArchivo.getSelectedFile();
+            filePath = selectFile.getAbsolutePath();
+
+            try {
+                BufferedReader leer = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
+                String linea;
+                String parrafo = "";
+                while ((linea = leer.readLine()) != null) {
+                    parrafo += linea + "\n";
+                }
+                leer.close();
+                entradaTextoP.setText(parrafo);
+            } catch (IOException e) {
+                System.out.println("" + e.getMessage());
+            }
+        } else {
+            //
+            //nombreArchivo.setText("Archivo no seleccionado"); 
+        }
+    }//GEN-LAST:event_abrirArchivoActionPerformed
+
+    private void realizaEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaEjecucionActionPerformed
+        salidaConsola.setText(entradaTextoP.getText());
+    }//GEN-LAST:event_realizaEjecucionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,24 +338,27 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirArchivo;
+    private javax.swing.JTextArea entradaTextoP;
     private javax.swing.JMenuItem guardarArchivo;
+    private javax.swing.JMenuItem guardarComo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
     public javax.swing.JTabbedPane mPestanas;
     private javax.swing.JMenuItem nuevoArchivo;
+    private javax.swing.JMenuItem realizaEjecucion;
+    private javax.swing.JMenuItem reporteErrores;
+    private javax.swing.JMenuItem reporteTablaS;
+    private javax.swing.JMenuItem reporteToken;
     private javax.swing.JTextArea salidaConsola;
     // End of variables declaration//GEN-END:variables
 }

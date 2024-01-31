@@ -1,5 +1,5 @@
 // ------------  Paquete e importaciones ------------
-package analizadorStatpy; 
+package analizadorDF; 
 
 import java_cup.runtime.*;
 
@@ -25,137 +25,119 @@ import java_cup.runtime.*;
 
 entero = [0-9]+
 cadena = [\"][^\"\n]*[\"]
-caracter = [\'][^\'\n][\']
+//caracter = [\'][^\'\n][\']
 decimal = [0-9]+\.[0-9]+
-comentlinea = (\/\/)(.+)*
-comentmultilinea = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
+comentlinea = (\!)(.+)*
+comentmultilinea = [\<][\!]((.*)*|(\n|\t)*)*[\!][\>]
 id = [A-Za-z_][A-Za-z0-9_]*
 
 %%
 
 // ------------  Reglas Lexicas -------------------
 
-"="       { func.Funcion.addTokensStatpy(yytext(), "Signo igual", yyline, yycolumn);
+"="       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo igual", yyline, yycolumn);
             return new Symbol(sym.IGUAL, yycolumn, yyline, yytext()); }
-";"       { func.Funcion.addTokensStatpy(yytext(), "Dos puntos", yyline, yycolumn);
+";"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Dos puntos", yyline, yycolumn);
             return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext()); }
-"{"       { func.Funcion.addTokensStatpy(yytext(), "Llave abre", yyline, yycolumn);
-            return new Symbol(sym.LLAVE_A, yycolumn, yyline, yytext()); }
-"}"       { func.Funcion.addTokensStatpy(yytext(), "Llave cierra", yyline, yycolumn);
-            return new Symbol(sym.LLAVE_C, yycolumn, yyline, yytext()); }
-"("       { func.Funcion.addTokensStatpy(yytext(), "Parentesis abre", yyline, yycolumn);
+"("       { funcionalidad.Funcion.addTokensDataF(yytext(), "Parentesis abre", yyline, yycolumn);
             return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext()); }
-")"       { func.Funcion.addTokensStatpy(yytext(), "Parentesis cierra", yyline, yycolumn);
+")"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Parentesis cierra", yyline, yycolumn);
             return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext()); }
-">"       { func.Funcion.addTokensStatpy(yytext(), "Mayor que", yyline, yycolumn);
+">"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Mayor que", yyline, yycolumn);
             return new Symbol(sym.MAYOR, yycolumn, yyline, yytext()); } 
-"<"       { func.Funcion.addTokensStatpy(yytext(), "Menor que", yyline, yycolumn);
+"<"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Menor que", yyline, yycolumn);
             return new Symbol(sym.MENOR, yycolumn, yyline, yytext()); } 
-">="      { func.Funcion.addTokensStatpy(yytext(), "Mayor igual", yyline, yycolumn);
-            return new Symbol(sym.MAYORIGUAL, yycolumn, yyline, yytext()); }
-"<="      { func.Funcion.addTokensStatpy(yytext(), "Menor igual", yyline, yycolumn);
-            return new Symbol(sym.MENORIGUAL, yycolumn, yyline, yytext()); }
-"=="      { func.Funcion.addTokensStatpy(yytext(), "Igual igual", yyline, yycolumn);
-            return new Symbol(sym.IGUAL_IGUAL, yycolumn, yyline, yytext()); }
-"!="      { func.Funcion.addTokensStatpy(yytext(), "Diferente de", yyline, yycolumn);
-            return new Symbol(sym.DISTINTO, yycolumn, yyline, yytext()); }
-"."       { func.Funcion.addTokensStatpy(yytext(), "Punto", yyline, yycolumn);
+"."       { funcionalidad.Funcion.addTokensDataF(yytext(), "Punto", yyline, yycolumn);
             return new Symbol(sym.PUNTO, yycolumn, yyline, yytext()); }
-":"       { func.Funcion.addTokensStatpy(yytext(), "Dos puntos", yyline, yycolumn);
+":"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Dos puntos", yyline, yycolumn);
             return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext()); }
-"+"       { func.Funcion.addTokensStatpy(yytext(), "Signo más", yyline, yycolumn);
-            return new Symbol(sym.SUMA, yycolumn, yyline, yytext()); }
-"-"       { func.Funcion.addTokensStatpy(yytext(), "Signo menos", yyline, yycolumn);
-            return new Symbol(sym.RESTA, yycolumn, yyline, yytext()); }
-"*"       { func.Funcion.addTokensStatpy(yytext(), "Signo por", yyline, yycolumn);
-            return new Symbol(sym.MULTIPLICACION, yycolumn, yyline, yytext()); }
-"/"       { func.Funcion.addTokensStatpy(yytext(), "Signo división", yyline, yycolumn);
-            return new Symbol(sym.DIVISION, yycolumn, yyline, yytext()); }
-"&&"      { func.Funcion.addTokensStatpy(yytext(), "Comparador AND", yyline, yycolumn);
-            return new Symbol(sym.AND, yycolumn, yyline, yytext()); }
-"||"      { func.Funcion.addTokensStatpy(yytext(), "Comparador OR", yyline, yycolumn);
-            return new Symbol(sym.OR, yycolumn, yyline, yytext()); }
-"!"       { func.Funcion.addTokensStatpy(yytext(), "Signo negación", yyline, yycolumn);
+"!"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo admiracion", yyline, yycolumn);
             return new Symbol(sym.NOT, yycolumn, yyline, yytext()); }
-"$"       { func.Funcion.addTokensStatpy(yytext(), "Signo de dolar", yyline, yycolumn);
-            return new Symbol(sym.SYMBOLODOLAR, yycolumn, yyline, yytext()); }
-","       { func.Funcion.addTokensStatpy(yytext(), "Signo coma", yyline, yycolumn);
+","       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo coma", yyline, yycolumn);
             return new Symbol(sym.COMA, yycolumn, yyline, yytext()); }
-"["       { func.Funcion.addTokensStatpy(yytext(), "Corchete abre", yyline, yycolumn);
+"["       { funcionalidad.Funcion.addTokensDataF(yytext(), "Corchete abre", yyline, yycolumn);
             return new Symbol(sym.CORCHETE_A, yycolumn, yyline, yytext()); }
-"]"       { func.Funcion.addTokensStatpy(yytext(), "Corchete cierra", yyline, yycolumn);
+"]"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Corchete cierra", yyline, yycolumn);
             return new Symbol(sym.CORCHETE_C, yycolumn, yyline, yytext()); }
-"++"      { func.Funcion.addTokensStatpy(yytext(), "Signo incremento", yyline, yycolumn);
-            return new Symbol(sym.INCREMENTO, yycolumn, yyline, yytext()); }
+"-"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Guion Medio", yyline, yycolumn);
+            return new Symbol(sym.GUION_MEDIO, yycolumn, yyline, yytext()); }
+"@"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Arroba", yyline, yycolumn);
+            return new Symbol(sym.ARROBA, yycolumn, yyline, yytext()); }
 
-"int"       { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada para tipo entero", yyline, yycolumn);
-              return new Symbol(sym.INT, yycolumn, yyline, yytext()); } 
-"double"    { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada para tipo decimal", yyline, yycolumn);
-              return new Symbol(sym.DOUBLE, yycolumn, yyline, yytext()); } 
-"char"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada para tipo caracter", yyline, yycolumn);
-              return new Symbol(sym.CHAR, yycolumn, yyline, yytext()); } 
-"bool"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada para tipo boleano", yyline, yycolumn);
-              return new Symbol(sym.BOOL, yycolumn, yyline, yytext()); } 
-"string"    { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada para tipo cadena", yyline, yycolumn);
-              return new Symbol(sym.STRING, yycolumn, yyline, yytext()); } 
-"void"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada", yyline, yycolumn);
-              return new Symbol(sym.VOID, yycolumn, yyline, yytext()); } 
-"main"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada main", yyline, yycolumn);
-              return new Symbol(sym.MAIN, yycolumn, yyline, yytext()); } 
-"if"        { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada if", yyline, yycolumn);
-              return new Symbol(sym.IF, yycolumn, yyline, yytext()); } 
-"else"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada else", yyline, yycolumn);
-              return new Symbol(sym.ELSE, yycolumn, yyline, yytext()); } 
-"switch"    { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada switch", yyline, yycolumn);
-              return new Symbol(sym.SWITCH, yycolumn, yyline, yytext()); } 
-"case"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada case", yyline, yycolumn);
-              return new Symbol(sym.CASE, yycolumn, yyline, yytext()); } 
-"default"   { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada if", yyline, yycolumn);
-              return new Symbol(sym.DEFAULTID, yycolumn, yyline, yytext()); } 
-"break"     { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada break", yyline, yycolumn);
-              return new Symbol(sym.BREAK, yycolumn, yyline, yytext()); } 
-"for"       { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada for", yyline, yycolumn);
-              return new Symbol(sym.FOR, yycolumn, yyline, yytext()); } 
-"while"     { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada while", yyline, yycolumn);
-              return new Symbol(sym.WHILE, yycolumn, yyline, yytext()); } 
-"do"        { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada do", yyline, yycolumn);
-              return new Symbol(sym.DO, yycolumn, yyline, yytext()); } 
-"true"      { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada true", yyline, yycolumn);
-              return new Symbol(sym.TRUE, yycolumn, yyline, yytext()); } 
-"false"     { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada false", yyline, yycolumn);
-              return new Symbol(sym.FALSE, yycolumn, yyline, yytext()); } 
-"console"   { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada console", yyline, yycolumn);
-              return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext()); } 
-"write"     { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada write", yyline, yycolumn);
-              return new Symbol(sym.WRITE, yycolumn, yyline, yytext()); } 
-"graficapie" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada grafica pie", yyline, yycolumn);
-               return new Symbol(sym.FUNC_GPIE, yycolumn, yyline, yytext()); }
-"definirglobales" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada raficas globales", yyline, yycolumn);
-                    return new Symbol(sym.FUNC_GLOBALES, yycolumn, yyline, yytext()); }
-"graficabarras" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada grafica barras", yyline, yycolumn);
-                  return new Symbol(sym.FUNC_GBARRAS, yycolumn, yyline, yytext()); }
-"ejex" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada eje x", yyline, yycolumn);
-         return new Symbol(sym.EJEX, yycolumn, yyline, yytext()); }
-"valores" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada valores", yyline, yycolumn);
-            return new Symbol(sym.VALORES, yycolumn, yyline, yytext()); }
-"titulo" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada titulos", yyline, yycolumn);
-           return new Symbol(sym.TITULO, yycolumn, yyline, yytext()); }
-"titulox" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada titulos x", yyline, yycolumn);
-            return new Symbol(sym.TITULOX, yycolumn, yyline, yytext()); }
-"tituloy" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada titulo y", yyline, yycolumn);
-            return new Symbol(sym.TITULOY, yycolumn, yyline, yytext()); }
-"newvalor" { func.Funcion.addTokensStatpy(yytext(), "Palabra reservada newvalor", yyline, yycolumn);
-             return new Symbol(sym.NEWVALOR, yycolumn, yyline, yytext()); }
+"program"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Palabra Reservada", yyline, yycolumn);
+              return new Symbol(sym.R_PROGRAM, yycolumn, yyline, yytext()); } 
+"end"    { funcionalidad.Funcion.addTokensDataF(yytext(), "Palabra Reservada", yyline, yycolumn);
+              return new Symbol(sym.R_END, yycolumn, yyline, yytext()); } 
+"char"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Cadena", yyline, yycolumn);
+              return new Symbol(sym.R_CHAR, yycolumn, yyline, yytext()); } 
+"var"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Declaracion de variables", yyline, yycolumn);
+              return new Symbol(sym.R_VAR, yycolumn, yyline, yytext()); }  
+"double"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Decimal", yyline, yycolumn);
+              return new Symbol(sym.R_DOUBLE, yycolumn, yyline, yytext()); }  
+"arr"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Id Arreglos", yyline, yycolumn);
+              return new Symbol(sym.R_ARR, yycolumn, yyline, yytext()); }  
+"sum"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Suma", yyline, yycolumn);
+              return new Symbol(sym.R_SUM, yycolumn, yyline, yytext()); }  
+"res"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Resta", yyline, yycolumn);
+              return new Symbol(sym.R_RES, yycolumn, yyline, yytext()); }  
+"mul"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Multiplicacion", yyline, yycolumn);
+              return new Symbol(sym.R_MUL, yycolumn, yyline, yytext()); }  
+"div"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Division", yyline, yycolumn);
+              return new Symbol(sym.R_DIV, yycolumn, yyline, yytext()); }  
+"mod"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Modulo", yyline, yycolumn);
+              return new Symbol(sym.R_MOD, yycolumn, yyline, yytext()); }  
+"media"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Media", yyline, yycolumn);
+              return new Symbol(sym.R_MEDIA, yycolumn, yyline, yytext()); }  
+"mediana"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Mediana", yyline, yycolumn);
+              return new Symbol(sym.R_MEDIANA, yycolumn, yyline, yytext()); }  
+"moda"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada para Moda", yyline, yycolumn);
+              return new Symbol(sym.R_MODA, yycolumn, yyline, yytext()); }  
+"varianza"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Varianza", yyline, yycolumn);
+              return new Symbol(sym.R_VARIANZA, yycolumn, yyline, yytext()); }  
+"max"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Maximo", yyline, yycolumn);
+              return new Symbol(sym.R_MAX, yycolumn, yyline, yytext()); }  
+"min"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Minimo", yyline, yycolumn);
+              return new Symbol(sym.R_MIN, yycolumn, yyline, yytext()); }  
+"console"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Impresion", yyline, yycolumn);
+              return new Symbol(sym.R_CONSOLE, yycolumn, yyline, yytext()); } 
+"print"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Impresion", yyline, yycolumn);
+              return new Symbol(sym.R_PRINT, yycolumn, yyline, yytext()); }  
+"column"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Impresion Arreglos", yyline, yycolumn);
+              return new Symbol(sym.R_COLUMN, yycolumn, yyline, yytext()); }  
+"exec"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Ejecución Grafica", yyline, yycolumn);
+              return new Symbol(sym.R_EXEC, yycolumn, yyline, yytext()); }  
+"values"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_VALUES, yycolumn, yyline, yytext()); }  
+"titulo"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_TITULO, yycolumn, yyline, yytext()); }   
+"label"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_LABEL, yycolumn, yyline, yytext()); }  
+"ejex"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_EJEX, yycolumn, yyline, yytext()); }  
+"ejey"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_EJEY, yycolumn, yyline, yytext()); }  
+"titulox"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_TITULOX, yycolumn, yyline, yytext()); }  
+"tituloy"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Graficacion", yyline, yycolumn);
+              return new Symbol(sym.R_TITULOY, yycolumn, yyline, yytext()); }  
+"histogram"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Histograma", yyline, yycolumn);
+              return new Symbol(sym.R_HISTOGRAM, yycolumn, yyline, yytext()); }  
+"graphline"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Grafica Linea", yyline, yycolumn);
+              return new Symbol(sym.R_GLINE, yycolumn, yyline, yytext()); }  
+"graphpie"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Grafica Pie", yyline, yycolumn);
+              return new Symbol(sym.R_GPIE, yycolumn, yyline, yytext()); }  
+"graphbar"      { funcionalidad.Funcion.addTokensDataF(yytext(), "Reservada Grafica Barras", yyline, yycolumn);
+              return new Symbol(sym.R_GBAR, yycolumn, yyline, yytext()); } 
 
-{entero}    { func.Funcion.addTokensStatpy(yytext(), "Numeros enteros", yyline, yycolumn);
+{entero}    { funcionalidad.Funcion.addTokensDataF(yytext(), "Double", yyline, yycolumn);
               return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); } 
-{cadena}    { func.Funcion.addTokensStatpy(yytext(), "Cadenas de texto", yyline, yycolumn);
+{cadena}    { funcionalidad.Funcion.addTokensDataF(yytext(), "String", yyline, yycolumn);
               return new Symbol(sym.CADENA, yycolumn, yyline, yytext()); } 
-{caracter}  { func.Funcion.addTokensStatpy(yytext(), "Caracter", yyline, yycolumn);
+//{caracter}  { func.Funcion.addTokensStatpy(yytext(), "Caracter", yyline, yycolumn);
                 return new Symbol(sym.CARACTER, yycolumn, yyline, yytext()); } 
-{decimal}   { func.Funcion.addTokensStatpy(yytext(), "Numeros decimales", yyline, yycolumn);
+{decimal}   { funcionalidad.Funcion.addTokensDataF(yytext(), "Double", yyline, yycolumn);
               return new Symbol(sym.DECIMALES, yycolumn, yyline, yytext()); }
-{id}         { func.Funcion.addTokensStatpy(yytext(), "Nombres de variables", yyline, yycolumn);
+{id}         { funcionalidad.Funcion.addTokensDataF(yytext(), "Identificador", yyline, yycolumn);
                return new Symbol(sym.ID, yycolumn, yyline, yytext()); }
 {comentlinea} {}
 {comentmultilinea} {}
@@ -166,4 +148,4 @@ id = [A-Za-z_][A-Za-z0-9_]*
 
 //------> Errores Léxicos 
 .           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); 
-                func.Funcion.addErrListaStatpy( yytext() , "Error Lexico no se reconocio el caracter" , yyline, yycolumn);}
+                funcionalidad.Funcion.addErroresLista( "Léxico" , "El carácter \"" + yytext() + "\" no pertenece al lenguaje", yyline, yycolumn);}
