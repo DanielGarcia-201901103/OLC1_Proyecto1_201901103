@@ -298,6 +298,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_abrirArchivoActionPerformed
 
     private void realizaEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaEjecucionActionPerformed
+        proyecto.pkg1.Proyecto1.analizar(entradaTextoP.getText());
         salidaConsola.setText(entradaTextoP.getText());
     }//GEN-LAST:event_realizaEjecucionActionPerformed
 

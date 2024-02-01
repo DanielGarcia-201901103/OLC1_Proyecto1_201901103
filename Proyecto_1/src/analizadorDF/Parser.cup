@@ -1,5 +1,5 @@
 // ------------  Paquete e importaciones ------------
-package analizadorStatpy;
+package analizadorDF;
 
 import java_cup.runtime.*;
 import javax.swing.JOptionPane;
@@ -15,15 +15,14 @@ parser code
     public void syntax_error(Symbol s)
     {
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
-            func.Funcion.addErrListaStatpy((String) s.value,"Error Sintactico", s.right, s.left );
+            funcionalidad.Funcion.addErroresLista("Sintactico",(String) s.value, s.right, s.left );
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
-           func.Funcion.addErrListaStatpy( (String) s.value,"Error Sintactico", s.right, s.left );
+           funcionalidad.Funcion.addErroresLista( "Sintactico",(String) s.value, s.right, s.left );
            JOptionPane.showMessageDialog(null, "Error sintactico: No se pudo recuperar. Por favor corregir el error", (String) s.value, JOptionPane.ERROR_MESSAGE);
-           
     }
 
 :}
@@ -37,111 +36,75 @@ action code
 //------> Declaración de terminales
 terminal String IGUAL;
 terminal String PUNTOYCOMA;
-terminal String LLAVE_A;
-terminal String LLAVE_C;
 terminal String PARENTESIS_A;
 terminal String PARENTESIS_C;
 terminal String MAYOR;
 terminal String MENOR;
-terminal String MAYORIGUAL;
-terminal String MENORIGUAL;
-terminal String IGUAL_IGUAL;
-terminal String DISTINTO;
 terminal String PUNTO;
 terminal String DOSPUNTOS;
-terminal String SUMA;
-terminal String RESTA;
-terminal String MULTIPLICACION;
-terminal String DIVISION;
-terminal String AND;
-terminal String OR;
-terminal String NOT;
-terminal String SYMBOLODOLAR;
+terminal String ADMIRACION;
 terminal String COMA;
 terminal String CORCHETE_A;
 terminal String CORCHETE_C;
-terminal String INCREMENTO;
+terminal String GUION_MEDIO;
+terminal String ARROBA;
 
-terminal String INT; 
-terminal String DOUBLE; 
-terminal String CHAR;  
-terminal String BOOL;  
-terminal String STRING;  
-terminal String VOID; 
-terminal String MAIN;  
-terminal String IF;  
-terminal String ELSE;  
-terminal String SWITCH;  
-terminal String CASE; 
-terminal String DEFAULTID;  
-terminal String BREAK; 
-terminal String FOR; 
-terminal String WHILE;  
-terminal String DO; 
-terminal String TRUE;
-terminal String FALSE;  
-terminal String CONSOLE;  
-terminal String WRITE; 
-terminal String FUNC_GPIE; 
-terminal String FUNC_GLOBALES; 
-terminal String FUNC_GBARRAS; 
-terminal String EJEX; 
-terminal String VALORES; 
-terminal String TITULO; 
-terminal String TITULOX; 
-terminal String TITULOY; 
-terminal String NEWVALOR; 
+terminal String R_PROGRAM; 
+terminal String R_END; 
+terminal String R_CHAR;  
+terminal String R_VAR;  
+terminal String R_DOUBLE;  
+terminal String R_ARR; 
+terminal String R_SUM;  
+terminal String R_RES;  
+terminal String R_MUL;  
+terminal String R_DIV;  
+terminal String R_MOD; 
+terminal String R_MEDIA;  
+terminal String R_MEDIANA; 
+terminal String R_MODA; 
+terminal String R_VARIANZA;  
+terminal String R_MAX; 
+terminal String R_MIN;
+terminal String R_CONSOLE;  
+terminal String R_PRINT;  
+terminal String R_COLUMN; 
+terminal String R_EXEC; 
+terminal String R_VALUES; 
+terminal String R_TITULO; 
+terminal String R_LABEL; 
+terminal String R_EJEX; 
+terminal String R_EJEY; 
+terminal String R_TITULOX; 
+terminal String R_TITULOY; 
+terminal String R_HISTOGRAM; 
+terminal String R_GLINE;
+terminal String R_GPIE;
+terminal String R_GBAR;
  
 
 terminal String ENTERO; 
-terminal String CADENA;  
-terminal String CARACTER;  
+terminal String CADENA;   
 terminal String DECIMALES; 
 terminal String ID; 
 
 //------> Declaración de no terminales
 non terminal inicio;
-non terminal LinkedList todasinstrucciones;
-non terminal soloinstruccion;
-non terminal declaraasigna;
-non terminal tipodato;
-non terminal expre;
-non terminal ifres;
-non terminal llaveifcierra;
-non terminal reservadawhile;
-non terminal forreser;
-non terminal dowhile;
-non terminal funciones;
-non terminal tinstruccionesglobales;
-non terminal tinstruccionesgbarras;
-non terminal tinstruccionespie;
-non terminal tinstruccglobal;
-non terminal tinstrucgbarra;
-non terminal titulosd;
-non terminal listasstringsvariables;
-non terminal listastrings;
-non terminal listasvaloresvariables;
-non terminal listavalor;
-non terminal tinstrucpie;
-non terminal switchreserv;
-non terminal rcass;
-non terminal rcas;
-non terminal tesp;
-non terminal opcionesinc;
-non terminal listavalorpie;
-non terminal lsvaloresvariablespie;
-non terminal listastringspie;
-non terminal lsstringsvariablespie;
+non terminal codigo;
+non terminal instruccion;
+non terminal declaracion;
+non terminal numero;
+non terminal cadena;
 
 //------> PRECEDENCIA
-precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
-precedence left OR, AND;
-precedence left NOT;
-precedence left SUMA;
-precedence left RESTA;
-precedence left MULTIPLICACION;
-precedence left DIVISION;
-precedence left RESTA;
+//precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
+//precedence left OR, AND;
+//precedence left NOT;
+//precedence left SUMA;
+//precedence left RESTA;
+//precedence left MULTIPLICACION;
+//precedence left DIVISION;
+//precedence left RESTA;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -149,206 +112,20 @@ start with inicio;
 
 // ------------>  Producciones  <------------
 //{:  func.Traduccion.traducciones = tod; :}
-inicio ::= VOID MAIN PARENTESIS_A PARENTESIS_C LLAVE_A todasinstrucciones:tod LLAVE_C                                               {: LinkedList<String> ls20 = new LinkedList<>(); ls20.add("def main():"); func.Traduccion.cn++; ls20.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; ls20.add("if__name__ = \"__main__\":\n\tmain()"); func.Traduccion.traducciones = ls20; :}
+inicio ::= R_PROGRAM codigo:tod R_END R_PROGRAM                                     //     {: LinkedList<String> ls20 = new LinkedList<>(); ls20.add("def main():"); func.Traduccion.cn++; ls20.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; ls20.add("if__name__ = \"__main__\":\n\tmain()"); func.Traduccion.traducciones = ls20; :}
 ;
-todasinstrucciones ::= todasinstrucciones:tod soloinstruccion:sol                                                                   {: tod.addAll((LinkedList) sol); RESULT = (LinkedList) tod; :} 
-                    | soloinstruccion:sol                                                                                           {: LinkedList<String> tod = new LinkedList<>(); tod.addAll((LinkedList) sol); RESULT = (LinkedList) tod; :} 
+codigo ::= codigo:tod instruccion:sol                                               // {: tod.addAll((LinkedList) sol); RESULT = (LinkedList) tod; :} 
+        | instruccion:sol                                                           // {: LinkedList<String> tod = new LinkedList<>(); tod.addAll((LinkedList) sol); RESULT = (LinkedList) tod; :} 
 ;
-
-soloinstruccion ::= CONSOLE PUNTO WRITE PARENTESIS_A expre:valorreconocido PARENTESIS_C PUNTOYCOMA                                  {: LinkedList<String> lst1 = new LinkedList<>(); lst1.add("print(" + valorreconocido.toString()+ ")" ); RESULT = lst1; :}
-                    | declaraasigna:dec                                                                                             {: RESULT = dec; :}                                                           
-                    | ifres:comp                                                                                                    {: RESULT = comp; :}
-                    | switchreserv: comps                                                                                           {: RESULT = comps; :}
-                    | reservadawhile:buc                                                                                            {: RESULT = buc; :} 
-                    | forreser:bucl                                                                                                 {: RESULT = bucl; :}
-                    | dowhile:bucle                                                                                                 {: RESULT = bucle; :}
-                    | funciones:f                                                                                                   {: LinkedList<String> lstr3 = new LinkedList<>(); lstr3.add(" "); RESULT = lstr3; :}
-                    | BREAK:br PUNTOYCOMA                                                                                           {: LinkedList<String> ls12 = new LinkedList<>(); ls12.add("break");  RESULT = ls12; :}
-                    | error PUNTOYCOMA
+instruccion ::= declaracion
 ;
-
-declaraasigna ::=  tipodato ID:iden PUNTOYCOMA                                                                                      {: LinkedList<String> lstr1 = new LinkedList<>(); lstr1.add(iden + " = None" ); RESULT = lstr1; :}
-                | tipodato ID:iden IGUAL expre:valorreconocido PUNTOYCOMA                                                           {: func.Traduccion.agregandovariablesFor(iden,valorreconocido.toString()); LinkedList<String> lstr2 = new LinkedList<>(); lstr2.add(iden + " = " + valorreconocido); RESULT = lstr2; :}
-                | ID:iden IGUAL expre:valorreconocido PUNTOYCOMA                                                                    {: func.Traduccion.agregandovariablesFor(iden,valorreconocido.toString()); LinkedList<String> lstr3 = new LinkedList<>(); lstr3.add(iden + " = " + valorreconocido); RESULT = lstr3;:}
+declaracion ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO numero R_END PUNTOYCOMA
+              | R_VAR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO cadena R_END PUNTOYCOMA
 ;
-tipodato ::= INT:v1                                                                                                                 {: RESULT = v1; :}
-            | DOUBLE:v2                                                                                                             {: RESULT = v2; :}
-            | CHAR:v3                                                                                                               {: RESULT = v3; :}
-            | BOOL:v4                                                                                                               {: RESULT = v4; :}
-            | STRING:v5                                                                                                             {: RESULT = v5; :}
+numero ::= ENTERO 
+        | DECIMALES 
+        | ID
 ;
-expre ::= ENTERO:v1                                                                                                                  {: RESULT = v1; :}
-        | CADENA:v2                                                                                                                  {: RESULT = v2; :}
-        | CARACTER:v3                                                                                                                {: RESULT = v3; :}
-        | DECIMALES:v4                                                                                                               {: RESULT = v4; :}
-        | ID:v5                                                                                                                      {: RESULT = v5; :}
-        | TRUE                                                                                                                       {: RESULT = "true"; :}
-        | FALSE                                                                                                                      {: RESULT = "false"; :}
-        | expre:ladoa SUMA expre:ladob                                                                                               {: RESULT = ladoa.toString() + "+" + ladob.toString(); :}  
-        | expre:ladoa RESTA expre:ladob                                                                                              {: RESULT = ladoa.toString() + "-" + ladob.toString(); :}  
-        | expre:ladoa MULTIPLICACION expre:ladob                                                                                     {: RESULT = ladoa.toString() + "*" + ladob.toString(); :}   
-        | expre:ladoa DIVISION expre:ladob                                                                                           {: RESULT = ladoa.toString() + "/" + ladob.toString(); :}      
-        | RESTA expre:ladob                                                                                                          {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT =  "-" + ladob.toString(); :}        
-        | NOT expre:ladob                                                                                                            {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT =  "!" + ladob.toString(); :}   
-        | expre:ladoa OR expre:ladob                                                                                                 {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "||" + ladob.toString(); :}  
-        | expre:ladoa AND expre:ladob                                                                                                {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "&&" + ladob.toString(); :}   
-        | expre:ladoa MAYOR expre:ladob                                                                                              {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + ">" + ladob.toString(); :}   
-        | expre:ladoa MAYORIGUAL expre:ladob                                                                                         {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + ">=" + ladob.toString(); :}  
-        | expre:ladoa MENOR expre:ladob                                                                                              {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "<" + ladob.toString(); :}   
-        | expre:ladoa MENORIGUAL expre:ladob                                                                                         {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "<=" + ladob.toString(); :}   
-        | expre:ladoa IGUAL_IGUAL expre:ladob                                                                                        {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "==" + ladob.toString(); :}  
-        | expre:ladoa DISTINTO expre:ladob                                                                                           {: func.Traduccion.agregandovariablesFor(ladob.toString()); RESULT = ladoa.toString() + "!=" + ladob.toString(); :}  
-        | declaraasigna:dec expre:la PUNTOYCOMA expre:lad                                                                            {: LinkedList<String> ls = new LinkedList<>(); ls.add(dec+ " " + la + "; "+ lad); RESULT = ls; :}
-        | opcionesinc:lad                                                                                                            {:  RESULT = lad.toString(); :}
-;
-opcionesinc ::= ENTERO:v1  INCREMENTO                                                                                                {: RESULT = v1 + "++"; :}
-            | CADENA:v2 INCREMENTO                                                                                                   {: RESULT = v2 + "++"; :}
-            | CARACTER:v3 INCREMENTO                                                                                                 {: RESULT = v3 + "++"; :}
-            | DECIMALES:v4 INCREMENTO                                                                                                {: RESULT = v4 + "++"; :}
-            | ID:v5 INCREMENTO                                                                                                       {: RESULT = v5 + "++"; :}
-            | TRUE:v6 INCREMENTO                                                                                                     {: RESULT = v6 + "++"; :}
-            | FALSE:v7 INCREMENTO                                                                                                    {: RESULT = v7 + "++"; :}
-;
-//CORREGIR LA TRADUCCIÓN DEL LOS PARAMETROS DEL FOR
-ifres ::= IF PARENTESIS_A expre:valorreconocido PARENTESIS_C LLAVE_A todasinstrucciones:tod llaveifcierra:rec                        {: LinkedList<String> ls2 = new LinkedList<>(); ls2.add("if "+valorreconocido+" :"); func.Traduccion.cn++; ls2.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; ls2.addAll((LinkedList) rec);RESULT = ls2; :}
-        | error LLAVE_C
-;
-llaveifcierra ::= LLAVE_C                                                                                                            {: LinkedList<String> ls11 = new LinkedList<>(); ls11.add(" ");  RESULT = ls11; :}
-                | LLAVE_C ELSE IF PARENTESIS_A expre:valorreconocido PARENTESIS_C LLAVE_A todasinstrucciones:tod llaveifcierra:rec   {: LinkedList<String> ls4 = new LinkedList<>(); ls4.add("elif "+valorreconocido+" :"); func.Traduccion.cn++; ls4.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; ls4.addAll((LinkedList) rec);RESULT = ls4; :}
-                | LLAVE_C ELSE LLAVE_A todasinstrucciones:tod LLAVE_C                                                                {: LinkedList<String> ls3 = new LinkedList<>(); ls3.add("else :"); func.Traduccion.cn++; ls3.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; RESULT = ls3; :}
-;
-switchreserv ::= SWITCH PARENTESIS_A expre:valorreconocido PARENTESIS_C LLAVE_A rcass:tod tesp:tc LLAVE_C       
- {: LinkedList<String> ls13 = new LinkedList<>(); 
-ls13.add("def switch( "+valorreconocido+") :"); 
-func.Traduccion.cn++; 
-LinkedList<String> ls14 = new LinkedList<>(); 
-ls14.add("switcher = {"); 
-ls13.addAll(func.Traduccion.addTabula((LinkedList) ls14));
-func.Traduccion.cn++;  
-ls13.addAll(func.Traduccion.addTabula((LinkedList)tod)); 
-ls13.addAll(func.Traduccion.addTabula((LinkedList) tc));
-func.Traduccion.cn--;
-LinkedList<String> ls15 = new LinkedList<>(); ls15.add("}");  
-ls13.addAll(func.Traduccion.addTabula((LinkedList) ls15)); 
-func.Traduccion.cn--;
-RESULT = ls13; :}
-;
-rcass ::= rcass:tod2 rcas:sol     {: LinkedList<String> tod1 = new LinkedList<>(); tod1.addAll((LinkedList) tod2); tod1.addAll((LinkedList) sol); RESULT =  tod1;  :} 
-        | rcas:sol                                                                                                                    {: LinkedList<String> tod1 = new LinkedList<>(); tod1.addAll((LinkedList) sol); RESULT =   tod1; :}                                                                     
-;
-rcas ::= CASE expre:valorreconocido DOSPUNTOS todasinstrucciones:tod         
-{: LinkedList<String> ls16 = new LinkedList<>();
-ls16.add(valorreconocido+" :"); func.Traduccion.cn++; 
-ls16.addAll(func.Traduccion.addTabula(tod)); 
-LinkedList<String> ls17 = new LinkedList<>(); ls17.add(",");  ls16.addAll(func.Traduccion.addTabula((LinkedList) ls17));func.Traduccion.cn--; 
-RESULT = (LinkedList) ls16; :}
-;
-tesp::=  DEFAULTID:de DOSPUNTOS todasinstrucciones:tod          
-{: LinkedList<String> ls18 = new LinkedList<>();
-ls18.add(de+" :"); func.Traduccion.cn++; 
-ls18.addAll(func.Traduccion.addTabula(tod)); 
-LinkedList<String> ls19 = new LinkedList<>(); ls19.add(",");  ls18.addAll(func.Traduccion.addTabula((LinkedList) ls19));func.Traduccion.cn--; 
-RESULT = (LinkedList) ls18; :}
-;
-reservadawhile ::= WHILE PARENTESIS_A expre:valorreconocido PARENTESIS_C LLAVE_A todasinstrucciones:tod LLAVE_C   {: LinkedList<String> ls6 = new LinkedList<>(); ls6.add("while "+valorreconocido+" :"); func.Traduccion.cn++; ls6.addAll(func.Traduccion.addTabula(tod)); func.Traduccion.cn--; RESULT = ls6; :}
-;
-forreser ::= FOR PARENTESIS_A expre:valorreconocido PARENTESIS_C LLAVE_A todasinstrucciones:tod LLAVE_C     
-{: String recibN = func.Traduccion.obtenernomFor();
-   String recibI = func.Traduccion.obteneraIniFor();
-   String recibF = func.Traduccion.obteneraFinFor();
-LinkedList<String> ls10 = new LinkedList<>(); 
-ls10.add("for "+recibN+" in range("+ recibI +","+recibF +"):"); 
-func.Traduccion.cn++; 
-ls10.addAll(func.Traduccion.addTabula(tod)); 
-func.Traduccion.cn--; RESULT = ls10; :}          
-;
-dowhile ::= DO LLAVE_A todasinstrucciones:tod LLAVE_C WHILE PARENTESIS_A expre:valorreconocido PARENTESIS_C PUNTOYCOMA       
-{: LinkedList<String> ls7 = new LinkedList<>(); 
-ls7.add("while True: "); func.Traduccion.cn++; 
-ls7.addAll(func.Traduccion.addTabula(tod)); 
-LinkedList<String> ls8 = new LinkedList<>();
-ls8.add("if( " + valorreconocido + " ):" );  
-ls7.addAll(func.Traduccion.addTabula((LinkedList)ls8)); 
-LinkedList<String> ls9 = new LinkedList<>();
-ls9.add("break" );  func.Traduccion.cn++;
-ls7.addAll(func.Traduccion.addTabula((LinkedList)ls9)); func.Traduccion.cn--;func.Traduccion.cn--;
-RESULT = ls7; :}
-;
-///====================================================================================================================================================
-funciones ::= VOID FUNC_GLOBALES PARENTESIS_A PARENTESIS_C LLAVE_A tinstruccionesglobales LLAVE_C                                 {:  RESULT = " ";  :}//acá mando a limpiar las listas que almacenan las variables para graficar
-            | VOID FUNC_GBARRAS PARENTESIS_A PARENTESIS_C LLAVE_A tinstruccionesgbarras LLAVE_C                                   {:  func.Graficar.barras(); func.Funcion.limpiarFuncionesBarras(); RESULT = " ";  :}
-            | VOID FUNC_GPIE PARENTESIS_A PARENTESIS_C LLAVE_A tinstruccionespie LLAVE_C                                          {: func.Graficar.gPie(); func.Funcion.limpiarFuncionesPie(); RESULT = " ";  :}
-;
-tinstruccionesglobales ::= tinstruccionesglobales tinstruccglobal                                                             {: RESULT = " ";  :}
-                      | tinstruccglobal                                                                                         {: RESULT = " ";  :}
-;
-tinstruccglobal ::= STRING ID:identi1 IGUAL CADENA:v1 PUNTOYCOMA                                                                       {: func.Funcion.addFunGlobalStatpyStrings(identi1, v1); RESULT = " ";  :}
-                  | STRING ID:identi2 IGUAL ID:v2 PUNTOYCOMA                                                                           {: String valorrecibido = func.Funcion.buscarValorString(v2); System.out.println(valorrecibido);func.Funcion.addFunGlobalStatpyStrings( identi2, valorrecibido); RESULT = " "; :}
-                  | STRING ID:identi3 IGUAL SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch COMA CADENA:buscav LLAVE_C  PUNTOYCOMA      {: String valorrecibido2 = func.Funcion.obtenerDatodeJson(arch,buscav); System.out.println(valorrecibido2); func.Funcion.addFunGlobalStatpyStrings( identi3, valorrecibido2); RESULT = ""; :}
-                  | DOUBLE ID:identi4 IGUAL DECIMALES:v3 PUNTOYCOMA                                                                    {: func.Funcion.addFunGlobalStatpyDouble(identi4, v3); System.out.println(identi4); RESULT = " "; :}
-                  | DOUBLE ID:identi5 IGUAL ID:v4 PUNTOYCOMA                                                                           {: String valorrecibido1 = func.Funcion.buscarValorDouble( v4);System.out.println(valorrecibido1); func.Funcion.addFunGlobalStatpyDouble( identi5, valorrecibido1); RESULT = " ";  :}
-                  | DOUBLE ID:identi6 IGUAL SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch2 COMA CADENA:buscav2 LLAVE_C PUNTOYCOMA     {: String valorrecibido3 = func.Funcion.obtenerDatodeJson( arch2, buscav2);System.out.println(valorrecibido3); func.Funcion.addFunGlobalStatpyDouble( identi6, valorrecibido3); RESULT = ""; :}
-                  | error PUNTOYCOMA
-;
-
-tinstruccionesgbarras ::= tinstruccionesgbarras tinstrucgbarra:tgba                                                                     {: RESULT = " ";  :}
-                   | tinstrucgbarra:tgba                                                                                                {: RESULT = " ";  :}
-; 
-                                     //ESTOY EDITANDO PARA EL DE BARRAS, LO DE ARRIBA YA ESTÁ BIEN
-tinstrucgbarra ::= STRING titulosd:tlos1 IGUAL CADENA:v1 PUNTOYCOMA                                                                      {:System.out.println(tlos1.toString()); func.Funcion.addFunBarrasStatpyStrings(tlos1.toString(), (String) v1); RESULT = " ";  :}
-                   | STRING titulosd:tlos2 IGUAL ID:v2   PUNTOYCOMA                                                                      {: String valorrecibido = func.Funcion.buscarValorString((String) v2); func.Funcion.addFunBarrasStatpyStrings(tlos2.toString(),(String) valorrecibido); RESULT = " "; :}
-                   | STRING titulosd:tlos3 IGUAL SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C  PUNTOYCOMA {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String) arch1,(String) buscav1); func.Funcion.addFunBarrasStatpyStrings(tlos3.toString(), (String) valorrecibido2); RESULT = ""; :}
-                   | STRING CORCHETE_A CORCHETE_C EJEX IGUAL LLAVE_A listasstringsvariables:lvab LLAVE_C PUNTOYCOMA                     {: RESULT = " ";  :}
-                   | DOUBLE CORCHETE_A CORCHETE_C VALORES IGUAL LLAVE_A listasvaloresvariables:lvvab LLAVE_C PUNTOYCOMA                 {: RESULT = " ";  :}
-                   | error PUNTOYCOMA
-;
-titulosd ::= TITULO:rt1                                                                                                                 {: RESULT = rt1;  :}
-            | TITULOX:rt2                                                                                                               {: RESULT = rt2;  :}
-            | TITULOY:rt3                                                                                                               {: RESULT = rt3;  :}
-;
-
-
-listasstringsvariables ::= listastrings:listsol                                                                                         {: RESULT = " ";  :}
-                         | listastrings:listsol1 COMA listasstringsvariables:listsol2                                                   {: RESULT = " ";  :}
-;
-
-listastrings ::= CADENA:v1                                                                                                              {: func.Funcion.addListaEjexBarras((String) v1); RESULT = " ";  :}
-                | ID:v2                                                                                                                 {: String valorrecibido = func.Funcion.buscarValorString((String)v2); func.Funcion.addListaEjexBarras((String)valorrecibido); RESULT = " ";  :}
-                | SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C                                           {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String)arch1,(String)buscav1); func.Funcion.addListaEjexBarras((String)valorrecibido2); RESULT = ""; :}
-;
-listasvaloresvariables ::= listavalor:listsol                                                                                           {: RESULT = " ";  :}
-                        | listavalor:listsol1 COMA listasvaloresvariables:listsol2                                                      {: RESULT = " ";  :}
-                        | error COMA
-;
-listavalor ::= DECIMALES:v1                                                                                                             {: func.Funcion.addListavaloresBarras((String)v1); RESULT = " ";  :}
-              | ID:v2                                                                                                                   {: String valorrecibido = func.Funcion.buscarValorDouble((String)v2); func.Funcion.addListavaloresBarras((String)valorrecibido); RESULT = " ";  :}
-              | SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C                                             {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String)arch1,(String)buscav1); func.Funcion.addListavaloresBarras((String)valorrecibido2); RESULT = ""; :}
-;
-
-tinstruccionespie ::= tinstruccionespie tinstrucpie:sol                                                                                 {: RESULT = " ";  :}
-                | tinstrucpie:sol1                                                                                                      {: RESULT = " ";  :} 
-;
-tinstrucpie ::= STRING TITULO:tlos1 IGUAL CADENA:v1 PUNTOYCOMA                                                                          {: func.Funcion.addFunPieStatpyStrings(tlos1.toString(), (String) v1); RESULT = " ";  :}                                                      
-                | STRING TITULO:tlos2 IGUAL ID:v2  PUNTOYCOMA                                                                           {: String valorrecibido = func.Funcion.buscarValorString((String) v2); func.Funcion.addFunPieStatpyStrings(tlos2.toString(),(String) valorrecibido); RESULT = " "; :}                                                    
-                | STRING TITULO:tlos3 IGUAL SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C PUNTOYCOMA      {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String) arch1,(String) buscav1); func.Funcion.addFunPieStatpyStrings(tlos3.toString(), (String) valorrecibido2); RESULT = ""; :}       
-                | STRING CORCHETE_A CORCHETE_C EJEX:tlos IGUAL LLAVE_A lsstringsvariablespie:lvab LLAVE_C PUNTOYCOMA                    {: RESULT = " ";  :}
-                | DOUBLE CORCHETE_A CORCHETE_C VALORES:tlos IGUAL LLAVE_A lsvaloresvariablespie:lvvab LLAVE_C PUNTOYCOMA                {: RESULT = " ";  :}
-                | error PUNTOYCOMA
-;
-
-lsstringsvariablespie ::= listastringspie:listsol                                                                                       {: RESULT = " ";  :}
-                         | listastringspie:listsol1 COMA lsstringsvariablespie:listsol2                                                 {: RESULT = " ";  :}
-;
-
-listastringspie ::= CADENA:v1                                                                                                           {: func.Funcion.addListaEjexPie((String) v1); RESULT = " ";  :}
-                | ID:v2                                                                                                                 {: String valorrecibido = func.Funcion.buscarValorString((String)v2); func.Funcion.addListaEjexPie((String)valorrecibido); RESULT = " ";  :}
-                | SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C                                           {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String)arch1,(String)buscav1); func.Funcion.addListaEjexPie((String)valorrecibido2); RESULT = ""; :}
-;
-lsvaloresvariablespie ::= listavalorpie:listsol                                                                                         {: RESULT = " ";  :}
-                        | listavalorpie:listsol1 COMA lsvaloresvariablespie:listsol2                                                    {: RESULT = " ";  :}
-                        | error COMA
-;
-listavalorpie ::= DECIMALES:v1                                                                                                          {: func.Funcion.addListavaloresPie((String)v1); RESULT = " ";  :}
-              | ID:v2                                                                                                                   {: String valorrecibido = func.Funcion.buscarValorDouble((String)v2); func.Funcion.addListavaloresPie((String)valorrecibido); RESULT = " ";  :}
-              | SYMBOLODOLAR LLAVE_A NEWVALOR COMA CADENA:arch1 COMA CADENA:buscav1 LLAVE_C                                             {: String valorrecibido2 = func.Funcion.obtenerDatodeJson((String)arch1,(String)buscav1); func.Funcion.addListavaloresPie((String)valorrecibido2); RESULT = ""; :}
+cadena ::= CADENA 
+        | ID
 ;

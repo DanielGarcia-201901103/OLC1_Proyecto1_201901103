@@ -23,10 +23,9 @@ public class Proyecto1 {
             System.out.println(e);
         }
     }
-    /*
+    
     public static void analizar(String entrada){
         try{
-            
             analizadorDF.Lexer lexer = new analizadorDF.Lexer(new StringReader(entrada));
             analizadorDF.Parser parser = new analizadorDF.Parser(lexer);
             parser.parse();
@@ -34,5 +33,5 @@ public class Proyecto1 {
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println(e);
         }
-    }*/
+    }
 }

@@ -52,7 +52,7 @@ id = [A-Za-z_][A-Za-z0-9_]*
 ":"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Dos puntos", yyline, yycolumn);
             return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext()); }
 "!"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo admiracion", yyline, yycolumn);
-            return new Symbol(sym.NOT, yycolumn, yyline, yytext()); }
+            return new Symbol(sym.ADMIRACION, yycolumn, yyline, yytext()); }
 ","       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo coma", yyline, yycolumn);
             return new Symbol(sym.COMA, yycolumn, yyline, yytext()); }
 "["       { funcionalidad.Funcion.addTokensDataF(yytext(), "Corchete abre", yyline, yycolumn);
@@ -132,9 +132,7 @@ id = [A-Za-z_][A-Za-z0-9_]*
 {entero}    { funcionalidad.Funcion.addTokensDataF(yytext(), "Double", yyline, yycolumn);
               return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); } 
 {cadena}    { funcionalidad.Funcion.addTokensDataF(yytext(), "String", yyline, yycolumn);
-              return new Symbol(sym.CADENA, yycolumn, yyline, yytext()); } 
-//{caracter}  { func.Funcion.addTokensStatpy(yytext(), "Caracter", yyline, yycolumn);
-                return new Symbol(sym.CARACTER, yycolumn, yyline, yytext()); } 
+              return new Symbol(sym.CADENA, yycolumn, yyline, yytext()); }  
 {decimal}   { funcionalidad.Funcion.addTokensDataF(yytext(), "Double", yyline, yycolumn);
               return new Symbol(sym.DECIMALES, yycolumn, yyline, yytext()); }
 {id}         { funcionalidad.Funcion.addTokensDataF(yytext(), "Identificador", yyline, yycolumn);
