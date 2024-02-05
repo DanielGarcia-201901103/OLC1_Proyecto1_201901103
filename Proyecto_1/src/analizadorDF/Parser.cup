@@ -95,6 +95,13 @@ non terminal instruccion;
 non terminal declaracion;
 non terminal numero;
 non terminal cadena;
+non terminal arreglos;
+non terminal valoresnumeros;
+non terminal valorescadenas;
+non terminal listanum;
+non terminal operaciones;
+non terminal funcionesop;
+non terminal parametrosop;
 
 //------> PRECEDENCIA
 //precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
@@ -129,3 +136,27 @@ numero ::= ENTERO
 cadena ::= CADENA 
         | ID
 ;
+arreglos ::= R_ARR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+        | R_ARR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
+;
+valoresnumeros ::= listanum
+                | listanum COMA valoresnumeros
+;
+listanum ::= ENTERO 
+            | DECIMALES 
+            | ID 
+            | funcionesop
+;
+valorescadenas ::= cadena
+            | cadena COMA valorescadenas
+;
+operaciones ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesop R_END PUNTOYCOMA
+;
+funcionesop ::= R_SUM PARENTESIS_A parametrosop PARENTESIS_C
+            | R_RES PARENTESIS_A parametrosop PARENTESIS_C
+            | R_MUL PARENTESIS_A parametrosop PARENTESIS_C
+            | R_DIV PARENTESIS_A parametrosop PARENTESIS_C
+            | R_MOD PARENTESIS_A parametrosop PARENTESIS_C
+;
+parametrosop ::= listanum COMA listanum
+; 
