@@ -67,11 +67,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reporte de Tokens"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reporteTokenActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="reporteErrores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reporte de Errores"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reporteErroresActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="reporteTablaS">
               <Properties>
@@ -159,7 +165,7 @@
                       <Component id="jLabel2" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="mPestanas" pref="275" max="32767" attributes="0"/>
+                  <Component id="mPestanas" min="-2" pref="275" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>

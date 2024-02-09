@@ -1,23 +1,36 @@
 package ventanaG;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Desktop;
+import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InterfazPrincipal extends javax.swing.JFrame {
-    
+
     //Variables publicas
     String filePath = "";
     String contenidoTextArea = "";
     String validacionAnalizador = "";
     String archivoElegido = "";
     //Fin Variables publicas
-    
+
     public InterfazPrincipal() {
         initComponents();
     }
@@ -138,7 +151,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mPestanas, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addComponent(mPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,9 +210,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Reportes");
 
         reporteToken.setText("Reporte de Tokens");
+        reporteToken.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteTokenActionPerformed(evt);
+            }
+        });
         jMenu2.add(reporteToken);
 
         reporteErrores.setText("Reporte de Errores");
+        reporteErrores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteErroresActionPerformed(evt);
+            }
+        });
         jMenu2.add(reporteErrores);
 
         reporteTablaS.setText("Reporte Tabla de Simbolos");
@@ -226,7 +249,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private void nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoArchivoActionPerformed
         //Nuevo archivo
         //1. abrirá una pestaña en blanco
-        
+
     }//GEN-LAST:event_nuevoArchivoActionPerformed
 
     private void guardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarArchivoActionPerformed
@@ -264,10 +287,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             //nombreArchivo.setText("Archivo no guardado");
         }
     }//GEN-LAST:event_guardarComoActionPerformed
-
+//https://es.stackoverflow.com/questions/138221/agregar-un-bot%C3%B3n-a-tab-de-jtabbedpane    ejemplo de multiples pestañas
     private void abrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirArchivoActionPerformed
         JFileChooser elegirArchivo = new JFileChooser();
-        FileNameExtensionFilter data = new FileNameExtensionFilter("Tipos","df");
+        FileNameExtensionFilter data = new FileNameExtensionFilter("Tipos", "df");
         elegirArchivo.setFileFilter(data);
 //        elegirArchivo.addChoosableFileFilter(data);
         int valuado = elegirArchivo.showOpenDialog(this);
@@ -276,6 +299,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 //            System.out.println("Archivo Seleccionado: " + elegirArchivo.getSelectedFile().getName());
             archivoElegido = elegirArchivo.getSelectedFile().getName();
             //nombreArchivo.setText(archivoElegido);
+            //*******************************************Espacio para multiples pestañas
+            mPestanas.getModel().clearSelection();
+            // Comprueba si la pestaña seleccionada es la primera pestaña (utilizada para agregar más pestañas)
+            int tab = mPestanas.getTabCount(); // Obtiene la cantidad de pestañas (esto para agregar el nombre nuevo a la pestaña)
+
+            JPanel pane = new JPanel(); // JPanel de prueba 
+            // Básicamente aquí debes añadir el contenido de la nueva pestaña que desees
+
+            //*******************************************
             File selectFile = elegirArchivo.getSelectedFile();
             filePath = selectFile.getAbsolutePath();
 
@@ -287,7 +319,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     parrafo += linea + "\n";
                 }
                 leer.close();
-                entradaTextoP.setText(parrafo);
+//                entradaTextoP.setText(parrafo);
+                JTextArea textArea = new JTextArea(parrafo.toString());
+                textArea.setLineWrap(true); // Esto hace que las líneas largas se envuelvan automáticamente
+                textArea.setWrapStyleWord(true);
+                JScrollPane scrollPane = new JScrollPane(textArea);
+                // Agregar JScrollPane con JTextArea dentro al panel
+                pane.setLayout(new BorderLayout()); // Establecer BorderLayout al panel
+                pane.add(scrollPane, BorderLayout.CENTER);
+                textArea.setPreferredSize(scrollPane.getPreferredSize());
+                mPestanas.insertTab(archivoElegido, null, pane, "Ronda " + tab, tab); // Inserta una nueva pestaña llamada Ronda <tab>, donde <tab> es el número de pestaña.
+                mPestanas.setSelectedIndex(tab); // Selecciona la nueva pestaña creada
+
             } catch (IOException e) {
                 System.out.println("" + e.getMessage());
             }
@@ -297,10 +340,82 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_abrirArchivoActionPerformed
 
+
     private void realizaEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaEjecucionActionPerformed
-        proyecto.pkg1.Proyecto1.analizar(entradaTextoP.getText());
-        salidaConsola.setText(entradaTextoP.getText());
+        // Obtener el índice de la pestaña seleccionada
+        int index = mPestanas.getSelectedIndex();
+
+// Obtener el componente en la pestaña seleccionada
+        Component selectedComponent = mPestanas.getSelectedComponent();
+
+// Verificar si el componente seleccionado es un contenedor
+        if (selectedComponent instanceof Container) {
+            Container container = (Container) selectedComponent;
+
+            // Buscar el JTextArea dentro del contenedor
+            JTextArea textArea = findTextArea(container);
+
+            if (textArea != null) {
+                // Obtener el texto del JTextArea
+                String texto = textArea.getText();
+                proyecto.pkg1.Proyecto1.analizar(texto);
+                salidaConsola.setText(texto);
+            } else {
+                System.out.println("No se encontró un JTextArea en la pestaña seleccionada.");
+            }
+        } else {
+            System.out.println("El componente seleccionado no es un contenedor.");
+        }
+
+        funcionalidad.Funcion.recibiendoNombreArchivo(archivoElegido);
+        //proyecto.pkg1.Proyecto1.analizar(texto);
+        //salidaConsola.setText(texto);
+        try {
+            funcionalidad.Funcion.recorrerListaErrores();
+            funcionalidad.Funcion.crearReporteTokensDataF();
+        } catch (FileNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InterfazPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_realizaEjecucionActionPerformed
+
+    private JTextArea findTextArea(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JTextArea) {
+                return (JTextArea) component;
+            } else if (component instanceof Container) {
+                JTextArea textArea = findTextArea((Container) component);
+                if (textArea != null) {
+                    return textArea;
+                }
+            }
+        }
+        return null;
+    }
+    private void reporteTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteTokenActionPerformed
+        String filepath = new String("ReporteTokens.html");
+        try {
+            File path = new File(filepath);
+            Desktop.getDesktop().open(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_reporteTokenActionPerformed
+
+    private void reporteErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteErroresActionPerformed
+        String filepath = new String("ReporteErrores.html");
+        try {
+            File path = new File(filepath);
+            Desktop.getDesktop().open(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_reporteErroresActionPerformed
 
     /**
      * @param args the command line arguments

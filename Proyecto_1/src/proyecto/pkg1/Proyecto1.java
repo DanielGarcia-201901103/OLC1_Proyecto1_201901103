@@ -6,7 +6,7 @@ public class Proyecto1 {
 
   
     public static void main(String[] args) {
-        //analizadores("src/analizadorDF/", "Lexer.jflex", "Parser.cup");
+//        analizadores("src/analizadorDF/", "Lexer.jflex", "Parser.cup");
         ventanaG.InterfazPrincipal.main(args);
     }
     

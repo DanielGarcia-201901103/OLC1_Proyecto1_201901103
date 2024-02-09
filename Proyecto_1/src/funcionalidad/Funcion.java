@@ -3,13 +3,19 @@ package funcionalidad;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Funcion {
     
     static LinkedList<Object> listaTokensDataF = new LinkedList<Object>();
     //Para guardar los errores 
     static LinkedList<Object> listaErrores = new LinkedList<Object>();
+    
+    //Para almacenar los datos en simbolos 
+    static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
+    static String nombreArchivo = ""; 
     
     public static void addTokensDataF(String lexema, String token, int linea, int columna) {
         Tokens objToken = new Tokens();
@@ -18,7 +24,7 @@ public class Funcion {
     }
 
     public static void crearReporteTokensDataF() throws FileNotFoundException {
-        FileOutputStream rep = new FileOutputStream("ReporteTokensStatpy.html");
+        FileOutputStream rep = new FileOutputStream("ReporteTokens.html");
         PrintStream t = new PrintStream(rep);
         t.println("""
                    <!DOCTYPE html>
@@ -35,7 +41,7 @@ public class Funcion {
                    </style>
                    <body>
                    
-                   <h2> *************** Reporte de Tokens Statpy***************</h2>
+                   <h2> *************** Reporte Tabla de Tokens ***************</h2>
                    
                    <table style="width:100%">
                      <tr>
@@ -75,7 +81,7 @@ public class Funcion {
     }
 
     public static void recorrerListaErrores() throws FileNotFoundException {
-        FileOutputStream rep = new FileOutputStream("ReporteErroresJson.html");
+        FileOutputStream rep = new FileOutputStream("ReporteErrores.html");
         PrintStream t = new PrintStream(rep);
         t.println("""
                    <!DOCTYPE html>
@@ -126,4 +132,14 @@ public class Funcion {
         listaErrores.clear();
     }
     
+    public static void recibiendoNombreArchivo(String nombreArchivo1) {
+        nombreArchivo = "\""+nombreArchivo1+"\"";
+        System.out.println("nombre del archivo"+ nombreArchivo);
+    }
+    
+    public static void addHMSimbolos(String nombre, String valor, String tipo, int linea,int  columna){
+        Simbolos sim = new Simbolos();
+        sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
+        hashMapSimbolos.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
+    }
 }
