@@ -107,6 +107,8 @@ non terminal imprimirexpresiones;
 non terminal imprimirarreglos;
 non terminal listaexpresiones;
 non terminal expresiones;
+non terminal funcionesest;
+non terminal arreglodouble;
 
 //------> PRECEDENCIA
 //precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
@@ -151,6 +153,7 @@ valoresnumeros ::= listanum
                 | listanum COMA valoresnumeros
 ;
 listanum ::= funcionesop 
+            | funcionesest
             | ENTERO  
             | DECIMALES  
             | ID
@@ -159,6 +162,7 @@ valorescadenas ::= cadena
             | cadena COMA valorescadenas
 ;
 operaciones ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesop R_END PUNTOYCOMA
+            | R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesest R_END PUNTOYCOMA
 ;
 funcionesop ::= R_SUM PARENTESIS_A listanum COMA listanum PARENTESIS_C 
             | R_RES PARENTESIS_A listanum COMA listanum PARENTESIS_C 
@@ -166,7 +170,16 @@ funcionesop ::= R_SUM PARENTESIS_A listanum COMA listanum PARENTESIS_C
             | R_DIV PARENTESIS_A listanum COMA listanum PARENTESIS_C 
             | R_MOD PARENTESIS_A listanum COMA listanum PARENTESIS_C 
 ;
-
+funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble PARENTESIS_C
+                | R_MEDIANA PARENTESIS_A arreglodouble PARENTESIS_C
+                | R_MODA PARENTESIS_A arreglodouble PARENTESIS_C
+                | R_VARIANZA PARENTESIS_A arreglodouble PARENTESIS_C
+                | R_MAX PARENTESIS_A arreglodouble PARENTESIS_C
+                | R_MIN PARENTESIS_A arreglodouble PARENTESIS_C
+;
+arreglodouble ::= ARROBA ID
+                | CORCHETE_A valoresnumeros CORCHETE_C
+;
 impresiones ::= imprimirexpresiones
             | imprimirarreglos
 ;
@@ -178,7 +191,8 @@ listaexpresiones ::= expresiones
 ;
 expresiones ::= numero
             | CADENA
-            | funcionesop            
+            | funcionesop  
+            | funcionesest
 ;
 imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR ARROBA ID R_END PUNTOYCOMA
                     | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
