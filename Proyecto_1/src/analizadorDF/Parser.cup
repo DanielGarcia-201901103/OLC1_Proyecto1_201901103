@@ -136,12 +136,12 @@ instruccion ::= declaracion
                 | operaciones
                 | impresiones
 ;
-declaracion ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO numero R_END PUNTOYCOMA
-              | R_VAR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO cadena R_END PUNTOYCOMA
+declaracion ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO numero:valorrecibido R_END PUNTOYCOMA {: :}
+              | R_VAR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA
 ;
-numero ::= ENTERO 
-        | DECIMALES 
-        | ID
+numero ::= DECIMALES: v1 {: RESULT = V1; :} 
+        | ENTERO: v2  {: RESULT = v2; :}
+        | ID: v3 {: RESULT = V3; :}
 ;
 cadena ::= CADENA 
         | ID
@@ -154,8 +154,8 @@ valoresnumeros ::= listanum
 ;
 listanum ::= funcionesop 
             | funcionesest
-            | ENTERO  
             | DECIMALES  
+            | ENTERO  
             | ID
 ;
 valorescadenas ::= cadena

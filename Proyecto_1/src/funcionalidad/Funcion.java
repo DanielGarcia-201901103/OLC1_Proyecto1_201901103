@@ -142,4 +142,14 @@ public class Funcion {
         sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
         hashMapSimbolos.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
     }
+    
+    /*
+    Simbolos sim = new Simbolos();
+        sim.addSimbolos(simbolo.toLowerCase(), valor, tipo);
+        hashMapJson.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
+
+        // Acceder al valor del HashMap principal y luego al del HashMap interno
+        //String valor = hashMapJson.get("clavePrincipal").get("clave1");
+        //System.out.println("Valor obtenido: " + valor);
+    */
 }
