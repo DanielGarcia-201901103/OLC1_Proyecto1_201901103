@@ -137,7 +137,7 @@ instruccion ::= declaracion
                 | impresiones
 ;
 declaracion ::= R_VAR:pos1 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nomvariable MENOR GUION_MEDIO numero:valorrecibido R_END PUNTOYCOMA                       {: System.out.println(nomvariable+" " +String.valueOf(valorrecibido));funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable, String.valueOf(valorrecibido), "variable double", pos1right,  pos1left); :}
-              | R_VAR:pos2 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID:nomvariable1 MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA   {: System.out.println(nomvariable1+" " +String.valueOf(datorecibido));funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1, String.valueOf(datorecibido), "variable string", pos2right,  pos2left); :}
+              | R_VAR:pos2 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID:nomvariable1 MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA   {: funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1, String.valueOf(datorecibido), "variable string", pos2right,  pos2left); :}
 ;
 numero ::= DECIMALES:v1                                                         {: RESULT = v1; :} 
         | ENTERO:v2                                                             {: RESULT = v2; :}
@@ -146,19 +146,19 @@ numero ::= DECIMALES:v1                                                         
 cadena ::= CADENA:v4                                                            {: RESULT = v4; :} 
         | ID:v5                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v5); :} 
 ;
-arreglos ::= R_ARR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
-        | R_ARR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
-        | R_ARR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO ARROBA ID R_END PUNTOYCOMA
-        | R_ARR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO ARROBA ID R_END PUNTOYCOMA
+arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable2 MENOR GUION_MEDIO CORCHETE_A valoresnumeros:valorrecibido1 CORCHETE_C R_END PUNTOYCOMA                        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList) valorrecibido1, "arreglo double", pos3right,  pos3left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2)); funcionalidad.Funcion.limpiarTemporalA();:}
+        | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList) datorecibido1, "arreglo string", pos4right,  pos4left); :}
+        | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList) funcionalidad.Funcion.buscarValordIdA("decArreglos", "@"+ String.valueOf(v6) ), "arreglo double", pos5right,  pos5left); :}
+        | R_ARR:pos6 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable5 MENOR GUION_MEDIO ARROBA ID:v7 R_END PUNTOYCOMA                                              {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList) funcionalidad.Funcion.buscarValordIdA("decArreglos", "@"+ String.valueOf(v7) ), "arreglo string", pos6right,  pos6left); :}
 ;
-valoresnumeros ::= listanum
-                | listanum COMA valoresnumeros
+valoresnumeros ::= listanum:sol                                                 {: funcionalidad.Funcion.agregarTemporalA(Double.parseDouble((String)sol)); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :}
+                | listanum:sol1 COMA valoresnumeros                             {: funcionalidad.Funcion.agregarTemporalA(Double.parseDouble((String)sol1)); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :} 
 ;
-listanum ::= funcionesop 
-            | funcionesest
-            | DECIMALES  
-            | ENTERO  
-            | ID
+listanum ::= funcionesop:resultfunop                                            {: RESULT = resultfunop; :}                                            
+            | funcionesest:resultfunest                                         {: RESULT = resultfunest ; :} 
+            | DECIMALES:v8                                                      {: RESULT = v8; :} 
+            | ENTERO:v9                                                         {: RESULT = v9; :} 
+            | ID:v10                                                            {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v10); :} 
 ;
 valorescadenas ::= cadena
             | cadena COMA valorescadenas

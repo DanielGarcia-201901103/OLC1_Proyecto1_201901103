@@ -476,7 +476,7 @@ class CUP$Parser$actions {
 		int datorecibidoleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int datorecibidoright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object datorecibido = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 System.out.println(nomvariable1+" " +String.valueOf(datorecibido));funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1, String.valueOf(datorecibido), "variable string", pos2right,  pos2left); 
+		 funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1, String.valueOf(datorecibido), "variable string", pos2right,  pos2left); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaracion",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -545,7 +545,16 @@ class CUP$Parser$actions {
           case 15: // arreglos ::= R_ARR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int pos3left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)).left;
+		int pos3right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)).right;
+		String pos3 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-13)).value;
+		int nombrevariable2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
+		int nombrevariable2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
+		String nombrevariable2 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		int valorrecibido1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int valorrecibido1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object valorrecibido1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList) valorrecibido1, "arreglo double", pos3right,  pos3left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2)); funcionalidad.Funcion.limpiarTemporalA();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -554,7 +563,16 @@ class CUP$Parser$actions {
           case 16: // arreglos ::= R_ARR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int pos4left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)).left;
+		int pos4right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)).right;
+		String pos4 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-15)).value;
+		int nombrevariable3left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
+		int nombrevariable3right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
+		String nombrevariable3 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		int datorecibido1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int datorecibido1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object datorecibido1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList) datorecibido1, "arreglo string", pos4right,  pos4left); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -563,7 +581,16 @@ class CUP$Parser$actions {
           case 17: // arreglos ::= R_ARR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO ARROBA ID R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int pos5left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)).left;
+		int pos5right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)).right;
+		String pos5 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-12)).value;
+		int nombrevariable4left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
+		int nombrevariable4right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).right;
+		String nombrevariable4 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
+		int v6left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int v6right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		String v6 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList) funcionalidad.Funcion.buscarValordIdA("decArreglos", "@"+ String.valueOf(v6) ), "arreglo double", pos5right,  pos5left); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -572,7 +599,16 @@ class CUP$Parser$actions {
           case 18: // arreglos ::= R_ARR DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID MENOR GUION_MEDIO ARROBA ID R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int pos6left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)).left;
+		int pos6right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)).right;
+		String pos6 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-14)).value;
+		int nombrevariable5left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
+		int nombrevariable5right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).right;
+		String nombrevariable5 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-6)).value;
+		int v7left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int v7right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		String v7 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList) funcionalidad.Funcion.buscarValordIdA("decArreglos", "@"+ String.valueOf(v7) ), "arreglo string", pos6right,  pos6left); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -581,7 +617,10 @@ class CUP$Parser$actions {
           case 19: // valoresnumeros ::= listanum 
             {
               Object RESULT =null;
-
+		int solleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int solright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object sol = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 funcionalidad.Funcion.agregarTemporalA(Double.parseDouble((String)sol)); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valoresnumeros",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -590,7 +629,10 @@ class CUP$Parser$actions {
           case 20: // valoresnumeros ::= listanum COMA valoresnumeros 
             {
               Object RESULT =null;
-
+		int sol1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int sol1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object sol1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Funcion.agregarTemporalA(Double.parseDouble((String)sol1)); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valoresnumeros",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -599,7 +641,10 @@ class CUP$Parser$actions {
           case 21: // listanum ::= funcionesop 
             {
               Object RESULT =null;
-
+		int resultfunopleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int resultfunopright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object resultfunop = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = resultfunop; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -608,7 +653,10 @@ class CUP$Parser$actions {
           case 22: // listanum ::= funcionesest 
             {
               Object RESULT =null;
-
+		int resultfunestleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int resultfunestright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object resultfunest = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = resultfunest ; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -617,7 +665,10 @@ class CUP$Parser$actions {
           case 23: // listanum ::= DECIMALES 
             {
               Object RESULT =null;
-
+		int v8left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int v8right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		String v8 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = v8; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -626,7 +677,10 @@ class CUP$Parser$actions {
           case 24: // listanum ::= ENTERO 
             {
               Object RESULT =null;
-
+		int v9left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int v9right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		String v9 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = v9; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -635,7 +689,10 @@ class CUP$Parser$actions {
           case 25: // listanum ::= ID 
             {
               Object RESULT =null;
-
+		int v10left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int v10right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		String v10 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v10); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

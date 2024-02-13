@@ -1,11 +1,14 @@
 package funcionalidad;
 
+import java.util.LinkedList;
+
 public class Simbolos {
     private String nombre = "";
     private String valor = "";
     private String tipo = "";
     private int linea = 0;
     private int columna = 0;
+    private static LinkedList<Object> datoslistas = new LinkedList<Object>();
     
     public void addSimbolos(String nombre, String valor, String tipo, int linea,int  columna){
         this.setNombre(nombre);
@@ -14,7 +17,14 @@ public class Simbolos {
         this.setLinea(linea);
         this.setColumna(columna);
     }
-
+    
+    public void addSimbolos(String nombre, LinkedList datoslistas, String tipo, int linea,int  columna){
+        this.setNombre(nombre);
+        this.setDatoslistas(datoslistas);
+        this.setTipo(tipo);
+        this.setLinea(linea);
+        this.setColumna(columna);
+    }
     /**
      * @return the nombre
      */
@@ -83,6 +93,20 @@ public class Simbolos {
      */
     public void setColumna(int columna) {
         this.columna = columna;
+    }
+
+    /**
+     * @return the datoslistas
+     */
+    public static LinkedList<Object> getDatoslistas() {
+        return datoslistas;
+    }
+
+    /**
+     * @param aDatoslistas the datoslistas to set
+     */
+    public static void setDatoslistas(LinkedList<Object> aDatoslistas) {
+        datoslistas = aDatoslistas;
     }
     
 }

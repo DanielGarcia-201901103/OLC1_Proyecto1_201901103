@@ -15,6 +15,7 @@ public class Funcion {
     
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
+    static LinkedList<Double> lTemporalArreglos = new LinkedList<Double>();
     static String nombreArchivo = ""; 
     /*
     Trabajando con el codigo siguiente
@@ -24,7 +25,20 @@ public class Funcion {
         sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
     }
-    
+    public static void addHMSimbolosA(String nombrelista, String nombre, LinkedList recListainterna, String tipo, int linea,int  columna){
+        Simbolos sim = new Simbolos();
+        sim.addSimbolos(nombre.toLowerCase(), recListainterna, tipo, linea, columna);
+        hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
+    }
+    public static void agregarTemporalA(double valor){
+        lTemporalArreglos.addFirst(valor);
+    }
+    public static LinkedList obtenerTemporalA(){
+        return lTemporalArreglos;
+    }
+    public static void limpiarTemporalA(){
+        lTemporalArreglos.clear();
+    }
     /*
     Simbolos sim = new Simbolos();
         sim.addSimbolos(simbolo.toLowerCase(), valor, tipo);
@@ -48,6 +62,33 @@ public class Funcion {
             }
         }
         return "Valor no encontrado";
+    }
+    
+    public static LinkedList buscarValordIdA(String nombrelista, String nombreid) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            if (nombreid.equals(simRecorrer.getNombre())){
+            //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                //System.out.println("Coincidencia, obteniendo el valor");    
+                return simRecorrer.getDatoslistas();
+            }
+        }
+        return null;
+    }
+    public static void imprimirValordIdA(String nombrelista, String nombreid) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            if (nombreid.equals(simRecorrer.getNombre())){
+            //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                //System.out.println("Coincidencia, obteniendo el valor");    
+                System.out.println(simRecorrer.getNombre() + " : "+simRecorrer.getDatoslistas());
+                  
+            }
+        }
     }
     /*
     // Crear un HashMap con claves de tipo String y listas vinculadas como valores
