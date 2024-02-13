@@ -25,6 +25,10 @@ public class Operacion {
             return a%b;
         }
     }
+//    public void pruebas(){
+//        String txt = "cadena de texto\"";
+//        txt.replaceAll("\"", "").trim();
+//    }
     /*
     public double Media(){
         

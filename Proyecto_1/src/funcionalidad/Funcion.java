@@ -16,7 +16,55 @@ public class Funcion {
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
     static String nombreArchivo = ""; 
+    /*
+    Trabajando con el codigo siguiente
+    */
+    public static void addHMSimbolos(String nombrelista, String nombre, String valor, String tipo, int linea,int  columna){
+        Simbolos sim = new Simbolos();
+        sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
+        hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
+    }
     
+    /*
+    Simbolos sim = new Simbolos();
+        sim.addSimbolos(simbolo.toLowerCase(), valor, tipo);
+        hashMapJson.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
+
+        // Acceder al valor del HashMap principal y luego al del HashMap interno
+        //String valor = hashMapJson.get("clavePrincipal").get("clave1");
+        //System.out.println("Valor obtenido: " + valor);
+    */
+    
+    // METODO PARA RECORRER LOS DATOS DE LA TABLA DE SIMBOLOS DE ACUERDO AL TIPO DE INSTRUCCION QUE SE BUSQUE RECORRER
+    public static String buscarValordId(String nombrelista, String nombreid) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            if (nombreid.equals(simRecorrer.getNombre())){
+            //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                //System.out.println("Coincidencia, obteniendo el valor");    
+                return simRecorrer.getValor();
+            }
+        }
+        return "Valor no encontrado";
+    }
+    /*
+    // Crear un HashMap con claves de tipo String y listas vinculadas como valores
+        Map<String, LinkedList<String>> hashMap = new HashMap<>();
+
+        // Agregar elementos a las listas vinculadas asociadas a las claves
+        hashMap.computeIfAbsent("clave1", key -> new LinkedList<>()).add("Valor 1 para clave1");
+        hashMap.computeIfAbsent("clave2", key -> new LinkedList<>()).add("Valor 1 para clave2");
+        hashMap.computeIfAbsent("clave2", key -> new LinkedList<>()).add("Valor 2 para clave2");
+
+        // Recuperar elementos de las listas vinculadas
+        LinkedList<String> lista1 = hashMap.get("clave1");
+        LinkedList<String> lista2 = hashMap.get("clave2");
+
+        // Imprimir los elementos de las listas vinculadas
+        System.out.println("Lista para clave1: " + lista1);
+        System.out.println("Lista para clave2: " + lista2);*/
     public static void addTokensDataF(String lexema, String token, int linea, int columna) {
         Tokens objToken = new Tokens();
         objToken.addTokens(lexema, token, linea, columna);
@@ -137,19 +185,5 @@ public class Funcion {
         System.out.println("nombre del archivo"+ nombreArchivo);
     }
     
-    public static void addHMSimbolos(String nombre, String valor, String tipo, int linea,int  columna){
-        Simbolos sim = new Simbolos();
-        sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
-        hashMapSimbolos.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
-    }
     
-    /*
-    Simbolos sim = new Simbolos();
-        sim.addSimbolos(simbolo.toLowerCase(), valor, tipo);
-        hashMapJson.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
-
-        // Acceder al valor del HashMap principal y luego al del HashMap interno
-        //String valor = hashMapJson.get("clavePrincipal").get("clave1");
-        //System.out.println("Valor obtenido: " + valor);
-    */
 }
