@@ -8,58 +8,56 @@ package analizadorDF;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int R_COLUMN = 35;
-  public static final int R_TITULO = 38;
-  public static final int DOSPUNTOS = 9;
-  public static final int R_MUL = 24;
+  public static final int R_COLUMN = 33;
+  public static final int R_TITULO = 36;
+  public static final int DOSPUNTOS = 8;
+  public static final int R_MUL = 22;
   public static final int PUNTOYCOMA = 3;
-  public static final int R_MEDIA = 27;
-  public static final int ENTERO = 48;
-  public static final int R_MOD = 26;
-  public static final int R_LABEL = 39;
-  public static final int R_VALUES = 37;
-  public static final int CORCHETE_C = 13;
-  public static final int R_PRINT = 34;
-  public static final int CORCHETE_A = 12;
-  public static final int R_EXEC = 36;
+  public static final int R_MEDIA = 25;
+  public static final int ENTERO = 46;
+  public static final int R_MOD = 24;
+  public static final int R_LABEL = 37;
+  public static final int R_VALUES = 35;
+  public static final int CORCHETE_C = 11;
+  public static final int R_PRINT = 32;
+  public static final int CORCHETE_A = 10;
+  public static final int R_EXEC = 34;
   public static final int IGUAL = 2;
-  public static final int R_VARIANZA = 30;
-  public static final int R_CONSOLE = 33;
-  public static final int R_GLINE = 45;
-  public static final int ARROBA = 15;
-  public static final int R_SUM = 22;
-  public static final int R_END = 17;
-  public static final int R_ARR = 21;
-  public static final int R_CHAR = 18;
-  public static final int ID = 51;
-  public static final int R_HISTOGRAM = 44;
+  public static final int R_VARIANZA = 28;
+  public static final int R_CONSOLE = 31;
+  public static final int R_GLINE = 43;
+  public static final int ARROBA = 13;
+  public static final int R_SUM = 20;
+  public static final int R_END = 15;
+  public static final int R_ARR = 19;
+  public static final int R_CHAR = 16;
+  public static final int ID = 49;
+  public static final int R_HISTOGRAM = 42;
   public static final int EOF = 0;
-  public static final int R_MAX = 31;
-  public static final int R_VAR = 19;
+  public static final int R_MAX = 29;
+  public static final int R_VAR = 17;
   public static final int error = 1;
-  public static final int COMA = 11;
-  public static final int CADENA = 49;
+  public static final int COMA = 9;
+  public static final int CADENA = 47;
   public static final int MENOR = 7;
-  public static final int DECIMALES = 50;
-  public static final int R_TITULOY = 43;
-  public static final int R_EJEY = 41;
-  public static final int R_TITULOX = 42;
-  public static final int R_EJEX = 40;
-  public static final int ADMIRACION = 10;
-  public static final int R_GPIE = 46;
+  public static final int DECIMALES = 48;
+  public static final int R_TITULOY = 41;
+  public static final int R_EJEY = 39;
+  public static final int R_TITULOX = 40;
+  public static final int R_EJEX = 38;
+  public static final int R_GPIE = 44;
   public static final int MAYOR = 6;
-  public static final int R_RES = 23;
-  public static final int PUNTO = 8;
-  public static final int R_GBAR = 47;
+  public static final int R_RES = 21;
+  public static final int R_GBAR = 45;
   public static final int PARENTESIS_C = 5;
   public static final int PARENTESIS_A = 4;
-  public static final int R_DOUBLE = 20;
-  public static final int R_MEDIANA = 28;
-  public static final int GUION_MEDIO = 14;
-  public static final int R_PROGRAM = 16;
-  public static final int R_MODA = 29;
-  public static final int R_DIV = 25;
-  public static final int R_MIN = 32;
+  public static final int R_DOUBLE = 18;
+  public static final int R_MEDIANA = 26;
+  public static final int GUION_MEDIO = 12;
+  public static final int R_PROGRAM = 14;
+  public static final int R_MODA = 27;
+  public static final int R_DIV = 23;
+  public static final int R_MIN = 30;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -69,9 +67,7 @@ public class sym {
   "PARENTESIS_C",
   "MAYOR",
   "MENOR",
-  "PUNTO",
   "DOSPUNTOS",
-  "ADMIRACION",
   "COMA",
   "CORCHETE_A",
   "CORCHETE_C",

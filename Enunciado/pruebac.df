@@ -1,0 +1,24 @@
+program
+
+! Esto es un comentario de una sola línea
+<! Esto es un comentario
+Multilínea !>
+
+var:double:: numero <- 5 end;
+
+! Ejemplos
+var:double:: numero <- 2.5 end;
+var:char[]::cadena <- "cadena" end;
+var:double:: copia <- numero end; ! copia tiene el valor 2.5
+
+! Ejemplos
+arr:double::@darray <- [1, 2, 3, 4, 5] end; ! Arreglo de tipo double
+arr:char[]::@carray <- ["12", "2", "3"] end; ! Arreglo de tipo string
+arr:double::@carray <- [numero, copia, 7] end; ! Puede usar variables
+
+
+var:double:: numero <- 15 end;
+
+arr:double::@darray <- [ 2, 3, 4, 5, 6] end;
+var:char[ ]:: ttt<- "Enteros" end;
+end program

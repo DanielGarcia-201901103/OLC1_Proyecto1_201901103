@@ -47,12 +47,8 @@ id = [A-Za-z_][A-Za-z0-9_]*
             return new Symbol(sym.MAYOR, yycolumn, yyline, yytext()); } 
 "<"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Menor que", yyline, yycolumn);
             return new Symbol(sym.MENOR, yycolumn, yyline, yytext()); } 
-"."       { funcionalidad.Funcion.addTokensDataF(yytext(), "Punto", yyline, yycolumn);
-            return new Symbol(sym.PUNTO, yycolumn, yyline, yytext()); }
 ":"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Dos puntos", yyline, yycolumn);
             return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext()); }
-"!"       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo admiracion", yyline, yycolumn);
-            return new Symbol(sym.ADMIRACION, yycolumn, yyline, yytext()); }
 ","       { funcionalidad.Funcion.addTokensDataF(yytext(), "Signo coma", yyline, yycolumn);
             return new Symbol(sym.COMA, yycolumn, yyline, yytext()); }
 "["       { funcionalidad.Funcion.addTokensDataF(yytext(), "Corchete abre", yyline, yycolumn);

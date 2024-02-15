@@ -28,18 +28,21 @@ public class Funcion {
     }
     //METODO PARA AGREGAR UNA DECLARACION DE ARREGLOS A LA TABLA DE SIMBOLOS
     public static void addHMSimbolosA(String nombrelista, String nombre, LinkedList<Object> recListainterna, String tipo, int linea,int  columna){
-        Simbolos sim = new Simbolos();
+        SimbolosArreglo sim = new SimbolosArreglo(recListainterna);
+        sim.setNombre(nombre.toLowerCase());
+        sim.setTipo(tipo);
+        sim.setLinea(linea);
+        sim.setColumna(columna);
         System.out.println("agreagando la siguiente lista"+ recListainterna);
-        sim.addSimbolos(nombre.toLowerCase(), recListainterna, tipo, linea, columna);
-        System.out.println("lista agregada:" + sim.getDatoslistas());
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
+        System.out.println("lista agregada:" + sim.getDatoslistas());
     }
     //METODO PARA AGREGAR A UNA LISTA LOS VALORES DENTRO DEL ARREGLO
     public static void agregarTemporalA(Object valor){
         lTemporalArreglos.addFirst(valor);
     }
     //METODO PARA OBTENER EL ARREGLO DENTRO DE LA DECLARACION DE ARREGLOS
-    public static LinkedList obtenerTemporalA(){
+    public static LinkedList<Object> obtenerTemporalA(){
         return lTemporalArreglos;
     }
     //METODO PARA DEJAR VACIO EL ARREGLO
@@ -64,45 +67,21 @@ public class Funcion {
             Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
             if (nombreid.equals(simRecorrer.getNombre())){
             //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                //System.out.println("Coincidencia, obteniendo el valor");    
+                System.out.println("Coincidencia, obteniendo el valor"+ simRecorrer.getValor());    
                 return simRecorrer.getValor();
+                
             }
         }
         return "Valor no encontrado";
     }
-    //METODO PARA VALIDAR SI EXISTE UN ID EN LA TABLA DE SIMBOLOS
-    public static boolean existeId(String nombrelista, String nombreid) {
-        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-        listasimbolos1 = hashMapSimbolos.get(nombrelista);
-        if(listasimbolos1 == null || listasimbolos1.isEmpty()){
-            return false;
-        }else{
-            for (int i = 0; i < listasimbolos1.size(); i++) {
-            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
-            if (nombreid.equals(simRecorrer.getNombre())){   
-                return true;
-            }
-            } 
-        }
-        return false;
-    }
-    //METODO PARA SUSTITUIR EL VALOR DE UN ID QUE YA ESTÁ ALMACENADO EN LA TABLA DE SIMBOLOS
-    public static void remplaceValordId(String nombrelista, String nombreid, Object valor) {
-        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-        listasimbolos1 = hashMapSimbolos.get(nombrelista);
-        for (int i = 0; i < listasimbolos1.size(); i++) {
-            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
-            if (nombreid.equals(simRecorrer.getNombre())){
-                 simRecorrer.setValor(valor);
-            }
-        }
-    }
+   
+   
     //METODO PARA OBTENER EL VALOR DE UNA DECLARACION DE UN ARREGLO
     public static LinkedList<Object> buscarValordIdArr(String nombrelista, String nombreid) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
         for (int i = 0; i < listasimbolos1.size(); i++) {
-            Simbolos simRecorrer1 = (Simbolos) listasimbolos1.get(i);
+            SimbolosArreglo simRecorrer1 = (SimbolosArreglo) listasimbolos1.get(i);
             if(nombreid.equals(simRecorrer1.getNombre())){
                 System.out.println("Lista a devolver:"+simRecorrer1.getNombre() +" "+ simRecorrer1.getDatoslistas());
                 LinkedList<Object> listaaux = new LinkedList<Object>();
@@ -112,19 +91,23 @@ public class Funcion {
         }
         return null;
     }
-    //METODO PARA SUSTITUIR EL VALOR DE UN ID DE ARREGLOS QUE YA ESTÁ ALMACENADO EN LA TABLA DE SIMBOLOS
-    public static void remplaceValordIdA(String nombrelista, String nombreid, LinkedList valor) {
+    
+    //METODO PARA IMPRIMIR LOS DATOS DE LA TABLA DE SIMBOLOS
+    public static void imprimirValordIdA(String nombrelista, String nombreid) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
         for (int i = 0; i < listasimbolos1.size(); i++) {
-            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            SimbolosArreglo simRecorrer = (SimbolosArreglo) listasimbolos1.get(i);
             if (nombreid.equals(simRecorrer.getNombre())){
-                 simRecorrer.setDatoslistas(valor);
+            //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                //System.out.println("Coincidencia, obteniendo el valor");    
+                System.out.println(simRecorrer.getNombre() + " : "+simRecorrer.getDatoslistas());
+                  
             }
         }
     }
     //METODO PARA IMPRIMIR LOS DATOS DE LA TABLA DE SIMBOLOS
-    public static void imprimirValordIdA(String nombrelista, String nombreid) {
+    public static void imprimirValordId(String nombrelista, String nombreid) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
         for (int i = 0; i < listasimbolos1.size(); i++) {
@@ -132,7 +115,7 @@ public class Funcion {
             if (nombreid.equals(simRecorrer.getNombre())){
             //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
                 //System.out.println("Coincidencia, obteniendo el valor");    
-                System.out.println(simRecorrer.getNombre() + " : "+simRecorrer.getDatoslistas());
+                System.out.println(simRecorrer.getNombre() + " : "+simRecorrer.getValor());
                   
             }
         }

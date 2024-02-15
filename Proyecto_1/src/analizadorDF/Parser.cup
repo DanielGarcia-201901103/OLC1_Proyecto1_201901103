@@ -40,9 +40,7 @@ terminal String PARENTESIS_A;
 terminal String PARENTESIS_C;
 terminal String MAYOR;
 terminal String MENOR;
-terminal String PUNTO;
 terminal String DOSPUNTOS;
-terminal String ADMIRACION;
 terminal String COMA;
 terminal String CORCHETE_A;
 terminal String CORCHETE_C;
@@ -106,9 +104,18 @@ non terminal impresiones;
 non terminal imprimirexpresiones;
 non terminal imprimirarreglos;
 non terminal listaexpresiones;
-non terminal expresiones;
+non terminal expresioness;
 non terminal funcionesest;
 non terminal arreglodouble;
+non terminal funcionesgraficacion;
+non terminal sentenciasgbar;
+non terminal sentenciasgpie;
+non terminal sentenciasgline;
+non terminal sentenciashistogram;
+non terminal sentencgbar;
+non terminal sentencgpie;
+non terminal sentencgline;
+non terminal sentenchistogram;
 
 //------> PRECEDENCIA
 //precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
@@ -135,49 +142,50 @@ instruccion ::= declaracion
                 | arreglos
                 | operaciones
                 | impresiones
+                | funcionesgraficacion
 ;
-declaracion ::= R_VAR:pos1 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nomvariable MENOR GUION_MEDIO numero:valorrecibido R_END PUNTOYCOMA                       {: boolean vaExiste = funcionalidad.Funcion.existeId("decVariables", nomvariable.toLowerCase()); if(vaExiste == true){funcionalidad.Funcion.remplaceValordId("decVariables", nomvariable.toLowerCase(), valorrecibido);}else{funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable, valorrecibido, "variable double", pos1right,  pos1left);} :}
-              | R_VAR:pos2 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID:nomvariable1 MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA   {: boolean vaExiste1 = funcionalidad.Funcion.existeId("decVariables", nomvariable1.toLowerCase());if(vaExiste1 == true){funcionalidad.Funcion.remplaceValordId("decVariables", nomvariable1.toLowerCase(), datorecibido); }else{funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1, datorecibido, "variable string", pos2right,  pos2left);} :}
+declaracion ::= R_VAR:pos1 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nomvariable MENOR GUION_MEDIO numero:valorrecibido R_END PUNTOYCOMA                       {: funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable.toLowerCase(), valorrecibido, "variable double", pos1right,  pos1left); :}
+              | R_VAR:pos2 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID:nomvariable1 MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA   {: funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1.toLowerCase(), datorecibido, "variable string", pos2right,  pos2left); :}
 ;
-numero ::= DECIMALES:v1                                                         {: RESULT = v1; :} 
-        | ENTERO:v2                                                             {: RESULT = v2; :}
-        | ID:v3                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v3); :}
+numero ::= DECIMALES:v1                                                         {: RESULT = Double.parseDouble(v1); :} 
+        | ENTERO:v2                                                             {: RESULT = Integer.valueOf(v2); :}
+        | ID:v3                                                                 {: RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v3.toLowerCase()).toString()); :}
 ;
-cadena ::= CADENA:v4                                                            {: RESULT = v4; :} 
-        | ID:v5                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v5); :} 
+cadena ::= CADENA:v4                                                            {: RESULT = v4.replace("\"",""); :} 
+        | ID:v5                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v5.toLowerCase()); :} 
 ;
-arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable2 MENOR GUION_MEDIO CORCHETE_A valoresnumeros:valorrecibido1 CORCHETE_C R_END PUNTOYCOMA                        {: boolean vaExiste2 = funcionalidad.Funcion.existeId("decArreglos", "@"+ String.valueOf(nombrevariable2.toLowerCase()));System.out.println(vaExiste2); if(vaExiste2 == true){System.out.println("Estoy dentro de reemplazar");funcionalidad.Funcion.remplaceValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2.toLowerCase()), (LinkedList) valorrecibido1);}else{funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList) valorrecibido1, "arreglo double", pos3right,  pos3left);} funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2)); funcionalidad.Funcion.limpiarTemporalA();:}
-        | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: boolean vaExiste3 = funcionalidad.Funcion.existeId("decArreglos", "@"+ String.valueOf(nombrevariable3.toLowerCase())); if(vaExiste3 == true){funcionalidad.Funcion.remplaceValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3.toLowerCase()), (LinkedList) datorecibido1);}else{funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList) datorecibido1, "arreglo string", pos4right,  pos4left);} funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3)); funcionalidad.Funcion.limpiarTemporalA(); :}
-        | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: boolean vaExiste4 = funcionalidad.Funcion.existeId("decArreglos", "@"+ String.valueOf(nombrevariable4.toLowerCase())); if(vaExiste4 == true){}else{ System.out.println(funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase()))) ;} System.out.println(v6);:}
+arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable2 MENOR GUION_MEDIO CORCHETE_A valoresnumeros:valorrecibido1 CORCHETE_C R_END PUNTOYCOMA                        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList<Object>)valorrecibido1, "arreglo double", pos3right,  pos3left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2)); funcionalidad.Funcion.limpiarTemporalA();:}
+        | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3)); funcionalidad.Funcion.limpiarTemporalA(); :}
+        | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: System.out.println("RealizandoPrueba"); System.out.println(funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase()))) ; :}
         | R_ARR:pos6 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable5 MENOR GUION_MEDIO ARROBA ID:v7 R_END PUNTOYCOMA                                              {:  :}
 ;
 valoresnumeros ::= listanum:sol                                                 {: funcionalidad.Funcion.agregarTemporalA(sol); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :}
                 | listanum:sol1 COMA valoresnumeros                             {: funcionalidad.Funcion.agregarTemporalA(sol1); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :} 
 ;
-listanum ::= funcionesop:resultfunop                                            {: RESULT = resultfunop; :}                                            
-            | funcionesest:resultfunest                                         {: RESULT = resultfunest ; :} 
-            | DECIMALES:v8                                                      {: RESULT = v8; :} 
-            | ENTERO:v9                                                         {: RESULT = v9; :} 
-            | ID:v10                                                            {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v10); :} 
+listanum ::= funcionesop:resultfunop                                            {: RESULT = Double.parseDouble(resultfunop.toString()); :}                                            
+            | funcionesest:resultfunest                                         {: RESULT = Double.parseDouble(resultfunest.toString()) ; :} 
+            | DECIMALES:v8                                                      {: RESULT = Double.parseDouble(v8); :} 
+            | ENTERO:v9                                                         {: RESULT = Integer.valueOf(v9); :} 
+            | ID:v10                                                            {: RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v10.toLowerCase()).toString()); :} 
 ;
-valorescadenas ::= cadena
-            | cadena COMA valorescadenas
+valorescadenas ::= cadena:sol2                                                       {: funcionalidad.Funcion.agregarTemporalA(sol2); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :}
+            | cadena:sol3 COMA valorescadenas                                        {: funcionalidad.Funcion.agregarTemporalA(sol3); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); :} 
 ;
-operaciones ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesop R_END PUNTOYCOMA
-            | R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesest R_END PUNTOYCOMA
+operaciones ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesop R_END PUNTOYCOMA {:  :}
+            | R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesest R_END PUNTOYCOMA  {:  :}
 ;
-funcionesop ::= R_SUM PARENTESIS_A listanum COMA listanum PARENTESIS_C 
-            | R_RES PARENTESIS_A listanum COMA listanum PARENTESIS_C 
-            | R_MUL PARENTESIS_A listanum COMA listanum PARENTESIS_C 
-            | R_DIV PARENTESIS_A listanum COMA listanum PARENTESIS_C 
-            | R_MOD PARENTESIS_A listanum COMA listanum PARENTESIS_C 
+funcionesop ::= R_SUM PARENTESIS_A listanum:pa COMA listanum:pb PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Suma(Double.parseDouble(pa.toString()),Double.parseDouble(pb.toString())); :}
+            | R_RES PARENTESIS_A listanum:pa1 COMA listanum:pb1 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Resta(Double.parseDouble(pa1.toString()),Double.parseDouble(pb1.toString())); :}
+            | R_MUL PARENTESIS_A listanum:pa2 COMA listanum:pb2 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Multiplicacion(Double.parseDouble(pa2.toString()),Double.parseDouble(pb2.toString())); :}
+            | R_DIV PARENTESIS_A listanum:pa3 COMA listanum:pb3 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Division(Double.parseDouble(pa3.toString()),Double.parseDouble(pb3.toString())); :}
+            | R_MOD PARENTESIS_A listanum:pa4 COMA listanum:pb4 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Modulo(Double.parseDouble(pa4.toString()),Double.parseDouble(pb4.toString())); :}
 ;
-funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble PARENTESIS_C
-                | R_MEDIANA PARENTESIS_A arreglodouble PARENTESIS_C
-                | R_MODA PARENTESIS_A arreglodouble PARENTESIS_C
-                | R_VARIANZA PARENTESIS_A arreglodouble PARENTESIS_C
-                | R_MAX PARENTESIS_A arreglodouble PARENTESIS_C
-                | R_MIN PARENTESIS_A arreglodouble PARENTESIS_C
+funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble PARENTESIS_C                {:  :}
+                | R_MEDIANA PARENTESIS_A arreglodouble PARENTESIS_C             {:  :}
+                | R_MODA PARENTESIS_A arreglodouble PARENTESIS_C                {:  :}
+                | R_VARIANZA PARENTESIS_A arreglodouble PARENTESIS_C            {:  :}
+                | R_MAX PARENTESIS_A arreglodouble PARENTESIS_C                 {:  :}
+                | R_MIN PARENTESIS_A arreglodouble PARENTESIS_C                 {:  :}
 ;
 arreglodouble ::= ARROBA ID
                 | CORCHETE_A valoresnumeros CORCHETE_C
@@ -186,16 +194,54 @@ impresiones ::= imprimirexpresiones
             | imprimirarreglos
 ;
 
-imprimirexpresiones ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_PRINT IGUAL listaexpresiones R_END PUNTOYCOMA
+imprimirexpresiones ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_PRINT IGUAL listaexpresiones R_END PUNTOYCOMA {:  :}
 ;
-listaexpresiones ::= expresiones
-                    | expresiones COMA listaexpresiones 
+listaexpresiones ::= expresioness
+                    | expresioness COMA listaexpresiones                        {:  :}
 ;
-expresiones ::= numero
-            | CADENA
-            | funcionesop  
-            | funcionesest
+expresioness ::=  CADENA:datito                                                 {: RESULT = datito.replace("\"",""); :}
+            | funcionesop                                                       {:  :}
+            | funcionesest                                                      {:  :}
+            | DECIMALES                                                         {:  :}
+            | ENTERO                                                            {:  :}
+            | ID                                                                {:  :}
 ;
 imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR ARROBA ID R_END PUNTOYCOMA
                     | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+;
+funcionesgraficacion ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+                        | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+                        | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+                        | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+;
+sentenciasgbar ::= sentenciasgbar sentencgbar
+                | sentencgbar
+;
+sentencgbar ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
+                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+                | R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+;
+sentenciasgpie ::= sentenciasgpie sentencgpie
+                | sentencgpie
+;
+sentencgpie ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+                | R_LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
+;
+sentenciasgline ::= sentenciasgline sentencgline
+                | sentencgline
+;
+sentencgline ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
+                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+                | R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+;
+sentenciashistogram ::= sentenciashistogram sentenchistogram
+                | sentenchistogram
+;
+sentenchistogram ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+                | R_VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
 ;
