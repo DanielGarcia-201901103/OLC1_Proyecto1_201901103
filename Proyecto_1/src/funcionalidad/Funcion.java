@@ -15,27 +15,34 @@ public class Funcion {
     
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
-    static LinkedList<Double> lTemporalArreglos = new LinkedList<Double>();
+    static LinkedList<Object> lTemporalArreglos = new LinkedList<Object>();
     static String nombreArchivo = ""; 
     /*
     Trabajando con el codigo siguiente
     */
-    public static void addHMSimbolos(String nombrelista, String nombre, String valor, String tipo, int linea,int  columna){
+    //METODO PARA AGREGAR UNA DECLARACIÓN A LA TABLA DE SIMBOLOS
+    public static void addHMSimbolos(String nombrelista, String nombre, Object valor, String tipo, int linea,int  columna){
         Simbolos sim = new Simbolos();
         sim.addSimbolos(nombre.toLowerCase(), valor, tipo, linea, columna);
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
     }
-    public static void addHMSimbolosA(String nombrelista, String nombre, LinkedList recListainterna, String tipo, int linea,int  columna){
+    //METODO PARA AGREGAR UNA DECLARACION DE ARREGLOS A LA TABLA DE SIMBOLOS
+    public static void addHMSimbolosA(String nombrelista, String nombre, LinkedList<Object> recListainterna, String tipo, int linea,int  columna){
         Simbolos sim = new Simbolos();
+        System.out.println("agreagando la siguiente lista"+ recListainterna);
         sim.addSimbolos(nombre.toLowerCase(), recListainterna, tipo, linea, columna);
+        System.out.println("lista agregada:" + sim.getDatoslistas());
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
     }
-    public static void agregarTemporalA(double valor){
+    //METODO PARA AGREGAR A UNA LISTA LOS VALORES DENTRO DEL ARREGLO
+    public static void agregarTemporalA(Object valor){
         lTemporalArreglos.addFirst(valor);
     }
+    //METODO PARA OBTENER EL ARREGLO DENTRO DE LA DECLARACION DE ARREGLOS
     public static LinkedList obtenerTemporalA(){
         return lTemporalArreglos;
     }
+    //METODO PARA DEJAR VACIO EL ARREGLO
     public static void limpiarTemporalA(){
         lTemporalArreglos.clear();
     }
@@ -49,8 +56,8 @@ public class Funcion {
         //System.out.println("Valor obtenido: " + valor);
     */
     
-    // METODO PARA RECORRER LOS DATOS DE LA TABLA DE SIMBOLOS DE ACUERDO AL TIPO DE INSTRUCCION QUE SE BUSQUE RECORRER
-    public static String buscarValordId(String nombrelista, String nombreid) {
+    // METODO PARA OBTENER EL VALOR DE UNA DECLARACION
+    public static Object buscarValordId(String nombrelista, String nombreid) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
         for (int i = 0; i < listasimbolos1.size(); i++) {
@@ -63,20 +70,60 @@ public class Funcion {
         }
         return "Valor no encontrado";
     }
-    
-    public static LinkedList buscarValordIdA(String nombrelista, String nombreid) {
+    //METODO PARA VALIDAR SI EXISTE UN ID EN LA TABLA DE SIMBOLOS
+    public static boolean existeId(String nombrelista, String nombreid) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        if(listasimbolos1 == null || listasimbolos1.isEmpty()){
+            return false;
+        }else{
+            for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            if (nombreid.equals(simRecorrer.getNombre())){   
+                return true;
+            }
+            } 
+        }
+        return false;
+    }
+    //METODO PARA SUSTITUIR EL VALOR DE UN ID QUE YA ESTÁ ALMACENADO EN LA TABLA DE SIMBOLOS
+    public static void remplaceValordId(String nombrelista, String nombreid, Object valor) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
         for (int i = 0; i < listasimbolos1.size(); i++) {
             Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
             if (nombreid.equals(simRecorrer.getNombre())){
-            //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                //System.out.println("Coincidencia, obteniendo el valor");    
-                return simRecorrer.getDatoslistas();
+                 simRecorrer.setValor(valor);
+            }
+        }
+    }
+    //METODO PARA OBTENER EL VALOR DE UNA DECLARACION DE UN ARREGLO
+    public static LinkedList<Object> buscarValordIdArr(String nombrelista, String nombreid) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer1 = (Simbolos) listasimbolos1.get(i);
+            if(nombreid.equals(simRecorrer1.getNombre())){
+                System.out.println("Lista a devolver:"+simRecorrer1.getNombre() +" "+ simRecorrer1.getDatoslistas());
+                LinkedList<Object> listaaux = new LinkedList<Object>();
+                listaaux = simRecorrer1.getDatoslistas();
+                return listaaux;
             }
         }
         return null;
     }
+    //METODO PARA SUSTITUIR EL VALOR DE UN ID DE ARREGLOS QUE YA ESTÁ ALMACENADO EN LA TABLA DE SIMBOLOS
+    public static void remplaceValordIdA(String nombrelista, String nombreid, LinkedList valor) {
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        for (int i = 0; i < listasimbolos1.size(); i++) {
+            Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+            if (nombreid.equals(simRecorrer.getNombre())){
+                 simRecorrer.setDatoslistas(valor);
+            }
+        }
+    }
+    //METODO PARA IMPRIMIR LOS DATOS DE LA TABLA DE SIMBOLOS
     public static void imprimirValordIdA(String nombrelista, String nombreid) {
         LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
         listasimbolos1 = hashMapSimbolos.get(nombrelista);
@@ -223,7 +270,6 @@ public class Funcion {
     
     public static void recibiendoNombreArchivo(String nombreArchivo1) {
         nombreArchivo = "\""+nombreArchivo1+"\"";
-        System.out.println("nombre del archivo"+ nombreArchivo);
     }
     
     

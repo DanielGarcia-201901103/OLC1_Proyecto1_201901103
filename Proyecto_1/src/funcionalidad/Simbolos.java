@@ -3,28 +3,30 @@ package funcionalidad;
 import java.util.LinkedList;
 
 public class Simbolos {
+
     private String nombre = "";
-    private String valor = "";
+    private Object valor = "";
     private String tipo = "";
     private int linea = 0;
     private int columna = 0;
-    private static LinkedList<Object> datoslistas = new LinkedList<Object>();
-    
-    public void addSimbolos(String nombre, String valor, String tipo, int linea,int  columna){
+    private LinkedList<Object> datoslistas;
+
+    public void addSimbolos(String nombre, Object valor, String tipo, int linea, int columna) {
         this.setNombre(nombre);
         this.setValor(valor);
         this.setTipo(tipo);
         this.setLinea(linea);
         this.setColumna(columna);
     }
-    
-    public void addSimbolos(String nombre, LinkedList datoslistas, String tipo, int linea,int  columna){
+
+    public void addSimbolos(String nombre, LinkedList<Object> datoslistas, String tipo, int linea, int columna) {
         this.setNombre(nombre);
-        this.setDatoslistas(datoslistas);
+        this.setDatoslistas(datoslistas); // Utiliza la lista pasada como argumento
         this.setTipo(tipo);
         this.setLinea(linea);
         this.setColumna(columna);
     }
+
     /**
      * @return the nombre
      */
@@ -42,14 +44,14 @@ public class Simbolos {
     /**
      * @return the valor
      */
-    public String getValor() {
+    public Object getValor() {
         return valor;
     }
 
     /**
      * @param valor the valor to set
      */
-    public void setValor(String valor) {
+    public void setValor(Object valor) {
         this.valor = valor;
     }
 
@@ -98,15 +100,15 @@ public class Simbolos {
     /**
      * @return the datoslistas
      */
-    public static LinkedList<Object> getDatoslistas() {
+    public LinkedList<Object> getDatoslistas() {
         return datoslistas;
     }
 
     /**
-     * @param aDatoslistas the datoslistas to set
+     * @param datoslistas the datoslistas to set
      */
-    public static void setDatoslistas(LinkedList<Object> aDatoslistas) {
-        datoslistas = aDatoslistas;
+    public void setDatoslistas(LinkedList<Object> datoslistas) {
+        this.datoslistas = datoslistas;
     }
-    
+
 }
