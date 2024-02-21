@@ -1,5 +1,5 @@
 package funcionalidad;
-
+    
 public class Operacion {
     
     public static double Suma(double a, double b){
@@ -17,28 +17,32 @@ public class Operacion {
     public static double Modulo(double a, double b){
             return a%b;
     }
-//    public void pruebas(){
-//        String txt = "cadena de texto\"";
-//        txt.replaceAll("\"", "").trim();
-//    }
-    /*
-    public double Media(){
+    
+    public static double Media(){
+        /*
+        1. recibe un arreglo
+        2. hace la suma de cada uno de los datos del arreglo
+        3. divide la suma entre la cantidad de datos del arreglo
+        4. retorna la respuesta
+        */
         
+        return 2.0;
     }
-    public double Mediana(){
-        
+    
+    public static double Mediana(){
+        return 2.0;
     }
-    public double Moda(){
-        
+    public static double Moda(){
+        return 2.0;
     }
-    public double Varianza(){
-        
+    public static double Varianza(){
+        return 2.0;
     }
-    public double Max(){
-        
+    public static double Max(){
+        return 2.0;
     }
-    public double Min(){
-     
-    }*/
+    public static double Min(){
+     return 2.0;
+    }
     
 }
