@@ -23,10 +23,10 @@ import java_cup.runtime.*;
 
 // ------> Expresiones Regulares 
 
-entero = [0-9]+
+entero = -?[0-9]+
 cadena = [\"][^\"\n]*[\"]
 //caracter = [\'][^\'\n][\']
-decimal = [0-9]+\.[0-9]+
+decimal = -?[0-9]+\.[0-9]+
 comentlinea = (\!)(.+)*
 comentmultilinea = [\<][\!]((.*)*|(\n|\t)*)*[\!][\>]
 id = [A-Za-z_][A-Za-z0-9_]*
