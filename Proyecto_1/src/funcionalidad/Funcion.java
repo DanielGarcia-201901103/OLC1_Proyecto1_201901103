@@ -15,7 +15,6 @@ public class Funcion {
     
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
-    static LinkedList<Object> lTemporalArreglos = new LinkedList<Object>();
     static String nombreArchivo = ""; 
     /*
     Trabajando con el codigo siguiente
@@ -33,23 +32,9 @@ public class Funcion {
         sim.setTipo(tipo);
         sim.setLinea(linea);
         sim.setColumna(columna);
-        LinkedList<Object> lTemporalArreglo1 = new LinkedList<Object>();
-        lTemporalArreglo1 = recListainterna;
-        System.out.println("agreagando la siguiente lista"+ lTemporalArreglo1);
+        System.out.println("agreagando la siguiente lista"+ recListainterna);
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
         System.out.println("lista agregada:" + sim.getDatoslistas());
-    }
-    //METODO PARA AGREGAR A UNA LISTA LOS VALORES DENTRO DEL ARREGLO
-    public static void agregarTemporalA(Object valor){
-        lTemporalArreglos.addFirst(valor);
-    }
-    //METODO PARA OBTENER EL ARREGLO DENTRO DE LA DECLARACION DE ARREGLOS
-    public static LinkedList<Object> obtenerTemporalA(){
-        return lTemporalArreglos;
-    }
-    //METODO PARA DEJAR VACIO EL ARREGLO
-    public static void limpiarTemporalA(){
-        lTemporalArreglos.clear();
     }
     /*
     Simbolos sim = new Simbolos();

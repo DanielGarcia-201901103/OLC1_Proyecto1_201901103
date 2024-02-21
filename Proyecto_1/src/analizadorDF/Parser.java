@@ -804,7 +804,7 @@ class CUP$Parser$actions {
 		int datorecibido1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int datorecibido1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Object datorecibido1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3)); funcionalidad.Funcion.limpiarTemporalA(); 
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -822,7 +822,7 @@ class CUP$Parser$actions {
 		int v6left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int v6right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String v6 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 System.out.println("RealizandoPrueba"); System.out.println(funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase()))) ; 
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase())),"arreglo double", pos5right,  pos5left ); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable4));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-12)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -840,7 +840,7 @@ class CUP$Parser$actions {
 		int v7left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int v7right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		String v7 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		  
+		 funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v7.toLowerCase())),"arreglo string", pos6right,  pos6left ); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable5));
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arreglos",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-14)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -852,7 +852,7 @@ class CUP$Parser$actions {
 		int vn1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int vn1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object vn1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 LinkedList<Object> advnumeros = new LinkedList<Object>(); advnumeros.add(vn1); System.out.println(advnumeros); RESULT = (LinkedList<Object>) advnumeros;  
+		 LinkedList<Object> advnumeros = new LinkedList<Object>(); advnumeros.add(vn1); RESULT = (LinkedList<Object>) advnumeros;  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valoresnumeros",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -867,7 +867,7 @@ class CUP$Parser$actions {
 		int vn3left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int vn3right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object vn3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 LinkedList<Object> advnumeros1 = new LinkedList<Object>(); advnumeros1.add(vn2); advnumeros1.addAll((LinkedList)vn3); System.out.println(advnumeros1); RESULT = (LinkedList<Object>) advnumeros1; 
+		 LinkedList<Object> advnumeros1 = new LinkedList<Object>(); advnumeros1.add(vn2); advnumeros1.addAll((LinkedList)vn3); RESULT = (LinkedList<Object>) advnumeros1; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valoresnumeros",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -936,10 +936,10 @@ class CUP$Parser$actions {
           case 27: // valorescadenas ::= cadena 
             {
               Object RESULT =null;
-		int sol2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int sol2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object sol2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 funcionalidad.Funcion.agregarTemporalA(sol2); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); 
+		int vn4left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int vn4right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object vn4 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 LinkedList<Object> advnumeros2 = new LinkedList<Object>(); advnumeros2.add(vn4);  RESULT = (LinkedList<Object>) advnumeros2;  
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valorescadenas",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -948,10 +948,13 @@ class CUP$Parser$actions {
           case 28: // valorescadenas ::= cadena COMA valorescadenas 
             {
               Object RESULT =null;
-		int sol3left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int sol3right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object sol3 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		 funcionalidad.Funcion.agregarTemporalA(sol3); RESULT = (LinkedList) funcionalidad.Funcion.obtenerTemporalA(); 
+		int vn5left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int vn5right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object vn5 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int vn6left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int vn6right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object vn6 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 LinkedList<Object> advnumeros3 = new LinkedList<Object>(); advnumeros3.add(vn5); advnumeros3.addAll((LinkedList)vn6); RESULT = (LinkedList<Object>) advnumeros3; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("valorescadenas",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
