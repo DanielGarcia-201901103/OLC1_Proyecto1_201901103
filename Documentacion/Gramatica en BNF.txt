@@ -1,0 +1,97 @@
+<INICIO> ::= program <CODIGO> end program
+
+<CODIGO> ::= <CODIGO> <INSTRUCCION> |  <INSTRUCCION>
+
+<INSTRUCCION> ::=  <DECLARACION>
+                                 |   <ARREGLOS>
+                                 |   <OPERACIONES> 
+                                 |  <IMPRESIONES>
+                                 |  <FUNCIONESGRAFICACION>
+
+<DECLARACION> ::= var : double  :: id < - <NUMERO> end ;
+                                  | var : char[]:: id < - <CADENA> end ;
+ 
+<NUMERO> ::= entero | decimal | id
+<CADENA> ::= cadena | id
+
+<ARREGLOS> ::=  arr : double :: @id <- [ <VALORESNUMEROS> ] end;
+                             | arr : char []:: @id <- [ <VALORESCADENAS> ] end;
+                             | arr : double :: @id <- @id end;
+                             | arr : char []:: @id <- @id end;
+
+<VALORESNUMEROS> ::= <LISTANUM>
+                                              | <LISTANUM> , <VALORESNUMEROS>
+<LISTANUM> ::= entero | decimal | id | <FUNCIONESOP> | <FUNCIONESEST>
+
+<VALORESCADENAS> :: = <CADENA>
+                                            | <CADENA> , <VALORESCADENAS>
+
+<OPERACIONES> ::= var : double :: id < -  <FUNCIONESOP> end;
+                                   | var : double :: id <- <FUNCIONESEST> end;
+
+<FUNCIONESOP> ::= sum(<LISTANUM> , <LISTANUM> )
+                                   | res(<LISTANUM> , <LISTANUM> )
+                                   | mul(<LISTANUM> , <LISTANUM> )
+                                   | div(<LISTANUM> , <LISTANUM> )
+                                   | mod(<LISTANUM> , <LISTANUM> )
+
+<FUNCIONESEST> ::= media(<ARREGLODOUBLE>)
+                                    |  mediana(<ARREGLODOUBLE>)
+                                    |  moda(<ARREGLODOUBLE>)
+                                    |  varianza(<ARREGLODOUBLE>)
+                                    |  max(<ARREGLODOUBLE>)
+                                    |  min(<ARREGLODOUBLE>)
+<ARREGLODOUBLE> ::=  @ id
+                                    |  [ <VALORESNUMEROS> ]
+
+<IMPRESIONES> ::= <IMPRIMIREXPRESIONES>
+                                |  <IMPRIMIRARREGLOS>
+
+<IMPRIMIREXPRESIONES> ::= console : : print = <LISTAEXPRESIONES> end ;
+<LISTAEXPRESIONES> ::= <EXPRESIONES>
+                                            | <EXPRESIONES> , <LISTAEXPRESIONES> 
+<EXPRESIONES> ::= <NUMERO>
+                                | cadena
+                                | <FUNCIONESOP>
+                                | <FUNCIONESEST>
+
+<IMPRIMIRARREGLOS> ::= console :: column = <CADENA>  -> <IMARREGLO> end;
+<IMARREGLO> ::= @ id
+                            |  [ <VALORESNUMEROS> ]
+                            |  [ <VALORESCADENAS>  ]    falta agregar esto a cup
+
+
+
+
+ <FUNCIONESGRAFICACION> ::= graphbar (<SENTENCIASGBAR> exec graphbar end; ) end;
+                                                    |  graphpie (<SENTENCIASGPIE> exec graphpie end; ) end;
+                                                    |  graphline (<SENTENCIASGLINE> exec graphline end; ) end;
+                                                    |  histogram (<SENTENCIASHISTOGRAM> exec histogram end; ) end;
+
+<SENTENCIASGBAR> ::= <SENTENCIASGBAR> <SENTENCGBAR> | <SENTENCGBAR>
+
+<SENTENCGBAR> ::=   titulo : : char[] = <CADENA> end;
+                                       |  ejex : : char[] = [<VALORESCADENAS>] end;
+                                       |  ejey : : double = [<VALORESNUMEROS>] end;
+                                       |  titulox : : char[] = <CADENA> end;
+                                       |  tituloy : : char [] = <CADENA> end;
+
+<SENTENCIASGPIE> ::= <SENTENCIASGPIE> <SENTENCGPIE> | <SENTENCGPIE>
+
+<SENTENCGPIE> ::= label : : char [] = [ <VALORESCADENAS>] end;
+                                |  values :: double = [ <VALORESNUMEROS> ] end;
+                                |  titulo : : char[] = <CADENA> end;
+
+<SENTENCIASGLINE> ::= <SENTENCIASGLINE> <SENTENCGLINE> | <SENTENCGLINE>
+
+<SENTENCGLINE> ::= titulo :: char[] = <CADENA> end;
+                                |  ejex : : char[] = [ <VALORESCADENAS>] end;
+                                |  ejey : : double = [ <VALORESNUMEROS> ] end;
+                                |  titulox : : char[] = <CADENA> end;
+                                |  tituloy : : char[] = <CADENA> end;
+
+<SENTENCIASHISTOGRAM> ::= <SENTENCIASHISTOGRAM> <SENTENCHISTOGRAM> | <SENTENCHISTOGRAM>
+
+<SENTENCHISTOGRAM> ::= titulo : : char [] = <CADENA> end;
+                                                | values ::char[] = [ <VALORESNUMEROS>] end;
+

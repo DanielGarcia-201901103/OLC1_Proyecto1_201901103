@@ -171,8 +171,8 @@ listanum ::= funcionesop:resultfunop                                            
 valorescadenas ::= cadena:vn4                                                   {: LinkedList<Object> advnumeros2 = new LinkedList<Object>(); advnumeros2.add(vn4);  RESULT = (LinkedList<Object>) advnumeros2;  :}                  
             | cadena:vn5 COMA valorescadenas:vn6                                {: LinkedList<Object> advnumeros3 = new LinkedList<Object>(); advnumeros3.add(vn5); advnumeros3.addAll((LinkedList)vn6); RESULT = (LinkedList<Object>) advnumeros3; :}  
 ;
-operaciones ::= R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesop R_END PUNTOYCOMA {:  :}
-            | R_VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID MENOR GUION_MEDIO funcionesest R_END PUNTOYCOMA  {:  :}
+operaciones ::= R_VAR:pos7 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nombrevariable6 MENOR GUION_MEDIO funcionesop:rf1 R_END PUNTOYCOMA {: funcionalidad.Funcion.addHMSimbolos("decVariables", nombrevariable6.toLowerCase(), rf1, "variable double", pos7right,  pos7left); :}
+            | R_VAR:pos8 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nombrevariable7 MENOR GUION_MEDIO funcionesest:rf2 R_END PUNTOYCOMA  {: funcionalidad.Funcion.addHMSimbolos("decVariables", nombrevariable7.toLowerCase(), rf2, "variable double", pos8right,  pos8left); :}
 ;
 funcionesop ::= R_SUM PARENTESIS_A listanum:pa COMA listanum:pb PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Suma(Double.parseDouble(pa.toString()),Double.parseDouble(pb.toString())); :}
             | R_RES PARENTESIS_A listanum:pa1 COMA listanum:pb1 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Resta(Double.parseDouble(pa1.toString()),Double.parseDouble(pb1.toString())); :}
@@ -180,15 +180,15 @@ funcionesop ::= R_SUM PARENTESIS_A listanum:pa COMA listanum:pb PARENTESIS_C    
             | R_DIV PARENTESIS_A listanum:pa3 COMA listanum:pb3 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Division(Double.parseDouble(pa3.toString()),Double.parseDouble(pb3.toString())); :}
             | R_MOD PARENTESIS_A listanum:pa4 COMA listanum:pb4 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Modulo(Double.parseDouble(pa4.toString()),Double.parseDouble(pb4.toString())); :}
 ;
-funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble PARENTESIS_C                {:  :}
-                | R_MEDIANA PARENTESIS_A arreglodouble PARENTESIS_C             {:  :}
-                | R_MODA PARENTESIS_A arreglodouble PARENTESIS_C                {:  :}
-                | R_VARIANZA PARENTESIS_A arreglodouble PARENTESIS_C            {:  :}
-                | R_MAX PARENTESIS_A arreglodouble PARENTESIS_C                 {:  :}
-                | R_MIN PARENTESIS_A arreglodouble PARENTESIS_C                 {:  :}
+funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble:ar1 PARENTESIS_C            {: System.out.println("estoy en media");RESULT = funcionalidad.Operacion.Media((LinkedList<Object>) ar1); :}
+                | R_MEDIANA PARENTESIS_A arreglodouble:ar2 PARENTESIS_C         {: System.out.println("estoy en mediana");RESULT = funcionalidad.Operacion.Mediana((LinkedList<Object>) ar2); :}
+                | R_MODA PARENTESIS_A arreglodouble:ar3 PARENTESIS_C            {: RESULT = funcionalidad.Operacion.Moda((LinkedList<Object>) ar3); :}
+                | R_VARIANZA PARENTESIS_A arreglodouble:ar4 PARENTESIS_C        {: RESULT = funcionalidad.Operacion.Varianza((LinkedList<Object>) ar4); :}
+                | R_MAX PARENTESIS_A arreglodouble:ar5 PARENTESIS_C             {: RESULT = funcionalidad.Operacion.Max((LinkedList<Object>) ar5); :}
+                | R_MIN PARENTESIS_A arreglodouble:ar6 PARENTESIS_C             {: RESULT = funcionalidad.Operacion.Min((LinkedList<Object>) ar6); :}
 ;
-arreglodouble ::= ARROBA ID
-                | CORCHETE_A valoresnumeros CORCHETE_C
+arreglodouble ::= ARROBA ID:vbusc                                               {: RESULT = (LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(vbusc.toLowerCase())); :}
+                | CORCHETE_A valoresnumeros:arrobt CORCHETE_C                   {: RESULT = (LinkedList<Object>) arrobt; :}
 ;
 impresiones ::= imprimirexpresiones
             | imprimirarreglos
