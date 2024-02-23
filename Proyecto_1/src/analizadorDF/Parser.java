@@ -597,10 +597,7 @@ class CUP$Parser$actions {
           case 1: // inicio ::= R_PROGRAM codigo R_END R_PROGRAM 
             {
               Object RESULT =null;
-		int todleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int todright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object tod = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-
+		 funcionalidad.Funcion.obtenerLImpresion();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -609,12 +606,6 @@ class CUP$Parser$actions {
           case 2: // codigo ::= codigo instruccion 
             {
               Object RESULT =null;
-		int todleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int todright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object tod = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		int solleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int solright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object sol = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("codigo",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -624,9 +615,6 @@ class CUP$Parser$actions {
           case 3: // codigo ::= instruccion 
             {
               Object RESULT =null;
-		int solleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int solright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object sol = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("codigo",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

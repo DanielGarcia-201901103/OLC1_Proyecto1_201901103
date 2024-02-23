@@ -16,6 +16,7 @@ public class Funcion {
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
     static String nombreArchivo = "";
+    public static String txtSalida = "";
     /*
     Trabajando con el codigo siguiente
      */
@@ -24,13 +25,11 @@ public class Funcion {
     static LinkedList<String> listImprimir = new LinkedList<String>();
 
     //METODO PARA OBTENER LA LISTA DE IMPRESION
-    public static String obtenerLImpresion() {
-        String txtSalida = "";
+    public static void obtenerLImpresion() {
         for (int i = 0; i < listImprimir.size(); i++) {
             txtSalida += listImprimir.get(i);
             txtSalida += "\n";
         }
-        return txtSalida;
     }
 
     //METODO PARA ALMACENAR LAS IMPRESIONES

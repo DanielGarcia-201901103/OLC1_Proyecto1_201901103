@@ -28,7 +28,7 @@ cadena = [\"][^\"\n]*[\"]
 //caracter = [\'][^\'\n][\']
 decimal = -?[0-9]+\.[0-9]+
 comentlinea = (\!)(.+)*
-comentmultilinea = [\<][\!]((.*)*|(\n|\t)*)*[\!][\>]
+comentmultilinea =\<\![^<!]*[^!>]*\!\>
 id = [A-Za-z_][A-Za-z0-9_]*
 
 %%

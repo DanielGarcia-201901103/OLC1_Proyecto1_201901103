@@ -99,7 +99,6 @@ non terminal valorescadenas;
 non terminal listanum;
 non terminal operaciones;
 non terminal funcionesop;
-//non terminal parametrosop;
 non terminal impresiones;
 non terminal imprimirexpresiones;
 non terminal imprimirarreglos;
@@ -117,26 +116,15 @@ non terminal sentencgpie;
 non terminal sentencgline;
 non terminal sentenchistogram;
 
-//------> PRECEDENCIA
-//precedence left MAYOR, MAYORIGUAL, MENOR, MENORIGUAL, IGUAL_IGUAL, DISTINTO;
-//precedence left OR, AND;
-//precedence left NOT;
-//precedence left SUMA;
-//precedence left RESTA;
-//precedence left MULTIPLICACION;
-//precedence left DIVISION;
-//precedence left RESTA;
-
 //------> Definir Simbolo Inicial
 start with inicio; 
 
 
 // ------------>  Producciones  <------------
-//{:  func.Traduccion.traducciones = tod; :}
-inicio ::= R_PROGRAM codigo:tod R_END R_PROGRAM                           
+inicio ::= R_PROGRAM codigo R_END R_PROGRAM   {: funcionalidad.Funcion.obtenerLImpresion();:}                        
 ;
-codigo ::= codigo:tod instruccion:sol                                               
-        | instruccion:sol                                                           
+codigo ::= codigo instruccion                                               
+        | instruccion                                                           
 ;
 instruccion ::= funcgrafic
                 | declaracion
@@ -210,9 +198,9 @@ imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp 
                     | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A valoresnumeros:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
 ;
 funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: funcionalidad.Grafica.barras(); :}
-                        | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA             {: funcionalidad.Grafica.gPie(); :}
-                        | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
-                        | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+            | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA             {: funcionalidad.Grafica.gPie(); :}
+            | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+            | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
 ;
 sentenciasgbar ::= sentenciasgbar sentencgbar
                 | sentencgbar

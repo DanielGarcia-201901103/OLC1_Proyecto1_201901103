@@ -377,7 +377,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         //proyecto.pkg1.Proyecto1.analizar(texto);
         //salidaConsola.setText(texto);
         try {
-            salidaConsola.setText(funcionalidad.Funcion.obtenerLImpresion());
+            salidaConsola.setText(funcionalidad.Funcion.txtSalida);
             funcionalidad.Funcion.recorrerListaErrores();
             funcionalidad.Funcion.crearReporteTokensDataF();
         } catch (FileNotFoundException ex) {
