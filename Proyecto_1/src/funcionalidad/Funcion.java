@@ -19,6 +19,38 @@ public class Funcion {
     /*
     Trabajando con el codigo siguiente
     */
+    
+    //Para almacenar los datos para las impresiones
+    static LinkedList<String> listImprimir = new LinkedList<String>();
+    //METODO PARA OBTENER LA LISTA DE IMPRESION
+    public static LinkedList<String> obtenerLImpresion(){
+        return listImprimir;
+    }
+    //METODO PARA ALMACENAR LAS IMPRESIONES
+    public static void addImpresiones(LinkedList<Object> limpresiones){
+        String texto = "!Salida: ";
+        for (int i=0;i< limpresiones.size();i++){
+            texto += limpresiones.get(i).toString() + " , ";
+        }
+        if (texto.lastIndexOf(",") != -1) {
+            // Encontrar la posición de la última coma
+            int indiceUltimaComa = texto.lastIndexOf(",");
+            
+            // Crear una subcadena que excluya la última coma
+            texto = texto.substring(0, indiceUltimaComa) + texto.substring(indiceUltimaComa + 1);
+        }
+//        System.out.println(texto);
+        listImprimir.add(texto);
+    }
+    public static void addImpresionesCol(String stitulo, LinkedList<Object> limpresiones){
+        String texto = "------------------------------------------------\n\t";
+        texto += stitulo + "\n------------------------------------------------\n";
+        for (int i=0;i< limpresiones.size();i++){
+            texto += limpresiones.get(i).toString() + "\n";
+        }
+        listImprimir.add(texto);
+    }
+    
     //METODO PARA AGREGAR UNA DECLARACIÓN A LA TABLA DE SIMBOLOS
     public static void addHMSimbolos(String nombrelista, String nombre, Object valor, String tipo, int linea,int  columna){
         Simbolos sim = new Simbolos();
@@ -32,9 +64,7 @@ public class Funcion {
         sim.setTipo(tipo);
         sim.setLinea(linea);
         sim.setColumna(columna);
-        System.out.println("agreagando la siguiente lista"+ recListainterna);
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
-        System.out.println("lista agregada:" + sim.getDatoslistas());
     }
     /*
     Simbolos sim = new Simbolos();
@@ -54,7 +84,6 @@ public class Funcion {
             Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
             if (nombreid.equals(simRecorrer.getNombre())){
             //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                System.out.println("Coincidencia, obteniendo el valor"+ simRecorrer.getValor());    
                 return simRecorrer.getValor();
                 
             }
@@ -70,7 +99,6 @@ public class Funcion {
         for (int i = 0; i < listasimbolos1.size(); i++) {
             SimbolosArreglo simRecorrer1 = (SimbolosArreglo) listasimbolos1.get(i);
             if(nombreid.equals(simRecorrer1.getNombre())){
-                System.out.println("Lista a devolver:"+simRecorrer1.getNombre() +" "+ simRecorrer1.getDatoslistas());
                 LinkedList<Object> listaaux = new LinkedList<Object>();
                 listaaux = simRecorrer1.getDatoslistas();
                 return listaaux;

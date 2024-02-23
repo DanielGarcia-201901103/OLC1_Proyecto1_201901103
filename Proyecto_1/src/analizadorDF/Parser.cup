@@ -154,10 +154,10 @@ numero ::= DECIMALES:v1                                                         
 cadena ::= CADENA:v4                                                            {: RESULT = v4.replace("\"",""); :} 
         | ID:v5                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v5.toLowerCase()); :} 
 ;
-arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable2 MENOR GUION_MEDIO CORCHETE_A valoresnumeros:valorrecibido1 CORCHETE_C R_END PUNTOYCOMA                        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList<Object>)valorrecibido1, "arreglo double", pos3right,  pos3left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable2)); :}
-        | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable3)); :}
-        | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase())),"arreglo double", pos5right,  pos5left ); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable4));:}
-        | R_ARR:pos6 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable5 MENOR GUION_MEDIO ARROBA ID:v7 R_END PUNTOYCOMA                                              {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v7.toLowerCase())),"arreglo string", pos6right,  pos6left ); funcionalidad.Funcion.imprimirValordIdA("decArreglos", "@"+ String.valueOf(nombrevariable5));:}
+arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable2 MENOR GUION_MEDIO CORCHETE_A valoresnumeros:valorrecibido1 CORCHETE_C R_END PUNTOYCOMA                        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable2),(LinkedList<Object>)valorrecibido1, "arreglo double", pos3right,  pos3left);  :}
+        | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left);  :}
+        | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase())),"arreglo double", pos5right,  pos5left ); :}
+        | R_ARR:pos6 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable5 MENOR GUION_MEDIO ARROBA ID:v7 R_END PUNTOYCOMA                                              {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v7.toLowerCase())),"arreglo string", pos6right,  pos6left ); :}
 ;
 valoresnumeros ::= listanum:vn1                                                 {: LinkedList<Object> advnumeros = new LinkedList<Object>(); advnumeros.add(vn1); RESULT = (LinkedList<Object>) advnumeros;  :}
                 | listanum:vn2 COMA valoresnumeros:vn3                          {: LinkedList<Object> advnumeros1 = new LinkedList<Object>(); advnumeros1.add(vn2); advnumeros1.addAll((LinkedList)vn3); RESULT = (LinkedList<Object>) advnumeros1; :} 
@@ -180,8 +180,8 @@ funcionesop ::= R_SUM PARENTESIS_A listanum:pa COMA listanum:pb PARENTESIS_C    
             | R_DIV PARENTESIS_A listanum:pa3 COMA listanum:pb3 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Division(Double.parseDouble(pa3.toString()),Double.parseDouble(pb3.toString())); :}
             | R_MOD PARENTESIS_A listanum:pa4 COMA listanum:pb4 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Modulo(Double.parseDouble(pa4.toString()),Double.parseDouble(pb4.toString())); :}
 ;
-funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble:ar1 PARENTESIS_C            {: System.out.println("estoy en media");RESULT = funcionalidad.Operacion.Media((LinkedList<Object>) ar1); :}
-                | R_MEDIANA PARENTESIS_A arreglodouble:ar2 PARENTESIS_C         {: System.out.println("estoy en mediana");RESULT = funcionalidad.Operacion.Mediana((LinkedList<Object>) ar2); :}
+funcionesest ::= R_MEDIA PARENTESIS_A arreglodouble:ar1 PARENTESIS_C            {: RESULT = funcionalidad.Operacion.Media((LinkedList<Object>) ar1); :}
+                | R_MEDIANA PARENTESIS_A arreglodouble:ar2 PARENTESIS_C         {: RESULT = funcionalidad.Operacion.Mediana((LinkedList<Object>) ar2); :}
                 | R_MODA PARENTESIS_A arreglodouble:ar3 PARENTESIS_C            {: RESULT = funcionalidad.Operacion.Moda((LinkedList<Object>) ar3); :}
                 | R_VARIANZA PARENTESIS_A arreglodouble:ar4 PARENTESIS_C        {: RESULT = funcionalidad.Operacion.Varianza((LinkedList<Object>) ar4); :}
                 | R_MAX PARENTESIS_A arreglodouble:ar5 PARENTESIS_C             {: RESULT = funcionalidad.Operacion.Max((LinkedList<Object>) ar5); :}
@@ -194,20 +194,20 @@ impresiones ::= imprimirexpresiones
             | imprimirarreglos
 ;
 
-imprimirexpresiones ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_PRINT IGUAL listaexpresiones R_END PUNTOYCOMA {:  :}
+imprimirexpresiones ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_PRINT IGUAL listaexpresiones:lexp R_END PUNTOYCOMA {: funcionalidad.Funcion.addImpresiones((LinkedList<Object>) lexp);:}
 ;
-listaexpresiones ::= expresioness
-                    | expresioness COMA listaexpresiones                        {:  :}
+listaexpresiones ::= expresioness:vn7                                           {: LinkedList<Object> advnumeros4 = new LinkedList<Object>(); advnumeros4.add(vn7);  RESULT = (LinkedList<Object>) advnumeros4;  :}                  
+                    | expresioness:vn8 COMA listaexpresiones:vn9                    {: LinkedList<Object> advnumeros5 = new LinkedList<Object>(); advnumeros5.add(vn8); advnumeros5.addAll((LinkedList)vn9); RESULT = (LinkedList<Object>) advnumeros5; :}  
 ;
 expresioness ::=  CADENA:datito                                                 {: RESULT = datito.replace("\"",""); :}
-            | funcionesop                                                       {:  :}
-            | funcionesest                                                      {:  :}
-            | DECIMALES                                                         {:  :}
-            | ENTERO                                                            {:  :}
-            | ID                                                                {:  :}
+            | funcionesop:resultfunop1                                          {: RESULT = Double.parseDouble(resultfunop1.toString()); :}  
+            | funcionesest:resultfunest1                                        {: RESULT = Double.parseDouble(resultfunest1.toString()) ; :} 
+            | DECIMALES:v11                                                     {: RESULT = Double.parseDouble(v11); :} 
+            | ENTERO:v12                                                        {: RESULT = Integer.valueOf(v12); :} 
+            | ID:v13                                                            {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v13.toLowerCase()); :} 
 ;
-imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR ARROBA ID R_END PUNTOYCOMA
-                    | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena GUION_MEDIO MAYOR CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp GUION_MEDIO MAYOR ARROBA ID:bid R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp.toString(), (LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(bid.toLowerCase()))); :}
+                    | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A valoresnumeros:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
 ;
 funcionesgraficacion ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
                         | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA

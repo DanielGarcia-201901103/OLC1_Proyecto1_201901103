@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -361,7 +362,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 // Obtener el texto del JTextArea
                 String texto = textArea.getText();
                 proyecto.pkg1.Proyecto1.analizar(texto);
-                salidaConsola.setText(texto);
+                String txtSalida = "";
+                LinkedList<String> lObtenida =  funcionalidad.Funcion.obtenerLImpresion();
+                for (int i =0; i< lObtenida.size(); i++){
+                    txtSalida += lObtenida.get(i);
+                    txtSalida += "\n";
+                }
+                salidaConsola.setText(txtSalida);
+                
             } else {
                 System.out.println("No se encontró un JTextArea en la pestaña seleccionada.");
             }

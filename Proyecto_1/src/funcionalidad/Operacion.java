@@ -40,7 +40,6 @@ public class Operacion {
             suma += Double.parseDouble(recListaD.get(i).toString());
         }
         double resultado = suma/cantiV;
-        System.out.println("Resultado media:"+ resultado);
         return resultado;
     }
     
@@ -51,7 +50,6 @@ public class Operacion {
         }
         Median mediana = new Median();
         double resultado = mediana.evaluate(temp);
-        System.out.println("Resultado mediana: " + resultado);
         return resultado;
     }
     public static double Moda(LinkedList<Object> recListaD){
@@ -76,8 +74,6 @@ public class Operacion {
                 maxFrequency = currentFrequency;
             }
         }
-        // Imprime la moda
-        System.out.println("La moda es: " + resultado);
         return resultado;
     }
     
@@ -88,7 +84,6 @@ public class Operacion {
         }
         Variance variance = new Variance();
         double resultado = variance.evaluate(temp);
-        System.out.println("La varianza es:"+ resultado);
         return resultado;
     }
     public static double Max(LinkedList<Object> recListaD){
@@ -98,7 +93,6 @@ public class Operacion {
         }
         Max max = new Max();
         double resultado = max.evaluate(temp);
-        System.out.println("El valor maximo es:" + resultado);
         return resultado;
     }
     public static double Min(LinkedList<Object> recListaD){
@@ -108,7 +102,6 @@ public class Operacion {
         }
         Min min = new Min();
         double resultado = min.evaluate(temp);
-        System.out.println("El valor minimo es:" + resultado);
         return resultado;
     }
     
