@@ -115,6 +115,7 @@ non terminal sentencgbar;
 non terminal sentencgpie;
 non terminal sentencgline;
 non terminal sentenchistogram;
+non terminal arregloccc;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -198,38 +199,41 @@ imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp 
                     | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A valoresnumeros:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
 ;
 funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: funcionalidad.Grafica.barras(); :}
-            | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA             {: funcionalidad.Grafica.gPie(); :}
-            | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
-            | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA
+            | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                         {: funcionalidad.Grafica.gPie(); :}
+            | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                      {: funcionalidad.Grafica.gLine(); :}
+            | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA          {: funcionalidad.Grafica.gHisto(); :}
 ;
 sentenciasgbar ::= sentenciasgbar sentencgbar
                 | sentencgbar
 ;
 sentencgbar ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:tttl R_END PUNTOYCOMA                                    {: funcionalidad.Grafica.tituloBarras = tttl.toString(); :}
-                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas:vbaaa CORCHETE_C R_END PUNTOYCOMA     {: funcionalidad.Grafica.igualarExb((LinkedList<Object>) vbaaa); :}
-                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros:vbaaa1 CORCHETE_C R_END PUNTOYCOMA                        {: funcionalidad.Grafica.igualarEyb((LinkedList<Object>) vbaaa1); :}
+                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL arregloccc:vbaaa R_END PUNTOYCOMA     {: funcionalidad.Grafica.igualarExb((LinkedList<Object>) vbaaa); :}
+                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL  arreglodouble:vbaaa1 R_END PUNTOYCOMA                        {: funcionalidad.Grafica.igualarEyb((LinkedList<Object>) vbaaa1); :}
                 | R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:tttlx R_END PUNTOYCOMA                                {: funcionalidad.Grafica.tituloxBarras = tttlx.toString(); :}
                 | R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:tttly R_END PUNTOYCOMA                                {: funcionalidad.Grafica.tituloyBarras = tttly.toString(); :}
+;
+arregloccc ::= ARROBA ID:vbusc                                               {: RESULT = (LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(vbusc.toLowerCase())); :}
+                | CORCHETE_A valorescadenas:arrobt CORCHETE_C                   {: RESULT = (LinkedList<Object>) arrobt; :}
 ;
 sentenciasgpie ::= sentenciasgpie sentencgpie
                 | sentencgpie
 ;
-sentencgpie ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt2 R_END PUNTOYCOMA                                 {: funcionalidad.Grafica.tituloPie = ttt2.toString(); :}
-                | R_VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros:lvap CORCHETE_C R_END PUNTOYCOMA                     {: funcionalidad.Grafica.igualarvalPie((LinkedList<Object>) lvap); :}
-                | R_LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas:llap CORCHETE_C R_END PUNTOYCOMA  {: funcionalidad.Grafica.igualarLaPie((LinkedList<Object>) llap); :}
+sentencgpie ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt2 R_END PUNTOYCOMA          {: funcionalidad.Grafica.tituloPie = ttt2.toString(); :}
+                | R_VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL arreglodouble:lvap R_END PUNTOYCOMA                     {: funcionalidad.Grafica.igualarvalPie((LinkedList<Object>) lvap); :}
+                | R_LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL arregloccc:llap R_END PUNTOYCOMA     {: funcionalidad.Grafica.igualarLaPie((LinkedList<Object>) llap); :}
 ;
 sentenciasgline ::= sentenciasgline sentencgline
                 | sentencgline
 ;
-sentencgline ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
-                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA
-                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
-                | R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
-                | R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
+sentencgline ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt3 R_END PUNTOYCOMA        {: funcionalidad.Grafica.tituloLine = ttt3.toString(); :}
+                | R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL arregloccc:laline R_END PUNTOYCOMA   {: funcionalidad.Grafica.igualarExL((LinkedList<Object>) laline); :}
+                | R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL arreglodouble:laline1 R_END PUNTOYCOMA                   {: funcionalidad.Grafica.igualarEyL((LinkedList<Object>) laline1); :}
+                | R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt4 R_END PUNTOYCOMA      {: funcionalidad.Grafica.tituloxLine = ttt4.toString(); :}
+                | R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt5 R_END PUNTOYCOMA      {: funcionalidad.Grafica.tituloyLine = ttt5.toString(); :}
 ;
 sentenciashistogram ::= sentenciashistogram sentenchistogram
                 | sentenchistogram
 ;
-sentenchistogram ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA
-                | R_VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA
+sentenchistogram ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt6 R_END PUNTOYCOMA       {: funcionalidad.Grafica.tituloHisto = ttt6.toString(); :}
+                | R_VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL arreglodouble:lahist R_END PUNTOYCOMA {: funcionalidad.Grafica.igualarvalHist((LinkedList<Object>) lahist); :}
 ;

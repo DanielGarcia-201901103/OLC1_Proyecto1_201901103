@@ -15,6 +15,8 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class Grafica {
 
@@ -30,6 +32,17 @@ public class Grafica {
     static LinkedList<Object> listValuesPie = new LinkedList<Object>();
     static LinkedList<Object> listLabelPie = new LinkedList<Object>();
 
+    //PARA GRAFICA DE LINE
+    public static String tituloLine;
+    public static String tituloxLine;
+    public static String tituloyLine;
+    static LinkedList<Object> listEjexLine = new LinkedList<Object>();
+    static LinkedList<Object> listEjeyLine = new LinkedList<Object>();
+    
+    //PARA HISTOGRAMA
+    public static String tituloHisto;
+    static LinkedList<Object> listValuesHisto = new LinkedList<Object>();
+    
     public static void igualarExb(LinkedList<Object> limpresiones) {
         listEjexBarras = limpresiones;
     }
@@ -71,7 +84,7 @@ public class Grafica {
             /* Width of the image */
             int height = 480;
             /* Height of the image */
-            File archivoImagen = new File("grafica_barras.png");
+            File archivoImagen = new File("graficaBARRA.png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,10 +129,48 @@ public class Grafica {
             /* Width of the image */
             int height = 480;
             /* Height of the image */
-            File archivoImagen = new File("grafica_pie.png");
+            File archivoImagen = new File("graficaPIE.png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void igualarExL(LinkedList<Object> limpresiones) {
+        listEjexLine = limpresiones;
+    }
+
+    public static void igualarEyL(LinkedList<Object> limpresiones) {
+        listEjeyLine = limpresiones;
+    }
+
+    public static void gLine() {
+        try {
+            // Ingreso de datos
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+            // Agregar datos al dataset
+            for (int i = 0; i < listEjexLine.size(); i++) {
+                dataset.addValue(Double.parseDouble(listEjeyLine.get(i).toString()), "Datos", listEjexLine.get(i).toString());
+            }
+
+            // Creación de la gráfica de líneas
+            JFreeChart chart = ChartFactory.createLineChart(tituloLine, tituloxLine, tituloyLine, dataset, PlotOrientation.VERTICAL, true, true, false);
+
+            // Mostrar
+            int width = 640;
+            int height = 480;
+            File chartFile = new File("line_chart.png");
+            ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
+        } catch (IOException ex) {
+            Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void igualarvalHist(LinkedList<Object> limpresiones) {
+        listValuesHisto = limpresiones;
+    }
+    public static void gHisto(){
+        
     }
 }
