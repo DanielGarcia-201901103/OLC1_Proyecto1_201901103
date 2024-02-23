@@ -67,26 +67,26 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\u0188\000\004\020\004\001\002\000\020\023\015\025" +
-    "\007\041\010\054\023\055\012\056\013\057\017\001\002" +
+    "\000\u0188\000\004\020\004\001\002\000\020\023\016\025" +
+    "\010\041\011\054\023\055\013\056\014\057\017\001\002" +
     "\000\004\002\006\001\002\000\004\002\001\001\002\000" +
-    "\004\012\u0168\001\002\000\004\012\u014a\001\002\000\022" +
-    "\021\uffd5\023\uffd5\025\uffd5\041\uffd5\054\uffd5\055\uffd5\056" +
-    "\uffd5\057\uffd5\001\002\000\004\006\u010b\001\002\000\004" +
-    "\006\340\001\002\000\022\021\ufffe\023\ufffe\025\ufffe\041" +
-    "\ufffe\054\ufffe\055\ufffe\056\ufffe\057\ufffe\001\002\000\004" +
-    "\012\302\001\002\000\022\021\ufff9\023\ufff9\025\ufff9\041" +
-    "\ufff9\054\ufff9\055\ufff9\056\ufff9\057\ufff9\001\002\000\004" +
-    "\006\200\001\002\000\022\021\ufffd\023\ufffd\025\ufffd\041" +
-    "\ufffd\054\ufffd\055\ufffd\056\ufffd\057\ufffd\001\002\000\022" +
+    "\022\021\ufffd\023\ufffd\025\ufffd\041\ufffd\054\ufffd\055\ufffd" +
+    "\056\ufffd\057\ufffd\001\002\000\004\012\u0168\001\002\000" +
+    "\004\012\u014a\001\002\000\022\021\uffd5\023\uffd5\025\uffd5" +
+    "\041\uffd5\054\uffd5\055\uffd5\056\uffd5\057\uffd5\001\002\000" +
+    "\004\006\u010b\001\002\000\004\006\340\001\002\000\022" +
+    "\021\ufffe\023\ufffe\025\ufffe\041\ufffe\054\ufffe\055\ufffe\056" +
+    "\ufffe\057\ufffe\001\002\000\004\012\302\001\002\000\004" +
+    "\006\200\001\002\000\022\021\ufffb\023\ufffb\025\ufffb\041" +
+    "\ufffb\054\ufffb\055\ufffb\056\ufffb\057\ufffb\001\002\000\022" +
     "\021\ufffc\023\ufffc\025\ufffc\041\ufffc\054\ufffc\055\ufffc\056" +
-    "\ufffc\057\ufffc\001\002\000\022\021\ufffb\023\ufffb\025\ufffb" +
-    "\041\ufffb\054\ufffb\055\ufffb\056\ufffb\057\ufffb\001\002\000" +
-    "\004\006\032\001\002\000\022\021\030\023\015\025\007" +
-    "\041\010\054\023\055\012\056\013\057\017\001\002\000" +
+    "\ufffc\057\ufffc\001\002\000\022\021\ufffa\023\ufffa\025\ufffa" +
+    "\041\ufffa\054\ufffa\055\ufffa\056\ufffa\057\ufffa\001\002\000" +
+    "\004\006\032\001\002\000\022\021\030\023\016\025\010" +
+    "\041\011\054\023\055\013\056\014\057\017\001\002\000" +
     "\022\021\uffd4\023\uffd4\025\uffd4\041\uffd4\054\uffd4\055\uffd4" +
-    "\056\uffd4\057\uffd4\001\002\000\022\021\ufffa\023\ufffa\025" +
-    "\ufffa\041\ufffa\054\ufffa\055\ufffa\056\ufffa\057\ufffa\001\002" +
+    "\056\uffd4\057\uffd4\001\002\000\022\021\ufff9\023\ufff9\025" +
+    "\ufff9\041\ufff9\054\ufff9\055\ufff9\056\ufff9\057\ufff9\001\002" +
     "\000\022\021\uffff\023\uffff\025\uffff\041\uffff\054\uffff\055" +
     "\uffff\056\uffff\057\uffff\001\002\000\004\020\031\001\002" +
     "\000\004\002\000\001\002\000\006\045\034\046\035\001" +
@@ -358,14 +358,14 @@ public class Parser extends java_cup.runtime.lr_parser {
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
     "\000\u0188\000\004\002\004\001\001\000\024\003\023\004" +
-    "\013\005\017\010\020\014\021\016\025\017\010\020\024" +
-    "\025\015\001\001\000\002\001\001\000\002\001\001\000" +
+    "\014\005\020\010\017\014\021\016\025\017\011\020\024" +
+    "\025\006\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\022\004\026\005\017\010\020\014\021\016\025\017\010" +
-    "\020\024\025\015\001\001\000\002\001\001\000\002\001" +
+    "\022\004\026\005\020\010\017\014\021\016\025\017\011" +
+    "\020\024\025\006\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\006\031\035\035\032\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\004\035\036\001\001" +
@@ -633,7 +633,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // instruccion ::= declaracion 
+          case 4: // instruccion ::= funcgrafic 
             {
               Object RESULT =null;
 
@@ -642,7 +642,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // instruccion ::= arreglos 
+          case 5: // instruccion ::= declaracion 
             {
               Object RESULT =null;
 
@@ -651,7 +651,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // instruccion ::= operaciones 
+          case 6: // instruccion ::= arreglos 
             {
               Object RESULT =null;
 
@@ -660,7 +660,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // instruccion ::= impresiones 
+          case 7: // instruccion ::= operaciones 
             {
               Object RESULT =null;
 
@@ -669,7 +669,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // instruccion ::= funcionesgraficacion 
+          case 8: // instruccion ::= impresiones 
             {
               Object RESULT =null;
 
@@ -1326,38 +1326,38 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 57: // funcionesgraficacion ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
+          case 57: // funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcionesgraficacion",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+		 funcionalidad.Grafica.barras(); 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcgrafic",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 58: // funcionesgraficacion ::= R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
+          case 58: // funcgrafic ::= R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcionesgraficacion",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+		 funcionalidad.Grafica.gPie(); 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcgrafic",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 59: // funcionesgraficacion ::= R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
+          case 59: // funcgrafic ::= R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcionesgraficacion",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcgrafic",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 60: // funcionesgraficacion ::= R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
+          case 60: // funcgrafic ::= R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcionesgraficacion",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcgrafic",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
@@ -1383,7 +1383,10 @@ class CUP$Parser$actions {
           case 63: // sentencgbar ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int tttlleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tttlright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object tttl = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Grafica.tituloBarras = tttl.toString(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgbar",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1392,7 +1395,10 @@ class CUP$Parser$actions {
           case 64: // sentencgbar ::= R_EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int vbaaaleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int vbaaaright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object vbaaa = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Grafica.igualarExb((LinkedList<Object>) vbaaa); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgbar",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1401,7 +1407,10 @@ class CUP$Parser$actions {
           case 65: // sentencgbar ::= R_EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int vbaaa1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int vbaaa1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object vbaaa1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Grafica.igualarEyb((LinkedList<Object>) vbaaa1); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgbar",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1410,7 +1419,10 @@ class CUP$Parser$actions {
           case 66: // sentencgbar ::= R_TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int tttlxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tttlxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object tttlx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Grafica.tituloxBarras = tttlx.toString(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgbar",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1419,7 +1431,10 @@ class CUP$Parser$actions {
           case 67: // sentencgbar ::= R_TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int tttlyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tttlyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object tttly = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Grafica.tituloyBarras = tttly.toString(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgbar",24, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1446,7 +1461,10 @@ class CUP$Parser$actions {
           case 70: // sentencgpie ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int ttt2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int ttt2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ttt2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Grafica.tituloPie = ttt2.toString(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgpie",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1455,7 +1473,10 @@ class CUP$Parser$actions {
           case 71: // sentencgpie ::= R_VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_A valoresnumeros CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int lvapleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int lvapright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object lvap = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Grafica.igualarvalPie((LinkedList<Object>) lvap); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgpie",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1464,7 +1485,10 @@ class CUP$Parser$actions {
           case 72: // sentencgpie ::= R_LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL CORCHETE_A valorescadenas CORCHETE_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int llapleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int llapright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object llap = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		 funcionalidad.Grafica.igualarLaPie((LinkedList<Object>) llap); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentencgpie",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
