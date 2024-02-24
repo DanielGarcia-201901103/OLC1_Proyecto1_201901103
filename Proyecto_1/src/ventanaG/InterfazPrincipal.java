@@ -229,6 +229,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jMenu2.add(reporteErrores);
 
         reporteTablaS.setText("Reporte Tabla de Simbolos");
+        reporteTablaS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reporteTablaSActionPerformed(evt);
+            }
+        });
         jMenu2.add(reporteTablaS);
 
         jMenuBar1.add(jMenu2);
@@ -380,6 +385,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             salidaConsola.setText(funcionalidad.Funcion.txtSalida);
             funcionalidad.Funcion.recorrerListaErrores();
             funcionalidad.Funcion.crearReporteTokensDataF();
+            funcionalidad.Funcion.crearReporteSimbolosDataF();
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(InterfazPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -423,6 +429,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_reporteErroresActionPerformed
+
+    private void reporteTablaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reporteTablaSActionPerformed
+        String filepath = new String("ReporteSimbolos.html");
+        try {
+            File path = new File(filepath);
+            Desktop.getDesktop().open(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_reporteTablaSActionPerformed
 
     /**
      * @param args the command line arguments

@@ -217,6 +217,7 @@ public class Funcion {
    
                    </body>
                    </html>""");
+        t.close();
         listaTokensDataF.clear();
     }
 
@@ -275,9 +276,82 @@ public class Funcion {
    
                    </body>
                    </html>""");
+        t.close();
         listaErrores.clear();
     }
-
+    
+    
+     public static void crearReporteSimbolosDataF() throws FileNotFoundException {
+        FileOutputStream rep = new FileOutputStream("ReporteSimbolos.html");
+        PrintStream t = new PrintStream(rep);
+        t.println("""
+                   <!DOCTYPE html>
+                   <html>
+                   <style>
+                   body{
+                   background: #ADA996;  /* fallback for old browsers */
+                   background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+                   background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                   }
+                   table, th, td {
+                     border:1px solid black;
+                   }
+                   </style>
+                   <body>
+                   
+                   <h2> *************** Reporte Tabla de Simbolos ***************</h2>
+                   
+                   <table style="width:100%">
+                     <tr>
+                       <th>#</th>
+                       <th>Nombre</th>
+                       <th>Tipo</th>
+                       <th>Valor</th>
+                       <th>Linea</th>
+                       <th>Columna</th>
+                     </tr>\n
+                   """);
+         int contador = 1;
+        LinkedList<Object> listasimbolos1 = hashMapSimbolos.get("decVariables");
+        if (listasimbolos1 != null) {
+            for (int i = 0; i < listasimbolos1.size(); i++) {
+                Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+                t.println("""
+                          <tr>
+                          <td>""" + Integer.toString(contador) + "</td>\n"
+                        + "<td>" + simRecorrer.getNombre() + "</td>\n"
+                        + "<td>" + simRecorrer.getTipo() + "</td>\n"
+                        + "<td>" + simRecorrer.getValor() + "</td>\n"
+                        + "<td>" + simRecorrer.getLinea() + "</td>\n"
+                        + "<td>" + simRecorrer.getColumna() + "</td>\n"
+                        + "</tr>\n");
+                contador++;
+            }
+        }
+        LinkedList<Object> listasimbolos2 = hashMapSimbolos.get("decArreglos");
+        if (listasimbolos2 != null) {
+            for (int i = 0; i < listasimbolos2.size(); i++) {
+                SimbolosArreglo simRecorrer1 = (SimbolosArreglo) listasimbolos2.get(i);
+                t.println("""
+                          <tr>
+                          <td>""" + Integer.toString(contador) + "</td>\n"
+                        + "<td>" + simRecorrer1.getNombre() + "</td>\n"
+                        + "<td>" + simRecorrer1.getTipo() + "</td>\n"
+                        + "<td>" + simRecorrer1.getDatoslistas() + "</td>\n"
+                        + "<td>" + simRecorrer1.getLinea() + "</td>\n"
+                        + "<td>" + simRecorrer1.getColumna() + "</td>\n"
+                        + "</tr>\n");
+                contador++;
+            }
+        }
+        
+        t.println("""
+                   </table>
+                   </body>
+                   </html>""");
+        t.close();
+        hashMapSimbolos.clear();
+    }
     public static void recibiendoNombreArchivo(String nombreArchivo1) {
         nombreArchivo = "\"" + nombreArchivo1 + "\"";
     }
