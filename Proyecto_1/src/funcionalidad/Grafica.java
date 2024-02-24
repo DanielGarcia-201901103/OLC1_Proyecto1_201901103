@@ -22,7 +22,9 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 
 public class Grafica {
-
+    
+    //ALMACENANDO NOMBRES DE IMAGENES
+    public static LinkedList<String> listImagenes = new LinkedList<String>();
     //PARA GRAFICA DE BARRAS
     public static String tituloBarras;
     public static String tituloxBarras;
@@ -83,11 +85,12 @@ public class Grafica {
 //        frame.pack();
 //        frame.setVisible(true);
 // Guardar la gráfica como una imagen
-            int width = 640;
+            int width = 580;
             /* Width of the image */
-            int height = 480;
+            int height = 470;
             /* Height of the image */
             File archivoImagen = new File("graficaBARRA.png");
+            listImagenes.add("graficaBARRA.png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,11 +131,12 @@ public class Grafica {
             plot.setLabelShadowPaint(Color.WHITE); // Configura el color de la sombra de las etiquetas
 
             // Mostrar
-            int width = 640;
+            int width = 580;
             /* Width of the image */
-            int height = 480;
+            int height = 470;
             /* Height of the image */
             File archivoImagen = new File("graficaPIE.png");
+            listImagenes.add("graficaPIE.png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,9 +165,11 @@ public class Grafica {
             JFreeChart chart = ChartFactory.createLineChart(tituloLine, tituloxLine, tituloyLine, dataset, PlotOrientation.VERTICAL, true, true, false);
 
             // Mostrar
-            int width = 640;
-            int height = 480;
+            int width = 580;
+            /* Width of the image */
+            int height = 470;
             File chartFile = new File("graficaLinea.png");
+            listImagenes.add("graficaLinea.png");
             ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,9 +235,11 @@ public class Grafica {
 
         // Guardar la gráfica como imagen
         try {
-            int width = 640;
-            int height = 480;
+            int width = 580;
+            /* Width of the image */
+            int height = 470;
             File chartFile = new File("Histograma.png");
+            listImagenes.add("Histograma.png");
             ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
         } catch (IOException ex) {
             ex.printStackTrace();

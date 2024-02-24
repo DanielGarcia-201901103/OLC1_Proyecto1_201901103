@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +15,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,6 +32,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     String archivoElegido = "";
     int ctn = 1;
     //Fin Variables publicas
+    private ImageIcon image;
+    private Icon icon;
+    int cntImagenes = 0;
 
     public InterfazPrincipal() {
         initComponents();
@@ -52,6 +60,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         entradaTextoP = new javax.swing.JTextArea();
+        visImagen = new javax.swing.JLabel();
+        anteriorImagen = new javax.swing.JButton();
+        siguienteImagen = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         nuevoArchivo = new javax.swing.JMenuItem();
@@ -122,6 +133,24 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
         mPestanas.addTab("tab1", jPanel2);
 
+        visImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        anteriorImagen.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        anteriorImagen.setText("Anterior");
+        anteriorImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorImagenActionPerformed(evt);
+            }
+        });
+
+        siguienteImagen.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        siguienteImagen.setText("Siguiente");
+        siguienteImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siguienteImagenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,18 +159,28 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 612, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(mPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(214, 214, 214))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(214, 214, 214))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(anteriorImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(siguienteImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(108, 108, 108))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(visImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(20, Short.MAX_VALUE))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,12 +189,20 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(mPestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(visImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(anteriorImagen)
+                            .addComponent(siguienteImagen))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -446,6 +493,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             funcionalidad.Funcion.recorrerListaErrores();
             funcionalidad.Funcion.crearReporteTokensDataF();
             funcionalidad.Funcion.crearReporteSimbolosDataF();
+            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(0));
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(InterfazPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -516,9 +564,32 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 guardarComoActionPerformed(evt);
             } else if (opcion == JOptionPane.NO_OPTION) {
                 mPestanas.remove(index);
-            } 
+            }
         }
     }//GEN-LAST:event_eliminarPestañaActionPerformed
+
+    private void anteriorImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorImagenActionPerformed
+        if (cntImagenes > 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size()) {
+            cntImagenes -= 1;
+            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+        }
+    }//GEN-LAST:event_anteriorImagenActionPerformed
+
+    private void siguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteImagenActionPerformed
+        if (cntImagenes >= 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size() - 1) {
+            cntImagenes += 1;
+            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+        }
+    }//GEN-LAST:event_siguienteImagenActionPerformed
+
+    private void visuImagen(JLabel lb, String ruta) {
+        lb.setIcon(null);
+        this.image = new ImageIcon(ruta);
+        this.icon = new ImageIcon(
+                this.image.getImage().getScaledInstance(lb.getWidth(), lb.getHeight(), Image.SCALE_DEFAULT));
+        lb.setIcon(this.icon);
+        this.repaint();
+    }
 
     /**
      * @param args the command line arguments
@@ -557,6 +628,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirArchivo;
+    private javax.swing.JButton anteriorImagen;
     private javax.swing.JMenuItem eliminarPestaña;
     private javax.swing.JTextArea entradaTextoP;
     private javax.swing.JMenuItem guardarArchivo;
@@ -580,5 +652,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem reporteTablaS;
     private javax.swing.JMenuItem reporteToken;
     private javax.swing.JTextArea salidaConsola;
+    private javax.swing.JButton siguienteImagen;
+    private javax.swing.JLabel visImagen;
     // End of variables declaration//GEN-END:variables
 }
