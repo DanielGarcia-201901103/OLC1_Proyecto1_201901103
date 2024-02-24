@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
-import java.awt.Rectangle;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,24 +11,21 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InterfazPrincipal extends javax.swing.JFrame {
 
     //Variables publicas
-    String filePath = "";
-    String contenidoTextArea = "";
-    String validacionAnalizador = "";
+    private Map<Integer, String> filePathsMap = new HashMap<>();
     String archivoElegido = "";
+    int ctn = 1;
     //Fin Variables publicas
 
     public InterfazPrincipal() {
@@ -62,6 +58,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         abrirArchivo = new javax.swing.JMenuItem();
         guardarArchivo = new javax.swing.JMenuItem();
         guardarComo = new javax.swing.JMenuItem();
+        eliminarPestaña = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         realizaEjecucion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -196,6 +193,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(guardarComo);
 
+        eliminarPestaña.setText("Eliminar Pestaña");
+        eliminarPestaña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarPestañaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(eliminarPestaña);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Ejecutar");
@@ -259,23 +264,63 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoArchivoActionPerformed
-        //Nuevo archivo
-        //1. abrirá una pestaña en blanco
+        mPestanas.getModel().clearSelection();
+        int tab = mPestanas.getTabCount(); // Obtener la cantidad de pestañas (esto para agregar el nombre nuevo a la pestaña)
 
+// Crear un nuevo JTextArea y JScrollPane
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true); // Esto hace que las líneas largas se envuelvan automáticamente
+        textArea.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+// Agregar JScrollPane con JTextArea dentro al panel
+        JPanel pane = new JPanel(new BorderLayout()); // Establecer BorderLayout al panel
+        pane.add(scrollPane, BorderLayout.CENTER);
+
+// Añadir la nueva pestaña al JTabbedPane
+        mPestanas.insertTab("Nueva Pestaña" + ctn, null, pane, "Ronda " + tab, tab); // Insertar una nueva pestaña
+        ctn += 1;
+        mPestanas.setSelectedIndex(tab); // Seleccionar la nueva pestaña creada
     }//GEN-LAST:event_nuevoArchivoActionPerformed
 
     private void guardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarArchivoActionPerformed
-        contenidoTextArea = entradaTextoP.getText();
-        if (contenidoTextArea.equals("")) {
-            System.out.println("No hay datos para guardar");
-        } else {
-            try {
-                FileWriter escribir = new FileWriter(filePath);
-                escribir.write(contenidoTextArea); //Para convertir a minuscula agregar a la variable string .toLowerCase()
-                escribir.close();
-            } catch (IOException e) {
-                System.out.println("Ha ocurrido un error al guardar los datos en el archivo." + e);
+
+        // Obtener el índice de la pestaña seleccionada
+        int index = mPestanas.getSelectedIndex();
+
+// Obtener el componente en la pestaña seleccionada
+        Component selectedComponent = mPestanas.getSelectedComponent();
+
+// Verificar si el componente seleccionado es un contenedor
+        if (selectedComponent instanceof Container) {
+            Container container = (Container) selectedComponent;
+
+            // Buscar el JTextArea dentro del contenedor
+            JTextArea textArea = findTextArea(container);
+            container.getName();
+            if (textArea != null) {
+                // Obtener el texto del JTextArea
+                String texto = textArea.getText();
+                if (texto.equals("")) {
+                    JOptionPane.showMessageDialog(this, "No hay datos para guardar.");
+                } else {
+                    try {
+                        String filePath = filePathsMap.get(index);
+
+                        FileWriter escribir = new FileWriter(filePath);
+                        escribir.write(texto);
+                        escribir.close();
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this, "No se puede guardar el archivo ya que no hay ninguno abierto, utilice la opción de guardar como.");
+                    } catch (NullPointerException e) {
+                        JOptionPane.showMessageDialog(this, "No se encontró ninguna ruta de archivo asociada con la pestaña actual, si desea guardar el archivo realicelo con la opción guardar como.");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró un JTextArea en la pestaña seleccionada.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "El componente seleccionado no es un contenedor.");
         }
     }//GEN-LAST:event_guardarArchivoActionPerformed
 
@@ -287,16 +332,35 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             File selectFile = elegirArchivo.getSelectedFile();
             //Escribiendo el archivo en la ruta
             try {
-                contenidoTextArea = entradaTextoP.getText();
-                FileWriter escribir = new FileWriter(selectFile);
-                escribir.write(contenidoTextArea);
-                escribir.close();
+                // Obtener el índice de la pestaña seleccionada
+                int index = mPestanas.getSelectedIndex();
+
+// Obtener el componente en la pestaña seleccionada
+                Component selectedComponent = mPestanas.getSelectedComponent();
+
+// Verificar si el componente seleccionado es un contenedor
+                if (selectedComponent instanceof Container) {
+                    Container container = (Container) selectedComponent;
+
+                    // Buscar el JTextArea dentro del contenedor
+                    JTextArea textArea = findTextArea(container);
+
+                    if (textArea != null) {
+                        // Obtener el texto del JTextArea
+                        String texto = textArea.getText();
+                        FileWriter escribir = new FileWriter(selectFile);
+                        escribir.write(texto);
+                        escribir.close();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontró un JTextArea en la pestaña seleccionada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El componente seleccionado no es un contenedor.");
+                }
+
             } catch (IOException e) {
-                System.out.println("Ha ocurrido un error al guardar los datos en el archivo." + e);
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al guardar los datos en el archivo" + e);
             }
-        } else {
-            //se muestra 
-            //nombreArchivo.setText("Archivo no guardado");
         }
     }//GEN-LAST:event_guardarComoActionPerformed
 //https://es.stackoverflow.com/questions/138221/agregar-un-bot%C3%B3n-a-tab-de-jtabbedpane    ejemplo de multiples pestañas
@@ -321,10 +385,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
             //*******************************************
             File selectFile = elegirArchivo.getSelectedFile();
-            filePath = selectFile.getAbsolutePath();
-
+            filePathsMap.put(tab, selectFile.getAbsolutePath().toString());
             try {
-                BufferedReader leer = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
+                BufferedReader leer = new BufferedReader(new InputStreamReader(new FileInputStream(selectFile.getAbsolutePath().toString()), "UTF-8"));
                 String linea;
                 String parrafo = "";
                 while ((linea = leer.readLine()) != null) {
@@ -340,15 +403,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 pane.setLayout(new BorderLayout()); // Establecer BorderLayout al panel
                 pane.add(scrollPane, BorderLayout.CENTER);
                 textArea.setPreferredSize(scrollPane.getPreferredSize());
-                mPestanas.insertTab(archivoElegido, null, pane, "Ronda " + tab, tab); // Inserta una nueva pestaña llamada Ronda <tab>, donde <tab> es el número de pestaña.
+                mPestanas.insertTab(archivoElegido, null, pane, "Ronda " + tab, tab); // Inserta una nueva pestaña .
                 mPestanas.setSelectedIndex(tab); // Selecciona la nueva pestaña creada
 
             } catch (IOException e) {
                 System.out.println("" + e.getMessage());
             }
-        } else {
-            //
-            //nombreArchivo.setText("Archivo no seleccionado"); 
         }
     }//GEN-LAST:event_abrirArchivoActionPerformed
 
@@ -443,6 +503,23 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_reporteTablaSActionPerformed
 
+    private void eliminarPestañaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPestañaActionPerformed
+        // Obtener el índice de la pestaña seleccionada
+        int index = mPestanas.getSelectedIndex();
+
+        if (index != -1) { // Si hay alguna pestaña seleccionada
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Deseas guardar los datos?", "Guardar Datos", JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // El usuario seleccionó "Sí", realiza la acción de guardar
+                // Llama a tu método para guardar los datos aquí
+                guardarComoActionPerformed(evt);
+            } else if (opcion == JOptionPane.NO_OPTION) {
+                mPestanas.remove(index);
+            } 
+        }
+    }//GEN-LAST:event_eliminarPestañaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -480,6 +557,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem abrirArchivo;
+    private javax.swing.JMenuItem eliminarPestaña;
     private javax.swing.JTextArea entradaTextoP;
     private javax.swing.JMenuItem guardarArchivo;
     private javax.swing.JMenuItem guardarComo;

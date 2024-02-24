@@ -77,15 +77,6 @@ public class Funcion {
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
     }
 
-    /*
-    Simbolos sim = new Simbolos();
-        sim.addSimbolos(simbolo.toLowerCase(), valor, tipo);
-        hashMapJson.computeIfAbsent(nombreArchivo, key -> new LinkedList<>()).add(sim);
-
-        // Acceder al valor del HashMap principal y luego al del HashMap interno
-        //String valor = hashMapJson.get("clavePrincipal").get("clave1");
-        //System.out.println("Valor obtenido: " + valor);
-     */
 
     // METODO PARA OBTENER EL VALOR DE UNA DECLARACION
     public static Object buscarValordId(String nombrelista, String nombreid) {
@@ -147,22 +138,6 @@ public class Funcion {
         }
     }
 
-    /*
-    // Crear un HashMap con claves de tipo String y listas vinculadas como valores
-        Map<String, LinkedList<String>> hashMap = new HashMap<>();
-
-        // Agregar elementos a las listas vinculadas asociadas a las claves
-        hashMap.computeIfAbsent("clave1", key -> new LinkedList<>()).add("Valor 1 para clave1");
-        hashMap.computeIfAbsent("clave2", key -> new LinkedList<>()).add("Valor 1 para clave2");
-        hashMap.computeIfAbsent("clave2", key -> new LinkedList<>()).add("Valor 2 para clave2");
-
-        // Recuperar elementos de las listas vinculadas
-        LinkedList<String> lista1 = hashMap.get("clave1");
-        LinkedList<String> lista2 = hashMap.get("clave2");
-
-        // Imprimir los elementos de las listas vinculadas
-        System.out.println("Lista para clave1: " + lista1);
-        System.out.println("Lista para clave2: " + lista2);*/
     public static void addTokensDataF(String lexema, String token, int linea, int columna) {
         Tokens objToken = new Tokens();
         objToken.addTokens(lexema, token, linea, columna);
@@ -280,8 +255,7 @@ public class Funcion {
         listaErrores.clear();
     }
     
-    
-     public static void crearReporteSimbolosDataF() throws FileNotFoundException {
+    public static void crearReporteSimbolosDataF() throws FileNotFoundException {
         FileOutputStream rep = new FileOutputStream("ReporteSimbolos.html");
         PrintStream t = new PrintStream(rep);
         t.println("""
