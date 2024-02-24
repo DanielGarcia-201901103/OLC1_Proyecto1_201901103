@@ -1328,7 +1328,7 @@ class CUP$Parser$actions {
           case 60: // funcgrafic ::= R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		 funcionalidad.Grafica.gHisto(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("funcgrafic",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1589,7 +1589,10 @@ class CUP$Parser$actions {
           case 84: // sentenchistogram ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena R_END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int ttt6left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int ttt6right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ttt6 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		 funcionalidad.Grafica.tituloHisto = ttt6.toString(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentenchistogram",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1601,7 +1604,7 @@ class CUP$Parser$actions {
 		int lahistleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int lahistright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
 		Object lahist = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-
+		 funcionalidad.Grafica.igualarvalHist((LinkedList<Object>) lahist); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("sentenchistogram",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

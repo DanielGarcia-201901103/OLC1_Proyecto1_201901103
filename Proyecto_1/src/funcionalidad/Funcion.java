@@ -57,7 +57,9 @@ public class Funcion {
         }
         listImprimir.add(texto);
     }
-
+    public static void addImpresionSimpleH(String txtHisto){
+        listImprimir.add(txtHisto);
+    }
     //METODO PARA AGREGAR UNA DECLARACIÓN A LA TABLA DE SIMBOLOS
     public static void addHMSimbolos(String nombrelista, String nombre, Object valor, String tipo, int linea, int columna) {
         Simbolos sim = new Simbolos();
