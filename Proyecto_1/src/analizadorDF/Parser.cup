@@ -132,10 +132,10 @@ instruccion ::= funcgrafic
                 | arreglos
                 | operaciones
                 | impresiones
+                | error PUNTOYCOMA
 ;
 declaracion ::= R_VAR:pos1 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nomvariable MENOR GUION_MEDIO numero:valorrecibido R_END PUNTOYCOMA                       {: funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable.toLowerCase(), valorrecibido, "variable double", pos1right,  pos1left); :}
               | R_VAR:pos2 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ID:nomvariable1 MENOR GUION_MEDIO cadena:datorecibido R_END PUNTOYCOMA   {: funcionalidad.Funcion.addHMSimbolos("decVariables", nomvariable1.toLowerCase(), datorecibido, "variable string", pos2right,  pos2left); :}
-              | error PUNTOYCOMA
 ;
 numero ::= DECIMALES:v1                                                         {: RESULT = Double.parseDouble(v1); :} 
         | ENTERO:v2                                                             {: RESULT = Integer.valueOf(v2); :}
@@ -148,7 +148,6 @@ arreglos ::= R_ARR:pos3 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrev
         | R_ARR:pos4 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable3 MENOR GUION_MEDIO CORCHETE_A valorescadenas:datorecibido1 CORCHETE_C R_END PUNTOYCOMA        {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable3),(LinkedList<Object>) datorecibido1, "arreglo string", pos4right,  pos4left);  :}
         | R_ARR:pos5 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable4 MENOR GUION_MEDIO ARROBA ID:v6 R_END PUNTOYCOMA                                                                  {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable4),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v6.toLowerCase())),"arreglo double", pos5right,  pos5left ); :}
         | R_ARR:pos6 DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C DOSPUNTOS DOSPUNTOS ARROBA ID:nombrevariable5 MENOR GUION_MEDIO ARROBA ID:v7 R_END PUNTOYCOMA                                              {: funcionalidad.Funcion.addHMSimbolosA("decArreglos", "@"+ String.valueOf(nombrevariable5),(LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(v7.toLowerCase())),"arreglo string", pos6right,  pos6left ); :}
-        | error PUNTOYCOMA
 ;
 valoresnumeros ::= listanum:vn1                                                 {: LinkedList<Object> advnumeros = new LinkedList<Object>(); advnumeros.add(vn1); RESULT = (LinkedList<Object>) advnumeros;  :}
                 | listanum:vn2 COMA valoresnumeros:vn3                          {: LinkedList<Object> advnumeros1 = new LinkedList<Object>(); advnumeros1.add(vn2); advnumeros1.addAll((LinkedList)vn3); RESULT = (LinkedList<Object>) advnumeros1; :} 
@@ -164,7 +163,6 @@ valorescadenas ::= cadena:vn4                                                   
 ;
 operaciones ::= R_VAR:pos7 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nombrevariable6 MENOR GUION_MEDIO funcionesop:rf1 R_END PUNTOYCOMA {: funcionalidad.Funcion.addHMSimbolos("decVariables", nombrevariable6.toLowerCase(), rf1, "variable double", pos7right,  pos7left); :}
             | R_VAR:pos8 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nombrevariable7 MENOR GUION_MEDIO funcionesest:rf2 R_END PUNTOYCOMA  {: funcionalidad.Funcion.addHMSimbolos("decVariables", nombrevariable7.toLowerCase(), rf2, "variable double", pos8right,  pos8left); :}
-            | error PUNTOYCOMA
 ;
 funcionesop ::= R_SUM PARENTESIS_A listanum:pa COMA listanum:pb PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Suma(Double.parseDouble(pa.toString()),Double.parseDouble(pb.toString())); :}
             | R_RES PARENTESIS_A listanum:pa1 COMA listanum:pb1 PARENTESIS_C    {: RESULT = funcionalidad.Operacion.Resta(Double.parseDouble(pa1.toString()),Double.parseDouble(pb1.toString())); :}
@@ -187,7 +185,6 @@ impresiones ::= imprimirexpresiones
 ;
 
 imprimirexpresiones ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_PRINT IGUAL listaexpresiones:lexp R_END PUNTOYCOMA {: funcionalidad.Funcion.addImpresiones((LinkedList<Object>) lexp);:}
-                        | error PUNTOYCOMA
 ;
 listaexpresiones ::= expresioness:vn7                                           {: LinkedList<Object> advnumeros4 = new LinkedList<Object>(); advnumeros4.add(vn7);  RESULT = (LinkedList<Object>) advnumeros4;  :}                  
                     | expresioness:vn8 COMA listaexpresiones:vn9                    {: LinkedList<Object> advnumeros5 = new LinkedList<Object>(); advnumeros5.add(vn8); advnumeros5.addAll((LinkedList)vn9); RESULT = (LinkedList<Object>) advnumeros5; :}  
@@ -200,15 +197,14 @@ expresioness ::=  CADENA:datito                                                 
             | ID:v13                                                            {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v13.toLowerCase()); :} 
 ;
 imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp GUION_MEDIO MAYOR ARROBA ID:bid R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp.toString(), (LinkedList<Object>) funcionalidad.Funcion.buscarValordIdArr("decArreglos", "@"+ String.valueOf(bid.toLowerCase()))); :}
-                    | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A valoresnumeros:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
-                    | error PUNTOYCOMA
+                    | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A listaexpresiones:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
 ;
-//FALTA AGREGAR LO DE LA LISTA DE CADENAS A LAS IMPRESIONES DE ARREGLOS EN EL NO TERMINAL DE LA LINEA ANTERIOR
+
 funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: funcionalidad.Grafica.barras(); :}
             | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                         {: funcionalidad.Grafica.gPie(); :}
             | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                      {: funcionalidad.Grafica.gLine(); :}
             | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA          {: funcionalidad.Grafica.gHisto(); :}
-            | error PUNTOYCOMA
+            | error PARENTESIS_C R_END PUNTOYCOMA
 ;
 sentenciasgbar ::= sentenciasgbar sentencgbar
                 | sentencgbar
