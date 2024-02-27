@@ -58,7 +58,7 @@
 <IMPRIMIRARREGLOS> ::= console :: column = <CADENA>  -> <IMARREGLO> end;
 <IMARREGLO> ::= @ id
                             |  [ <VALORESNUMEROS> ]
-                            |  [ <VALORESCADENAS>  ]    falta agregar esto a cup
+                            |  [ <VALORESCADENAS>  ] 
 
 
 

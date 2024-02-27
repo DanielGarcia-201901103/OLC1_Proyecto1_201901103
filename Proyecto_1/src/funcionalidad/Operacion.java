@@ -20,19 +20,19 @@ public class Operacion {
         return a * b;
     }
     public static double Division(double a, double b){
+        if (b == 0) {
+            return 0;
+        }
             return a/b;
     }
     public static double Modulo(double a, double b){
+        if (b == 0) {
+            return 0;
+        }
             return a%b;
     }
     
     public static double Media(LinkedList<Object> recListaD){
-        /*
-        1. recibe un arreglo
-        2. hace la suma de cada uno de los datos del arreglo
-        3. divide la suma entre la cantidad de datos del arreglo
-        4. retorna la respuesta
-        */
         double cantiV = recListaD.size();
         
         double suma = 0;

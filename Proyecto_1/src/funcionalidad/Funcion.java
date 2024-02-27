@@ -26,9 +26,13 @@ public class Funcion {
 
     //METODO PARA OBTENER LA LISTA DE IMPRESION
     public static void obtenerLImpresion() {
-        for (int i = 0; i < listImprimir.size(); i++) {
-            txtSalida += listImprimir.get(i);
-            txtSalida += "\n";
+        if (listImprimir != null) {
+            for (int i = 0; i < listImprimir.size(); i++) {
+                txtSalida += listImprimir.get(i);
+                txtSalida += "\n";
+            }
+        } else {
+            txtSalida = "";
         }
     }
 
@@ -57,9 +61,11 @@ public class Funcion {
         }
         listImprimir.add(texto);
     }
-    public static void addImpresionSimpleH(String txtHisto){
+
+    public static void addImpresionSimpleH(String txtHisto) {
         listImprimir.add(txtHisto);
     }
+
     //METODO PARA AGREGAR UNA DECLARACIÓN A LA TABLA DE SIMBOLOS
     public static void addHMSimbolos(String nombrelista, String nombre, Object valor, String tipo, int linea, int columna) {
         Simbolos sim = new Simbolos();
@@ -76,7 +82,6 @@ public class Funcion {
         sim.setColumna(columna);
         hashMapSimbolos.computeIfAbsent(nombrelista, key -> new LinkedList<>()).add(sim);
     }
-
 
     // METODO PARA OBTENER EL VALOR DE UNA DECLARACION
     public static Object buscarValordId(String nombrelista, String nombreid) {
@@ -159,6 +164,9 @@ public class Funcion {
                    table, th, td {
                      border:1px solid black;
                    }
+                  th{
+                  background-color: #a2ab58;
+                  }
                    </style>
                    <body>
                    
@@ -217,6 +225,9 @@ public class Funcion {
                    table, th, td {
                      border:1px solid black;
                    }
+                  th{
+                                    background-color: #a2ab58;
+                                    }
                    </style>
                    <body>
                    
@@ -254,7 +265,7 @@ public class Funcion {
         t.close();
         listaErrores.clear();
     }
-    
+
     public static void crearReporteSimbolosDataF() throws FileNotFoundException {
         FileOutputStream rep = new FileOutputStream("ReporteSimbolos.html");
         PrintStream t = new PrintStream(rep);
@@ -270,6 +281,9 @@ public class Funcion {
                    table, th, td {
                      border:1px solid black;
                    }
+                  th{
+                                    background-color: #a2ab58;
+                                    }
                    </style>
                    <body>
                    
@@ -285,7 +299,7 @@ public class Funcion {
                        <th>Columna</th>
                      </tr>\n
                    """);
-         int contador = 1;
+        int contador = 1;
         LinkedList<Object> listasimbolos1 = hashMapSimbolos.get("decVariables");
         if (listasimbolos1 != null) {
             for (int i = 0; i < listasimbolos1.size(); i++) {
@@ -318,7 +332,7 @@ public class Funcion {
                 contador++;
             }
         }
-        
+
         t.println("""
                    </table>
                    </body>
@@ -326,9 +340,9 @@ public class Funcion {
         t.close();
         hashMapSimbolos.clear();
     }
+
     public static void recibiendoNombreArchivo(String nombreArchivo1) {
         nombreArchivo = "\"" + nombreArchivo1 + "\"";
     }
-    
-    
+
 }

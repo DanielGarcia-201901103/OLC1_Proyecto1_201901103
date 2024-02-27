@@ -1,10 +1,10 @@
 package ventanaG;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,8 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+//import java.util.HashMap;
+//import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -28,9 +28,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class InterfazPrincipal extends javax.swing.JFrame {
 
     //Variables publicas
-    private Map<Integer, String> filePathsMap = new HashMap<>();
+//    private Map<Integer, String> filePathsMap = new HashMap<>();
     String archivoElegido = "";
-    int ctn = 1;
+//    int ctn = 1;
     //Fin Variables publicas
     private ImageIcon image;
     private Icon icon;
@@ -317,6 +317,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 // Crear un nuevo JTextArea y JScrollPane
         JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true); // Esto hace que las líneas largas se envuelvan automáticamente
+        textArea.setBackground(Color.LIGHT_GRAY);
         textArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
@@ -325,8 +326,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
         pane.add(scrollPane, BorderLayout.CENTER);
 
 // Añadir la nueva pestaña al JTabbedPane
-        mPestanas.insertTab("Nueva Pestaña" + ctn, null, pane, "Ronda " + tab, tab); // Insertar una nueva pestaña
-        ctn += 1;
+        mPestanas.insertTab("Nueva Pestaña", null, pane, "Ronda " + tab, tab); // Insertar una nueva pestaña
+//        ctn += 1;
         mPestanas.setSelectedIndex(tab); // Seleccionar la nueva pestaña creada
     }//GEN-LAST:event_nuevoArchivoActionPerformed
 
@@ -352,11 +353,16 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "No hay datos para guardar.");
                 } else {
                     try {
-                        String filePath = filePathsMap.get(index);
-
-                        FileWriter escribir = new FileWriter(filePath);
-                        escribir.write(texto);
-                        escribir.close();
+//                        String filePath = filePathsMap.get(index);
+                        String filePath = mPestanas.getTitleAt(index);
+                        if (filePath.equals("Nueva Pestaña")) {
+                            JOptionPane.showMessageDialog(this, "No se encontró ninguna ruta de archivo asociada con la pestaña actual, si desea guardar el archivo realicelo con la opción guardar como.");
+                        } else {
+                            String filePath1 = "C:\\Users\\josue\\OneDrive\\Documentos\\USAC\\Compi 1\\Lab\\OLC1_Proyecto1_201901103\\Enunciado\\"+filePath;
+                            FileWriter escribir = new FileWriter(filePath1);
+                            escribir.write(texto);
+                            escribir.close();
+                        }
                     } catch (IOException e) {
                         JOptionPane.showMessageDialog(this, "No se puede guardar el archivo ya que no hay ninguno abierto, utilice la opción de guardar como.");
                     } catch (NullPointerException e) {
@@ -432,7 +438,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
             //*******************************************
             File selectFile = elegirArchivo.getSelectedFile();
-            filePathsMap.put(tab, selectFile.getAbsolutePath().toString());
+//            filePathsMap.put(tab, selectFile.getAbsolutePath().toString());
             try {
                 BufferedReader leer = new BufferedReader(new InputStreamReader(new FileInputStream(selectFile.getAbsolutePath().toString()), "UTF-8"));
                 String linea;
@@ -445,6 +451,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                 JTextArea textArea = new JTextArea(parrafo.toString());
                 textArea.setLineWrap(true); // Esto hace que las líneas largas se envuelvan automáticamente
                 textArea.setWrapStyleWord(true);
+                textArea.setBackground(Color.LIGHT_GRAY);
                 JScrollPane scrollPane = new JScrollPane(textArea);
                 // Agregar JScrollPane con JTextArea dentro al panel
                 pane.setLayout(new BorderLayout()); // Establecer BorderLayout al panel

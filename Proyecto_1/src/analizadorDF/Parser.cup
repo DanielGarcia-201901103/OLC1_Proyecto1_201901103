@@ -200,11 +200,11 @@ imprimirarreglos ::= R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp 
                     | R_CONSOLE DOSPUNTOS DOSPUNTOS R_COLUMN IGUAL cadena:titimp1 GUION_MEDIO MAYOR CORCHETE_A listaexpresiones:drecib CORCHETE_C R_END PUNTOYCOMA {:funcionalidad.Funcion.addImpresionesCol(titimp1.toString(), (LinkedList<Object>) drecib);:}
 ;
 
-funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: funcionalidad.Grafica.barras(); :}
-            | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                         {: funcionalidad.Grafica.gPie(); :}
-            | R_GLINE PARENTESIS_A sentenciasgline R_EXEC R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                      {: funcionalidad.Grafica.gLine(); :}
-            | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA          {: funcionalidad.Grafica.gHisto(); :}
-            | error PARENTESIS_C R_END PUNTOYCOMA
+funcgrafic ::= R_GBAR PARENTESIS_A sentenciasgbar R_EXEC:eject R_GBAR R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: if(eject.toString().toLowerCase().equals("exec")){ funcionalidad.Grafica.barras();} :}
+            | R_GPIE PARENTESIS_A sentenciasgpie R_EXEC:eject1 R_GPIE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                        {: if(eject1.toString().toLowerCase().equals("exec")){ funcionalidad.Grafica.gPie(); }:}
+            | R_GLINE PARENTESIS_A sentenciasgline R_EXEC:eject2 R_GLINE R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA                     {: if(eject2.toString().toLowerCase().equals("exec")){ funcionalidad.Grafica.gLine();} :}
+            | R_HISTOGRAM PARENTESIS_A sentenciashistogram R_EXEC:eject3 R_HISTOGRAM R_END PUNTOYCOMA PARENTESIS_C R_END PUNTOYCOMA         {: if(eject3.toString().toLowerCase().equals("exec")){ funcionalidad.Grafica.gHisto();} :}
+            | error PARENTESIS_C
 ;
 sentenciasgbar ::= sentenciasgbar sentencgbar
                 | sentencgbar
