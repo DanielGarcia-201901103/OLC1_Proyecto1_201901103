@@ -358,7 +358,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
                         if (filePath.equals("Nueva Pestaña")) {
                             JOptionPane.showMessageDialog(this, "No se encontró ninguna ruta de archivo asociada con la pestaña actual, si desea guardar el archivo realicelo con la opción guardar como.");
                         } else {
-                            String filePath1 = "C:\\Users\\josue\\OneDrive\\Documentos\\USAC\\Compi 1\\Lab\\OLC1_Proyecto1_201901103\\Enunciado\\"+filePath;
+                            String filePath1 = "C:\\Users\\josue\\OneDrive\\Documentos\\USAC\\Compi 1\\Lab\\OLC1_Proyecto1_201901103\\ArchivosCalificacion\\" + filePath;
                             FileWriter escribir = new FileWriter(filePath1);
                             escribir.write(texto);
                             escribir.close();
@@ -492,7 +492,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             System.out.println("El componente seleccionado no es un contenedor.");
         }
 
-        funcionalidad.Funcion.recibiendoNombreArchivo(archivoElegido);
         //proyecto.pkg1.Proyecto1.analizar(texto);
         //salidaConsola.setText(texto);
         try {
@@ -500,7 +499,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             funcionalidad.Funcion.recorrerListaErrores();
             funcionalidad.Funcion.crearReporteTokensDataF();
             funcionalidad.Funcion.crearReporteSimbolosDataF();
-            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(0));
+            if (funcionalidad.Grafica.listImagenes.size() != 0) {
+                visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(0));
+            }
+            //Se limpian los datos de todo el sistema, a excepción de la lista que almacena los nombres de los archivos de imagen de graficas
+            funcionalidad.Funcion.limpiarDatos();
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(InterfazPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

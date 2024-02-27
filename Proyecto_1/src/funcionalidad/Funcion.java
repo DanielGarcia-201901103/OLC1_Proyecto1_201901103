@@ -15,12 +15,7 @@ public class Funcion {
 
     //Para almacenar los datos en simbolos 
     static Map<String, LinkedList<Object>> hashMapSimbolos = new HashMap<>();
-    static String nombreArchivo = "";
     public static String txtSalida = "";
-    /*
-    Trabajando con el codigo siguiente
-     */
-
     //Para almacenar los datos para las impresiones
     static LinkedList<String> listImprimir = new LinkedList<String>();
 
@@ -341,8 +336,13 @@ public class Funcion {
         hashMapSimbolos.clear();
     }
 
-    public static void recibiendoNombreArchivo(String nombreArchivo1) {
-        nombreArchivo = "\"" + nombreArchivo1 + "\"";
+    public static void limpiarDatos() {
+        listaTokensDataF.clear();
+        listaErrores.clear();
+        hashMapSimbolos.clear();
+        txtSalida = "";
+        listImprimir.clear();
+
     }
 
 }

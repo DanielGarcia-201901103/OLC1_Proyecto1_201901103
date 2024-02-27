@@ -31,22 +31,26 @@ public class Grafica {
     public static String tituloyBarras;
     static LinkedList<Object> listEjexBarras = new LinkedList<Object>();
     static LinkedList<Object> listEjeyBarras = new LinkedList<Object>();
-
+    static int contadorBarras = 0;
+    
     //PARA GRAFICA DE PIE
     public static String tituloPie;
     static LinkedList<Object> listValuesPie = new LinkedList<Object>();
     static LinkedList<Object> listLabelPie = new LinkedList<Object>();
-
+    static int contadorPIE = 0;
+    
     //PARA GRAFICA DE LINE
     public static String tituloLine;
     public static String tituloxLine;
     public static String tituloyLine;
     static LinkedList<Object> listEjexLine = new LinkedList<Object>();
     static LinkedList<Object> listEjeyLine = new LinkedList<Object>();
+    static int contadorLine = 0;
     
     //PARA HISTOGRAMA
     public static String tituloHisto;
     static LinkedList<Object> listValuesHisto = new LinkedList<Object>();
+    static int contadorHistograma = 0;
     
     public static void igualarExb(LinkedList<Object> limpresiones) {
         listEjexBarras = limpresiones;
@@ -89,9 +93,10 @@ public class Grafica {
             /* Width of the image */
             int height = 470;
             /* Height of the image */
-            File archivoImagen = new File("graficaBARRA.png");
-            listImagenes.add("graficaBARRA.png");
+            File archivoImagen = new File("graficaBARRA" + contadorBarras + ".png");
+            listImagenes.add("graficaBARRA" + contadorBarras + ".png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
+            contadorBarras +=1;
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,9 +140,10 @@ public class Grafica {
             /* Width of the image */
             int height = 470;
             /* Height of the image */
-            File archivoImagen = new File("graficaPIE.png");
-            listImagenes.add("graficaPIE.png");
+            File archivoImagen = new File("graficaPIE"+contadorPIE+".png");
+            listImagenes.add("graficaPIE"+contadorPIE+".png");
             ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
+            contadorPIE += 1;
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,9 +174,10 @@ public class Grafica {
             int width = 580;
             /* Width of the image */
             int height = 470;
-            File chartFile = new File("graficaLinea.png");
-            listImagenes.add("graficaLinea.png");
+            File chartFile = new File("graficaLinea"+contadorLine+".png");
+            listImagenes.add("graficaLinea"+contadorLine+".png");
             ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
+            contadorLine += 1;
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,9 +245,10 @@ public class Grafica {
             int width = 580;
             /* Width of the image */
             int height = 470;
-            File chartFile = new File("Histograma.png");
-            listImagenes.add("Histograma.png");
+            File chartFile = new File("Histograma"+contadorHistograma+".png");
+            listImagenes.add("Histograma"+contadorHistograma+".png");
             ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
+            contadorHistograma += 1;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
