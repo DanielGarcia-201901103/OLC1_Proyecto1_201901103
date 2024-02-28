@@ -241,6 +241,6 @@ sentenciashistogram ::= sentenciashistogram sentenchistogram
                 | sentenchistogram
 ;
 sentenchistogram ::= R_TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL cadena:ttt6 R_END PUNTOYCOMA       {: funcionalidad.Grafica.tituloHisto = ttt6.toString(); :}
-                | R_VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_A CORCHETE_C IGUAL arreglodouble:lahist R_END PUNTOYCOMA {: funcionalidad.Grafica.igualarvalHist((LinkedList<Object>) lahist); :}
+                | R_VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL arreglodouble:lahist R_END PUNTOYCOMA                     {: funcionalidad.Grafica.igualarvalHist((LinkedList<Object>) lahist); :}
                 | error PUNTOYCOMA
 ;
