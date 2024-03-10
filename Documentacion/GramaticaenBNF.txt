@@ -2,16 +2,16 @@
 
 <CODIGO> ::= <CODIGO> <INSTRUCCION> |  <INSTRUCCION>
 
-<INSTRUCCION> ::=  <DECLARACION>
+<INSTRUCCION> ::=  <FUNCGRAFIC>
+				 | <DECLARACION>
                                  |   <ARREGLOS>
                                  |   <OPERACIONES> 
                                  |  <IMPRESIONES>
-                                 |  <FUNCIONESGRAFICACION>
 
 <DECLARACION> ::= var : double  :: id < - <NUMERO> end ;
                                   | var : char[]:: id < - <CADENA> end ;
  
-<NUMERO> ::= entero | decimal | id
+<NUMERO> ::= decimales | entero | id
 <CADENA> ::= cadena | id
 
 <ARREGLOS> ::=  arr : double :: @id <- [ <VALORESNUMEROS> ] end;
@@ -21,7 +21,7 @@
 
 <VALORESNUMEROS> ::= <LISTANUM>
                                               | <LISTANUM> , <VALORESNUMEROS>
-<LISTANUM> ::= entero | decimal | id | <FUNCIONESOP> | <FUNCIONESEST>
+<LISTANUM> ::=  <FUNCIONESOP> | <FUNCIONESEST> | decimales | entero | id 
 
 <VALORESCADENAS> :: = <CADENA>
                                             | <CADENA> , <VALORESCADENAS>
@@ -50,20 +50,17 @@
 <IMPRIMIREXPRESIONES> ::= console : : print = <LISTAEXPRESIONES> end ;
 <LISTAEXPRESIONES> ::= <EXPRESIONES>
                                             | <EXPRESIONES> , <LISTAEXPRESIONES> 
-<EXPRESIONES> ::= <NUMERO>
-                                | cadena
+<EXPRESIONES> ::= cadena
                                 | <FUNCIONESOP>
                                 | <FUNCIONESEST>
+				| decimales
+				| entero
+				| id
 
-<IMPRIMIRARREGLOS> ::= console :: column = <CADENA>  -> <IMARREGLO> end;
-<IMARREGLO> ::= @ id
-                            |  [ <VALORESNUMEROS> ]
-                            |  [ <VALORESCADENAS>  ] 
+<IMPRIMIRARREGLOS> ::= console :: column = <CADENA>  -> @id end;
+				| console :: column = [ <LISTAEXPRESIONES>]  -> @id end;
 
-
-
-
- <FUNCIONESGRAFICACION> ::= graphbar (<SENTENCIASGBAR> exec graphbar end; ) end;
+<FUNCIONESGRAFICACION> ::= graphbar (<SENTENCIASGBAR> exec graphbar end; ) end;
                                                     |  graphpie (<SENTENCIASGPIE> exec graphpie end; ) end;
                                                     |  graphline (<SENTENCIASGLINE> exec graphline end; ) end;
                                                     |  histogram (<SENTENCIASHISTOGRAM> exec histogram end; ) end;
@@ -71,27 +68,63 @@
 <SENTENCIASGBAR> ::= <SENTENCIASGBAR> <SENTENCGBAR> | <SENTENCGBAR>
 
 <SENTENCGBAR> ::=   titulo : : char[] = <CADENA> end;
-                                       |  ejex : : char[] = [<VALORESCADENAS>] end;
-                                       |  ejey : : double = [<VALORESNUMEROS>] end;
+                                       |  ejex : : char[] = <ARREGLOCCC>  end;
+                                       |  ejey : : double = <ARREGLODOUBLE> end;
                                        |  titulox : : char[] = <CADENA> end;
                                        |  tituloy : : char [] = <CADENA> end;
 
+<ARREGLOCCC> ::= @ id
+		| [<VALORESCADENAS>] 
+
 <SENTENCIASGPIE> ::= <SENTENCIASGPIE> <SENTENCGPIE> | <SENTENCGPIE>
 
-<SENTENCGPIE> ::= label : : char [] = [ <VALORESCADENAS>] end;
-                                |  values :: double = [ <VALORESNUMEROS> ] end;
+<SENTENCGPIE> ::= label : : char [] = <ARREGLOCCC>  end;
+                                |  values :: double = <ARREGLODOUBLE> end;
                                 |  titulo : : char[] = <CADENA> end;
 
 <SENTENCIASGLINE> ::= <SENTENCIASGLINE> <SENTENCGLINE> | <SENTENCGLINE>
 
 <SENTENCGLINE> ::= titulo :: char[] = <CADENA> end;
-                                |  ejex : : char[] = [ <VALORESCADENAS>] end;
-                                |  ejey : : double = [ <VALORESNUMEROS> ] end;
+                                |  ejex : : char[] = <ARREGLOCCC> end;
+                                |  ejey : : double = <ARREGLODOUBLE> end;
                                 |  titulox : : char[] = <CADENA> end;
                                 |  tituloy : : char[] = <CADENA> end;
 
 <SENTENCIASHISTOGRAM> ::= <SENTENCIASHISTOGRAM> <SENTENCHISTOGRAM> | <SENTENCHISTOGRAM>
 
 <SENTENCHISTOGRAM> ::= titulo : : char [] = <CADENA> end;
-                    | values ::double = [ <VALORESNUMEROS>] end;
+                    | values ::double = <ARREGLODOUBLE> end;
+
+
+//No terminales
+<INICIO>
+<CODIGO>
+<INSTRUCCION>
+<DECLARACION>
+<NUMERO>
+<CADENA>
+<ARREGLOS>
+<VALORESNUMEROS>
+<LISTANUM>
+<VALORESCADENAS>
+<OPERACIONES>
+<FUNCIONESOP>
+<FUNCIONESEST>
+<ARREGLODOUBLE>
+<IMPRESIONES>
+<IMPRIMIREXPRESIONES>
+<LISTAEXPRESIONES>
+<EXPRESIONES>
+<IMPRIMIRARREGLOS>
+<FUNCIONESGRAFICACION>
+<SENTENCIASGBAR>
+<SENTENCGBAR>
+<ARREGLOCCC>
+<SENTENCIASGPIE>
+<SENTENCGPIE>
+<SENTENCIASGLINE>
+<SENTENCGLINE>
+<SENTENCIASHISTOGRAM> 
+<SENTENCHISTOGRAM> 
+
 
