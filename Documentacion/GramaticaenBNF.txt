@@ -93,5 +93,5 @@
 <SENTENCIASHISTOGRAM> ::= <SENTENCIASHISTOGRAM> <SENTENCHISTOGRAM> | <SENTENCHISTOGRAM>
 
 <SENTENCHISTOGRAM> ::= titulo : : char [] = <CADENA> end;
-                                                | values ::char[] = [ <VALORESNUMEROS>] end;
+                    | values ::double = [ <VALORESNUMEROS>] end;
 

@@ -65,6 +65,7 @@ public class Grafica {
     }
 
     public static void barras() {
+if (listEjexBarras != null && listEjeyBarras != null) {
         try {
             //Ingreso de datos
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -73,7 +74,7 @@ public class Grafica {
             listasimbolos1 = listEjexBarras;
             LinkedList<Object> listasimbolos2 = new LinkedList<Object>();
             listasimbolos2 = listEjeyBarras;
-            if (listEjexBarras != null && listEjeyBarras != null) {
+            
                 for (int i = 0; i < listasimbolos2.size(); i++) {
                     String d = (String) listasimbolos1.get(i);
                     Double c = Double.parseDouble(listasimbolos2.get(i).toString());
@@ -102,10 +103,11 @@ public class Grafica {
                 listImagenes.add("graficaBARRA" + contadorBarras + ".png");
                 ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
                 contadorBarras += 1;
-            }
+            
         } catch (IOException ex) {
             Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
+}
     }
 
     public static void igualarvalPie(LinkedList<Object> limpresiones) {
@@ -121,15 +123,16 @@ public class Grafica {
     }
 
     public static void gPie() {
-        try {
-            //Ingreso de datos
-            DefaultPieDataset dataset = new DefaultPieDataset();
+        if (listLabelPie != null && listValuesPie != null) {
+            try {
+                //Ingreso de datos
+                DefaultPieDataset dataset = new DefaultPieDataset();
 
-            LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-            listasimbolos1 = listLabelPie;
-            LinkedList<Object> listasimbolos2 = new LinkedList<Object>();
-            listasimbolos2 = listValuesPie;
-            if (listLabelPie != null && listValuesPie != null) {
+                LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+                listasimbolos1 = listLabelPie;
+                LinkedList<Object> listasimbolos2 = new LinkedList<Object>();
+                listasimbolos2 = listValuesPie;
+
                 for (int i = 0; i < listasimbolos2.size(); i++) {
                     String d = (String) listasimbolos1.get(i);
                     Double c = Double.valueOf(listasimbolos2.get(i).toString());
@@ -155,9 +158,10 @@ public class Grafica {
                 listImagenes.add("graficaPIE" + contadorPIE + ".png");
                 ChartUtilities.saveChartAsPNG(archivoImagen, grafica, width, height);
                 contadorPIE += 1;
+
+            } catch (IOException ex) {
+                Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -174,10 +178,11 @@ public class Grafica {
     }
 
     public static void gLine() {
-        try {
-            // Ingreso de datos
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            if (listEjexLine != null) {
+        if (listEjexLine != null && listEjeyLine != null) {
+            try {
+                // Ingreso de datos
+
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
                 // Agregar datos al dataset
                 for (int i = 0; i < listEjexLine.size(); i++) {
                     dataset.addValue(Double.parseDouble(listEjeyLine.get(i).toString()), "Datos", listEjexLine.get(i).toString());
@@ -194,9 +199,10 @@ public class Grafica {
                 listImagenes.add("graficaLinea" + contadorLine + ".png");
                 ChartUtilities.saveChartAsPNG(chartFile, chart, width, height);
                 contadorLine += 1;
+
+            } catch (IOException ex) {
+                Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(Grafica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -113,77 +113,82 @@ public class Funcion {
 
     // METODO PARA OBTENER EL VALOR DE UNA DECLARACION
     public static Object buscarValordId(String nombrelista, String nombreid) {
-        try {
-            LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-            listasimbolos1 = hashMapSimbolos.get(nombrelista);
-            for (int i = 0; i < listasimbolos1.size(); i++) {
-                Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
-                if (nombreid.equals(simRecorrer.getNombre())) {
-                    //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                    return simRecorrer.getValor();
-
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        if (listasimbolos1 != null) {
+            try {
+                for (int i = 0; i < listasimbolos1.size(); i++) {
+                    Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+                    if (nombreid.equals(simRecorrer.getNombre())) {
+                        //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                        return simRecorrer.getValor();
+                    }
                 }
+            } catch (Error e) {
+                System.out.println("Error: " + e);
             }
-        } catch (Error e) {
-            System.out.println("Error: " + e);
         }
         return "Valor no encontrado";
     }
 
     //METODO PARA OBTENER EL VALOR DE UNA DECLARACION DE UN ARREGLO
     public static LinkedList<Object> buscarValordIdArr(String nombrelista, String nombreid) {
-        try {
-            LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-            listasimbolos1 = hashMapSimbolos.get(nombrelista);
-            for (int i = 0; i < listasimbolos1.size(); i++) {
-                SimbolosArreglo simRecorrer1 = (SimbolosArreglo) listasimbolos1.get(i);
-                if (nombreid.equals(simRecorrer1.getNombre())) {
-                    LinkedList<Object> listaaux = new LinkedList<Object>();
-                    listaaux = simRecorrer1.getDatoslistas();
-                    return listaaux;
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        if (listasimbolos1 != null) {
+            try {
+                for (int i = 0; i < listasimbolos1.size(); i++) {
+                    SimbolosArreglo simRecorrer1 = (SimbolosArreglo) listasimbolos1.get(i);
+                    if (nombreid.equals(simRecorrer1.getNombre())) {
+                        LinkedList<Object> listaaux = new LinkedList<Object>();
+                        listaaux = simRecorrer1.getDatoslistas();
+                        return listaaux;
+                    }
                 }
+            } catch (Error e) {
+                System.out.println("Error: " + e);
             }
-        } catch (Error e) {
-            System.out.println("Error: " + e);
         }
         return null;
     }
 
     //METODO PARA IMPRIMIR LOS DATOS DE LA TABLA DE SIMBOLOS
     public static void imprimirValordIdA(String nombrelista, String nombreid) {
-        try {
-            LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-            listasimbolos1 = hashMapSimbolos.get(nombrelista);
-            for (int i = 0; i < listasimbolos1.size(); i++) {
-                SimbolosArreglo simRecorrer = (SimbolosArreglo) listasimbolos1.get(i);
-                if (nombreid.equals(simRecorrer.getNombre())) {
-                    //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                    //System.out.println("Coincidencia, obteniendo el valor");    
-                    System.out.println(simRecorrer.getNombre() + " : " + simRecorrer.getDatoslistas());
-
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        listasimbolos1 = hashMapSimbolos.get(nombrelista);
+        if (listasimbolos1 != null) {
+            try {
+                for (int i = 0; i < listasimbolos1.size(); i++) {
+                    SimbolosArreglo simRecorrer = (SimbolosArreglo) listasimbolos1.get(i);
+                    if (nombreid.equals(simRecorrer.getNombre())) {
+                        //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                        //System.out.println("Coincidencia, obteniendo el valor");    
+                        System.out.println(simRecorrer.getNombre() + " : " + simRecorrer.getDatoslistas());
+                    }
                 }
+            } catch (Error e) {
+                System.out.println("Error: " + e);
             }
-        } catch (Error e) {
-            System.out.println("Error: " + e);
         }
     }
 
     //METODO PARA IMPRIMIR LOS DATOS DE LA TABLA DE SIMBOLOS
     public static void imprimirValordId(String nombrelista, String nombreid) {
-        try {
-            LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
-            listasimbolos1 = hashMapSimbolos.get(nombrelista);
-            for (int i = 0; i < listasimbolos1.size(); i++) {
-                Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
-                if (nombreid.equals(simRecorrer.getNombre())) {
-                    //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
-                    //System.out.println("Coincidencia, obteniendo el valor");    
-                    System.out.println(simRecorrer.getNombre() + " : " + simRecorrer.getValor());
-
+        LinkedList<Object> listasimbolos1 = new LinkedList<Object>();
+        if (listasimbolos1 != null) {
+            try {
+                listasimbolos1 = hashMapSimbolos.get(nombrelista);
+                for (int i = 0; i < listasimbolos1.size(); i++) {
+                    Simbolos simRecorrer = (Simbolos) listasimbolos1.get(i);
+                    if (nombreid.equals(simRecorrer.getNombre())) {
+                        //System.out.println(i + ". " + simRecorrer.getNombre() + " - " +simRecorrer.getTipo()+ " - " + simRecorrer.getValor() + " - " + simRecorrer.getLinea()+ " - " + simRecorrer.getColumna());
+                        //System.out.println("Coincidencia, obteniendo el valor");    
+                        System.out.println(simRecorrer.getNombre() + " : " + simRecorrer.getValor());
+                    }
                 }
+            } catch (Error e) {
+                System.out.println("Error: " + e);
             }
-        } catch (Error e) {
-            System.out.println("Error: " + e);
         }
     }
 
@@ -232,17 +237,19 @@ public class Funcion {
                    """);
             //txt.concat("");
             int contador = 1;
-            for (int i = 0; i < listaTokensDataF.size(); i++) {
-                Tokens simRecorrer = (Tokens) listaTokensDataF.get(i);
-                t.println("""
+            if (listaTokensDataF != null) {
+                for (int i = 0; i < listaTokensDataF.size(); i++) {
+                    Tokens simRecorrer = (Tokens) listaTokensDataF.get(i);
+                    t.println("""
                       <tr>
                       <td>""" + Integer.toString(contador) + "</td>\n"
-                        + "<td>" + simRecorrer.getLexema() + "</td>\n"
-                        + "<td>" + simRecorrer.getToken() + "</td>\n"
-                        + "<td>" + simRecorrer.getLinea() + "</td>\n"
-                        + "<td>" + simRecorrer.getColumna() + "</td>\n"
-                        + "</tr>\n");
-                contador = contador + 1;
+                            + "<td>" + simRecorrer.getLexema() + "</td>\n"
+                            + "<td>" + simRecorrer.getToken() + "</td>\n"
+                            + "<td>" + simRecorrer.getLinea() + "</td>\n"
+                            + "<td>" + simRecorrer.getColumna() + "</td>\n"
+                            + "</tr>\n");
+                    contador = contador + 1;
+                }
             }
             t.println("""
                    </table>
@@ -301,18 +308,20 @@ public class Funcion {
                    """);
             //txt.concat("");
             int contador = 1;
-            for (int i = 0; i < listaErrores.size(); i++) {
-                Errores simRecorrer = (Errores) listaErrores.get(i);
-                t.println("""
+            if (listaErrores != null) {
+                for (int i = 0; i < listaErrores.size(); i++) {
+                    Errores simRecorrer = (Errores) listaErrores.get(i);
+                    t.println("""
                       <tr> 
                       <td>""" + Integer.toString(contador) + "</td>\n"
-                        + "<td>" + simRecorrer.getTipo() + "</td>\n"
-                        + "<td>" + simRecorrer.getDescripcion() + "</td>\n"
-                        + "<td>" + simRecorrer.getLinea() + "</td>\n"
-                        + "<td>" + simRecorrer.getColumna() + "</td>\n"
-                        + "</tr>\n");
-                //System.out.println(i + ". "+ simRecorrer.getLexema() + " - "+ simRecorrer.getDescripcion() + " - " + simRecorrer.getLinea() + " c: " + simRecorrer.getColumna());
-                contador = contador + 1;
+                            + "<td>" + simRecorrer.getTipo() + "</td>\n"
+                            + "<td>" + simRecorrer.getDescripcion() + "</td>\n"
+                            + "<td>" + simRecorrer.getLinea() + "</td>\n"
+                            + "<td>" + simRecorrer.getColumna() + "</td>\n"
+                            + "</tr>\n");
+                    //System.out.println(i + ". "+ simRecorrer.getLexema() + " - "+ simRecorrer.getDescripcion() + " - " + simRecorrer.getLinea() + " c: " + simRecorrer.getColumna());
+                    contador = contador + 1;
+                }
             }
             t.println("""
                    </table>
@@ -376,6 +385,7 @@ public class Funcion {
                             + "</tr>\n");
                     contador++;
                 }
+
             }
             LinkedList<Object> listasimbolos2 = hashMapSimbolos.get("decArreglos");
             if (listasimbolos2 != null) {

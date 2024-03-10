@@ -502,7 +502,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
             funcionalidad.Funcion.recorrerListaErrores();
             funcionalidad.Funcion.crearReporteTokensDataF();
             funcionalidad.Funcion.crearReporteSimbolosDataF();
-            if (funcionalidad.Grafica.listImagenes.size() != 0) {
+            if (funcionalidad.Grafica.listImagenes != null) {
                 visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(0));
             }
             //Se limpian los datos de todo el sistema, a excepción de la lista que almacena los nombres de los archivos de imagen de graficas
@@ -582,16 +582,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarPestañaActionPerformed
 
     private void anteriorImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorImagenActionPerformed
-        if (cntImagenes > 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size()) {
-            cntImagenes -= 1;
-            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+        if (funcionalidad.Grafica.listImagenes != null) {
+            if (cntImagenes > 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size()) {
+                cntImagenes -= 1;
+                visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+            }
         }
+
     }//GEN-LAST:event_anteriorImagenActionPerformed
 
     private void siguienteImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteImagenActionPerformed
-        if (cntImagenes >= 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size() - 1) {
-            cntImagenes += 1;
-            visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+        if (funcionalidad.Grafica.listImagenes != null) {
+            if (cntImagenes >= 0 && cntImagenes < funcionalidad.Grafica.listImagenes.size() - 1) {
+                cntImagenes += 1;
+                visuImagen(visImagen, funcionalidad.Grafica.listImagenes.get(cntImagenes));
+            }
         }
     }//GEN-LAST:event_siguienteImagenActionPerformed
 

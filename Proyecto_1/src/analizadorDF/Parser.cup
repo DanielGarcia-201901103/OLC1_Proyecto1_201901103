@@ -139,7 +139,7 @@ declaracion ::= R_VAR:pos1 DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS ID:nomvariable
 ;
 numero ::= DECIMALES:v1                                                         {: RESULT = Double.parseDouble(v1); :} 
         | ENTERO:v2                                                             {: RESULT = Integer.valueOf(v2); :}
-        | ID:v3                                                                 {: RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v3.toLowerCase()).toString()); :}
+        | ID:v3                                                                 {: double valorc = 0; String respuesta = funcionalidad.Funcion.buscarValordId("decVariables",v3.toLowerCase()).toString(); if(respuesta.equals("Valor no encontrado")){valorc = 0;}else{ valorc = Double.parseDouble(respuesta);}RESULT = valorc; :}
 ;
 cadena ::= CADENA:v4                                                            {: RESULT = v4.replace("\"",""); :} 
         | ID:v5                                                                 {: RESULT = funcionalidad.Funcion.buscarValordId("decVariables",v5.toLowerCase()); :} 
@@ -156,7 +156,7 @@ listanum ::= funcionesop:resultfunop                                            
             | funcionesest:resultfunest                                         {: RESULT = Double.parseDouble(resultfunest.toString()) ; :} 
             | DECIMALES:v8                                                      {: RESULT = Double.parseDouble(v8); :} 
             | ENTERO:v9                                                         {: RESULT = Integer.valueOf(v9); :} 
-            | ID:v10                                                            {: RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v10.toLowerCase()).toString()); :} 
+            | ID:v10                                                            {: double valorc = 0; String respuesta = funcionalidad.Funcion.buscarValordId("decVariables",v10.toLowerCase()).toString(); if(respuesta.equals("Valor no encontrado")){valorc = 0;}else{ valorc = Double.parseDouble(respuesta);}RESULT = valorc; :}
 ;
 valorescadenas ::= cadena:vn4                                                   {: LinkedList<Object> advnumeros2 = new LinkedList<Object>(); advnumeros2.add(vn4);  RESULT = (LinkedList<Object>) advnumeros2;  :}                  
             | cadena:vn5 COMA valorescadenas:vn6                                {: LinkedList<Object> advnumeros3 = new LinkedList<Object>(); advnumeros3.add(vn5); advnumeros3.addAll((LinkedList)vn6); RESULT = (LinkedList<Object>) advnumeros3; :}  

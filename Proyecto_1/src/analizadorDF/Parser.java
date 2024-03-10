@@ -750,7 +750,7 @@ class CUP$Parser$actions {
 		int v3left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int v3right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String v3 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v3.toLowerCase()).toString()); 
+		 double valorc = 0; String respuesta = funcionalidad.Funcion.buscarValordId("decVariables",v3.toLowerCase()).toString(); if(respuesta.equals("Valor no encontrado")){valorc = 0;}else{ valorc = Double.parseDouble(respuesta);}RESULT = valorc; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("numero",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -933,7 +933,7 @@ class CUP$Parser$actions {
 		int v10left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int v10right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String v10 = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = Double.parseDouble(funcionalidad.Funcion.buscarValordId("decVariables",v10.toLowerCase()).toString()); 
+		 double valorc = 0; String respuesta = funcionalidad.Funcion.buscarValordId("decVariables",v10.toLowerCase()).toString(); if(respuesta.equals("Valor no encontrado")){valorc = 0;}else{ valorc = Double.parseDouble(respuesta);}RESULT = valorc; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("listanum",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
