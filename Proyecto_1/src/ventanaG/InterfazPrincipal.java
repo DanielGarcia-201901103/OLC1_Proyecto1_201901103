@@ -468,6 +468,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 
     private void realizaEjecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizaEjecucionActionPerformed
+        funcionalidad.Grafica.listImagenes.clear();
+        funcionalidad.Grafica.contadorBarras = 0;
+        cntImagenes = 0;
         // Obtener el índice de la pestaña seleccionada
         int index = mPestanas.getSelectedIndex();
 
